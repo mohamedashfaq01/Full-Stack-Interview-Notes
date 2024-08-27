@@ -1,0 +1,744 @@
+Q) What are Microservices?
+
+Microservices is an architecture where the application is exposed as loosely coupled services that can be independently developed, deployed, and maintained. 
+Each service exposed is referred to as Microservice. Each service performs a unique function.
+
+Speciality of this architecture is that polyglot architecture is supported.  For example, if a team is working on one of the microservice using 
+Java, Spring Boot, and MySQL, another team can work on another microservice using Python, Node JS, and NoSQL. 
+
+Different microservices can use a different version of the same programming language.
+Different microservices can use different programming languages.
+Different microservices can use different architectures as well.
+
+Think about how Amazon’s website works rather than being a single or a large unit, 
+it’s built with various separate sections such as gadgets, electronics, clothes, etc. Each of these sections is a “microservice“. 
+If any service encounters an issue then the rest remains unaffected, this is the beauty of microservices,
+ and this way the design helps Amazon to make changes in such parts without hustling for the whole site.
+
+Q)Why Microservices?
+In the case of monolith applications, there are several problems like
+ Same code base for presentation, business layer, and data access layer. Application is deployed as a single unit.
+Complex to maintain and scalability is an issue.
+Microservice solves the above problems. 
+
+Microservices are ideal when a monolith or a legacy application needs to be modernized. 
+For new software development, if the key business drivers are to reduce time to market, scalable better software, lower costs, 
+faster development, or cloud-native development, microservices are ideal.
+Each service is independent and gives the flexibility to choose the programming language, database, and/or architecture.
+Distinct services can be developed, deployed, and maintained independently.
+
+Q) What are the pros and cons of Microservice Architecture?
+ Pros of Microservice Architecture
+1) Freedom to use different technologies
+2) Each microservices focuses on single capability
+3) Supports individual deployable units
+4) Allow frequent software releases
+5) Ensures security of each service
+6) Multiple services are parallelly developed and deployed
+
+ Cons of Microservice Architecture
+1) Management of a large number of services is difficult.
+2) Communication between microservices is complex.
+3) Increased efforts for configuration and other operations
+4) Difficult to maintain transaction safety and data boundaries
+5) Due to the decentralized nature of microservices, more microservices will mean more resources hence high Investment
+6) Debugging of problems is harder unless the right instrumentation is followed during design and development.
+7) Microservices will need a large team size with the right mix of experience in design, development, automation, deployments, tools, and testing.
+
+Q) When to use microservices?
+Reduce time to market, 
+Scalable better software, 
+Lower costs, 
+Faster development, 
+Cloud-native development 
+It makes sense to adopt a microservices architecture, if the team size is big enough as each service will require its team to develop, deploy and manage. 
+Timeframe and skills of team members are a constraint. 
+If fast results are required,
+ choose microservices architecture only if the team also has experience in microservices.
+Do not use this architecture for simple application which can be managed by monolithic application . 
+So you use ask yourself first do we really need microservice architecture.
+
+Q) What are the main features of Microservices?
+ Microservices architecture breaks an application into smaller services, and it is possible to develop, deploy each service independently.
+ This makes the introduction of new features in an application very easier. 
+
+Decentralization: Microservices architecture leads to distributed systems. The data management is decentralized. 
+There will be a monolithic database containing all data belonging to the application.
+ Each service has the ownership of the data related to the business functionality of that service.
+
+Black box: Every microservice is defined as a black box. The details of the complexity are hidden from other services/components.
+
+Security: The Microservice platform itself should provide capabilities for certificate management, different types of credentials,
+ authentication, and authentication based on RBAC (Role-based access model). Security is decoupled from the microservice development
+ team as platform standardization help with it.
+ (Security is provided in API Gateway)
+
+Polyglot:
+This is one of the significant aspects of microservices architecture.
+For example, if a team is working on one of the microservice using Java, Spring Boot, and MySQL, another team can work on another microservice using Python, Node JS, and NoSQL. 
+
+Different microservices can use a different version of the same programming language. Eg. Python 2.7 and Python 3.0
+Different microservices can use different programming languages.
+Different microservices can use different architectures as well.
+
+
+
+Q) How do microservices communicate with each other?
+In the case of Microservice Architecture, there are 2 different types of inter-service communication between microservices.
+
+a. Synchronous communication
+b. Asynchronous communication
+
+Synchronous communication:
+In the case of Synchronous communication between microservices, the client service waits for the response within a time limit. 
+The possible solution is using HTTP Protocol using via REST API for interservice communication.
+
+Asynchronous Communication:
+
+In the case of Asynchronous Communication, the client service doesn’t wait for the response from another service.
+ When the client microservice calls another microservice, the thread is not blocked till a response comes from the server. 
+ The message producer service generates a message and sends the message to a message broker on a defined topic.
+ The message producer waits for only the acknowledgment from the message broker to know that message is received by the broker. 
+
+The consuming service subscribes to a topic in the messaging queue.  All the messages belonging to that topic will be fed to the consuming system(s).
+ The message producer service and consuming services don’t even know each other. The response is received in the same methodology through a message broker
+ via defined message topics.
+Different messaging tools are based on the AMQP (Advanced Message Queuing Protocol). Some examples are given below.
+
+a. Apache Kafka
+b. RabbitMQ
+c. Apache ActiveMQ
+
+
+Q) What is the difference between Monolithic, SOA and Microservices Architecture?
+
+SOA: Service-Oriented Architecture
+Main diff b/w SOA and MS architecture is Based on sharing of data and info.
+ SOA shares and reuses as much as possible while MS focuses on sharing as little as possible.
+ 
+SOA Example:
+****************
+@FeignClient(name = "user-service", url = "http://localhost:8080/users")
+public interface UserServiceClient {
+    @GetMapping("/{id}")
+    User getUser(@PathVariable Long id);
+}
+
+
+UserService: Manages user information.
+OrderService: Manages orders and communicates with UserService to validate users.
+In this example, each service is independent and communicates over RESTful APIs, demonstrating a basic Service-Oriented Architecture using Spring Boot. 
+This approach allows for better scalability, maintainability, and flexibility in your application. 
+
+
+Q) Ways to communicate between Microservices
+-------------------------------------------------
+
+
+We have seen Synchronous communications through - 
+Rest APIs
+GraphQl
+Feign using Eureka discoveries 
+GRPC ( 10 times faster than REST APIs ) - developed by Google as substitute of REST with many more features.
+
+A synchronous call means that a service waits for the response after performing a request. 
+
+What is Async communication 
+
+In Async communication , To initiate such type of communication, a Microservice who wants to send some data to another Microservice publishes a message 
+to a separate component known as a message broker. It is responsible for handling the message sent by the producer service and it will guarantee message delivery.
+
+After the message is received by the broker, it’s now its job to pass the message to the target service. If the recipient is down at the moment, 
+the broker might be configured to retry as long as necessary for successful delivery.
+
+These messages can be persisted if required or stored only in memory. 
+In the latter case, they will be lost when the broker is restarted and they are not yet sent to the consumer.
+
+Since the broker is responsible for delivering the message, it’s no longer necessary for both services to be up for successful communication.
+ Thus async messaging mitigates the biggest problem of synchronous communication - coupling.
+
+A relevant point here is that there, the sender doesn't need to wait for the response. 
+It might be sent back from the receiver later as another asynchronous message.
+
+The intended service receives the message in its own time. The sending service is not locked to the broker. It simply fires and forgets.
+
+Asynchronous Communication Using Kafka in Spring Boot 
+--------------------------------------------------------------
+pub-sub pattern:
+The pub-sub (publish-subscribe) pattern is a messaging pattern where messages are sent by publishers and received by subscribers.
+
+Think of it like a school announcement system:
+Publishers: These are the people making the announcements. For example, a teacher who wants to announce the start of a sports event.
+Subscribers: These are the people who listen to the announcements. For example, students who want to hear about upcoming sports events.
+Broker: This is the announcement system itself (like a loudspeaker). It takes announcements from the teachers and broadcasts them to all the students.
+
+or
+
+Imagine a college where the placement cell wants to announce new job opportunities to students in various departments.
+ Instead of sending emails individually, they use a Pub-Sub system with Kafka.
+
+Components:
+
+Publisher (Placement Cell): The placement cell publishes job announcements.
+Kafka Topic: A channel named "JobAnnouncements" where job announcements are posted.
+Subscribers (Students): Students subscribe to the "JobAnnouncements" topic to receive updates.
+
+
+Asynchronous communication is a messaging pattern where the sender (producer) and receiver (consumer) of the message
+ do not need to interact with the message at the same time.
+ Kafka, a distributed streaming platform, is commonly used for this purpose in modern microservices architectures.
+
+Key Components of Kafka
+Producer: The application that sends messages to Kafka.
+Consumer: The application that reads messages from Kafka.
+Topic/Channel: A named entity to which publishers send messages and from which subscribers receive messages.
+Broker: The Kafka server that stores the messages and handles the distribution of data to consumers.
+
+How It Works
+Publishers / Producer: Sends messages to a Kafka topic.
+Broker: Receives messages from publishers and forwards them to all subscribers of that topic.
+Subscribers / Consumer: Receive messages from the broker for the topics they are subscribed to.
+
+@Service
+public class MessagePublisher {
+
+    private static final String TOPIC = "notifications";
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    public void sendMessage(String message) {
+        kafkaTemplate.send(TOPIC, message);
+    }
+}
+
+@Service
+public class MessageSubscriber {
+
+    @KafkaListener(topics = "notifications", groupId = "group_id")
+    public void listen(String message) {
+        System.out.println("Received message: " + message);
+    }
+}
+
+example of pub-sub pattern: Kafka, and Amazon SNS.
+
+
+Message Based Communication VS Event Based Communication
+-------------------------------------------------------------
+In message based communication, the services taht consumes messages from queue or Topic must know the common message structure that is produced or published.
+
+In Event Based communocation, the services taht consumes messages DO NOT need to know the details of the message.
+
+
+What if the message broker is down?
+------------------------------------------
+
+ A message broker is a vital part of the asynchronous architecture and hence must be fault tolerant.
+ We can create replicas, so taht on efails other can handle it.
+ 
+How do you make sure a Microservices-based application can handle more users as it becomes more popular?
+------------------------------------------------------------------------------------------------------------- 
+ Load Balancing
+Horizontal Scaling
+Auto Scaling
+Caching
+Database Scaling
+Asynchronous Processing 
+
+Scenarios where microservice architecture is preferred over monolithic Architecture
+
+Scalability
+Flexibility
+Development Velocity
+Team Structure
+Complexity
+Maintenance 
+
+Scenarios where monolithic architecture is preferred over microservice Architecture
+
+
+Limited Complexity
+Development Speed
+Resource Constraints
+Performance
+Team Size 
+Learning Curve
+
+Deployment of microservices.
+-------------------------------
+Choose a platform to deploy your microservice. 
+Common choices include cloud services like AWS, Google Cloud, Azure, or container platforms like Docker and Kubernetes.
+
+For example, if using Docker:
+Create a Dockerfile to define the environment for your application.
+Build the Docker image and push it to a container registry.
+Deploy the container to a cloud service or Kubernetes cluster.
+
+Container platforms like Docker and Kubernetes are used to manage and run applications in a more efficient and scalable way. 
+
+Docker
+What It Does:
+
+Containers: Docker allows you to package an application and its dependencies into a "container." 
+This container has everything the application needs to run, including the code, libraries, and system tools.
+
+Portability: Containers can run anywhere—on your laptop, on a server, or in the cloud—because they include everything needed to run the application.
+Isolation: Each container runs in its own environment, separate from other containers. 
+This isolation helps ensure that the application works the same way regardless of where it is deployed.
+Why It's Useful:
+
+Consistent Environments: Developers can be sure that the application will run the same way in different environments (development, testing, production).
+Easy Deployment: Containers can be quickly started, stopped, and moved around, making deployment faster and easier.
+Resource Efficiency: Containers use fewer resources than traditional virtual machines because they share the same operating system kernel.
+
+Aspect	Cloud Platform	Container Platform
+------------------------------------------------
+Definition	
+A service offering various computing resources like servers, storage, databases, and more, over the internet.
+A system for packaging, deploying, and managing applications in isolated containers.
+
+Portability	Less portable (tied to specific cloud provider)	Highly portable (containers can run anywhere)
+
+Flexibility	Offers various services beyond just hosting	Focuses on application deployment and orchestration
+
+Cost	Pay-as-you-go pricing models	Costs can be lower but require management overhead
+
+Summary: 
+Cloud Platform: Easier to start with, provides a wide range of managed services, and is highly scalable.
+ Suitable for those who prefer less operational overhead and need various services like databases, storage, etc.
+ 
+Container Platform: Offers greater control and portability, is more resource-efficient, and is ideal for microservices architectures. 
+Requires more setup and management, but provides powerful orchestration capabilities.
+
+Orchestration means: In Kubernetes, "orchestration" refers to the automated management and coordination of containerized applications. 
+Think of it like a conductor leading an orchestra to ensure that all musicians play in harmony. Similarly,
+ Kubernetes orchestrates various components of your application to ensure they work together efficiently.
+
+Handling Exceptions Across Microservices
+-------------------------------------------
+use local and global exception handle like try catch block and ,
+ you can use @ControllerAdvice and @ExceptionHandler to create a centralized exception handler within the microservoce.
+
+for across:
+
+1) Logging and Monitoring:
+
+Log exceptions to a centralized logging system. This helps in diagnosing and fixing issues quickly.
+Use monitoring tools like Prometheus, Grafana, or ELK Stack to track application health and performance.
+
+2) Circuit Breaker Pattern:
+
+Use circuit breakers to handle failures gracefully. If one service fails, 
+the circuit breaker trips and prevents further calls to the failing service, allowing it time to recover.
+In Spring Boot, you can use libraries like Resilience4j to implement circuit breakers.
+
+3) Retry Mechanism:
+
+Implement retries for transient errors, like network timeouts. Ensure the retry mechanism has a limit to avoid infinite loops.
+Use libraries like Resilience4j or Spring Retry to add retry logic.
+
+4) Fallbacks: Provide fallback responses to maintain user experience.
+
+@RestController
+public class MyController {
+    @Autowired
+    private MyService myService;
+
+    @GetMapping("/data")
+    @Retry(name = "myService", fallbackMethod = "fallbackMethod")
+    @CircuitBreaker(name = "myService", fallbackMethod = "fallbackMethod")
+    public String getData() {
+        return myService.getData();
+    }
+
+    public String fallbackMethod(Exception ex) {
+        return "Fallback response: " + ex.getMessage();
+    }
+}
+
+
+What is important component in Microservices? 
+--------------------------------------------------
+1. Service Discovery
+Purpose: Keeps track of all the microservices and their instances.
+Why It’s Important: Allows services to discover each other without hardcoding network locations. 
+When a service wants to communicate with another service, it queries the service registry to find out where the other service is running.
+
+2. API Gateway
+Purpose: Acts as a single entry point for all clients to interact with the microservices.
+Why It’s Important: Simplifies client interactions by routing requests to the appropriate services, handling authentication, logging, and load balancing.
+
+3. Load Balancer
+Purpose: Distributes incoming network traffic across multiple instances of microservices.
+Why It’s Important: Ensures no single instance is overwhelmed, improving performance and availability.
+
+4. Monitoring and Logging
+Purpose: Tracks the health and performance of microservices and logs their activity.
+Why It’s Important: Helps in identifying issues, understanding service behavior, and ensuring the system is running smoothly.
+
+5) Circuit Breaker
+Purpose: Prevents a service from repeatedly trying to execute an operation that is likely to fail.
+Why It’s Important: Protects the system from cascading failures by stopping retries and providing fallback responses.
+
+How to manage common properies for differnet microservices.
+-------------------------------------------------------------------
+1. Centralized Configuration Management
+Use a Centralized Configuration Service:
+
+Tools: Use tools like Spring Cloud Config, Consul, or etcd to manage configuration properties centrally.
+Benefits: Allows all microservices to fetch configuration properties from a single location, making it easier to update and manage settings.
+
+In a Spring Boot application, you can use Spring Cloud Config to store configuration
+
+2) Use Environment Variables:
+
+Purpose: Store environment-specific properties (e.g., database URLs, API keys) as environment variables.
+Set environment variables in Docker containers or CI/CD pipelines, and reference them in your microservices.
+
+3. Shared Libraries
+Purpose: Use shared libraries or modules to store common configuration properties and utility functions.
+Tools: Create a common library that is included in each microservice.
+Example: Develop a shared Java library containing common constants, configuration properties, and utility functions.
+
+public class ConfigConstants {
+    public static final String DATABASE_URL = "jdbc:mysql://db:3306/mydb";
+    public static final String API_KEY = "yourapikey";
+}
+
+4) Secret Management
+Purpose: Manage sensitive information such as passwords and API keys securely.
+Tools: Use secret management tools like AWS Secrets Manager.
+Example: Store and retrieve secrets securely, ensuring they are not exposed in configuration files or source code.
+
+Single Database per service | Shared Database per service | Database Patterns for Microservices
+https://www.youtube.com/watch?v=azaksuZ3I8w&ab_channel=Codefarm
+
+Data Consistency | Eventual Consistency | Strong Consistency | Database Pattern for Microservices
+https://www.youtube.com/watch?v=SI9Ocb691ps&ab_channel=Codefarm
+
+How do you ensure data consistency across shared databases.?
+------------------------------------------------------------------
+Saga Pattern: Implement Saga for managing long-running transactions and ensuring eventual consistency
+ across services by breaking transactions into smaller steps and handling failures with compensating transactions.
+
+Two-Phase Commit (2PC): Use 2PC for ensuring atomicity and consistency in distributed transactions 
+by coordinating commit or rollback across multiple databases.
+
+These approaches are effective for managing data consistency in distributed systems.
+
+
+what is 2 phase commit.
+--------------------------------
+The Two-Phase Commit protocol ensures that in a distributed system, all nodes either commit a transaction together or roll it back,
+ maintaining data consistency across the system.
+ It involves a prepare phase where participants vote on whether they can commit, and a commit phase where the final decision is made based on the votes.
+
+Simple Example:
+Imagine you're planning a group dinner at a restaurant, and you need to make sure everyone can attend before confirming the reservation.
+
+Prepare Phase:
+
+Coordinator (You): Send a message to all friends asking, "Can you make it to dinner on Friday?"
+Participants (Friends): Each friend checks their schedule and responds with "Yes" or "No."
+
+Commit Phase:
+
+If all friends say "Yes," you send a message saying, "Reservation confirmed."
+If any friend says "No," you send a message saying, "Dinner plan canceled."
+This ensures that the group either all goes to dinner together or doesn't go at all, maintaining consistency in the plan.
+
+
+why Amazon prime convert from microservice to monolith application. 
+---------------------------------------------------------------------
+Amazon Prime Video’s decision to shift from a microservices architecture back to a monolithic architecture 
+was primarily driven by operational complexities and performance issues
+
+This shift is a notable example of how even large, successful companies may need to re-evaluate their 
+architectural choices based on their evolving needs and challenges.
+
+Scaling up the Prime Video audio/video monitoring service and reducing costs by 90%
+
+Reason:
+1) Operational Complexity:
+2) Performance Issues: (n a microservices architecture, services often need to communicate over the network, which can introduce latency and affect performance, especially under high load.)
+3) Infrastructure and Development Costs:
+4) Data Consistency: Ensuring data consistency across multiple services can be challenging and often requires complex transactional management.
+
+
+In my decades of software development, no user thank me for using a particular technology, but they thank me for solving their problem
+We should not use any tech just bcuz it's new in the market and fancy and have that FOMO.
+
+How to deploy microservices.
+----------------------------------
+Containerize each microservice using Docker.
+Service Discovery: Implement a service registry like Eureka or Consul.
+Configuration Management: Use centralized configuration tools like Spring Cloud Config.
+API Gateway: Implement an API Gateway for routing and security.
+Use Kubernetes for managing deployment, scaling, and operations.
+Monitoring and Logging: Use Prometheus, Grafana, and the ELK stack for monitoring and logging.
+CI/CD Pipeline: Set up CI/CD pipelines using Jenkins or other tools for automated build, test, and deployment processes.
+
+
+Build Automation: Use Jenkins, GitLab CI/CD, or GitHub Actions to automate building, testing, and deploying your microservices.
+# .gitlab-ci.yml docker example
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - mvn package
+    - docker build -t my-service:latest .
+    - docker push my-repo/my-service:latest
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f k8s/deployment.yml
+
+
+
+
+How communication in APIs through RestTemplate and managing the case of failure  requests or delayed response/timeout.
+----------------------------------------------------------------------------------------------------------------------
+RestTemplate is a Spring framework utility class used to make HTTP requests in a synchronous manner. It simplifies client-side HTTP communication.
+
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+
+public class ApiService {
+    private final RestTemplate restTemplate;
+
+    public ApiService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public String getProductDetails(String productId) {
+        String url = "http://product-service/products/" + productId;
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return response.getBody();
+    }
+}
+
+To handle timeout:
+
+Setting a timeout to prevent waiting indefinitely for a response.
+ private RestTemplate restTemplate;
+
+    public ApiService() {
+        this.restTemplate = new RestTemplate(getClientHttpRequestFactory());
+    }
+
+    private ClientHttpRequestFactory getClientHttpRequestFactory() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(3000); // 3 seconds
+        factory.setReadTimeout(3000); // 3 seconds
+        return factory;
+    }
+
+
+
+
+
+
+
+
+Microservices design pattern
+------------------------------------
+
+1. API Gateway Pattern
+2. Circuit Breaker Pattern
+3. Service Discovery Pattern
+4. CQRS (Command Query Responsibility Segregation) Pattern
+5. SAGA Pattern
+
+1. API Gateway Pattern
+Purpose: Provides a single entry point for clients to access various microservices. It handles routing, load balancing, and sometimes authentication and monitoring.
+It directs web traffic to the right place.
+It ensures the user authentication and permission checks.
+It keeps track of all website visits.
+
+Example:
+
+Scenario: An e-commerce application has microservices for product catalog, orders, and customer management.
+Implementation: Use Spring Cloud Gateway to route requests to the appropriate microservice.
+
+// Application.java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ApiGatewayApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ApiGatewayApplication.class, args);
+    }
+}
+
+// application.yml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/products/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
+
+In this example, Spring Cloud Gateway routes requests with paths starting with /products to the PRODUCT-SERVICE and requests with paths starting with /orders to the ORDER-SERVICE.
+
+2. Circuit Breaker Pattern
+Purpose: Prevents a service from making requests to a failing service to avoid cascading failures. It provides fallback responses if the service is down.
+
+For example: In the real world, let an e-commerce application depend on the “Payment Service” for processing transactions where regular requests are sent. 
+If the system detects delays or errors in the payment service responses, it triggers the circuit breaker pattern by stopping further requests for the service so,
+ instead of showing more failed requests, 
+it stops them and shows users a message “Service is temporarily unavailable, please try again later” as we generally receives sometimes.
+
+It redirects tasks to prevent failures.
+It auto resets and monitors services.
+It acts as an safety features.
+
+
+Example:
+
+Scenario: The order service might fail due to network issues. Use a circuit breaker to handle this gracefully.
+
+@RestController
+public class OrderController {
+
+    @GetMapping("/orders")
+    @CircuitBreaker(name = "orderService", fallbackMethod = "fallbackOrder")
+    public String getOrder(@RequestParam String orderId) {
+        // Call to another microservice or database that might fail
+        return "Order Details";
+    }
+
+    public String fallbackOrder(String orderId, Throwable ex) {
+        return "Order service is currently unavailable. Please try again later.";
+    }
+}
+
+3. Service Discovery Pattern
+Purpose: Enables microservices to discover each other dynamically without hardcoding service locations.
+
+ Let’s consider a network with several applications here, having a “Central Hub” that knows each application’s location.
+ Now suppose when application 1 wants to reach to application 2, it will ask the hub but, 
+ if application 2 shuts down or crashes due to some error cause, the hub will automatically updates its information.
+ So, in this way hub keeps the network functioning without hitches.
+Example:
+
+It keeps track of services when they begin or end.
+It monitors and maintains the service performance.
+It stores key details like IP address and port number.
+
+Scenario: Microservices need to find each other without knowing their exact locations.
+
+// EurekaServerApplication.java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}
+
+// application.yml (for Eureka Server)
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    enable-self-preservation: false
+
+// application.yml (for microservices)
+spring:
+  application:
+    name: product-service
+  cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
+		  
+In this example, the product-service registers with Eureka Server, which other services use to discover it.
+
+4) CQRS (Command Query Responsibility Segregation) Pattern
+Purpose: Separates read and write operations into different models or services to optimize performance and scalability.
+
+Example:
+
+Scenario: Use separate services for processing orders (write) and querying order details (read).
+
+// OrderCommandService.java
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderCommandService {
+    public void placeOrder(OrderCommand command) {
+        // Process the command to create or update an order
+    }
+}
+
+// OrderQueryService.java
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderQueryService {
+    public OrderDetails getOrderDetails(String orderId) {
+        // Retrieve order details from a read-optimized database
+        return new OrderDetails();
+    }
+}
+
+Here, OrderCommandService handles writing operations (placing orders), and OrderQueryService handles reading operations (getting order details).
+
+5) 4. Saga Pattern
+It’s a type of pattern which acts as an key concept in microservices architecture, where addressing data consistency across services is done by
+ splitting transactions into local transactions handled by individual services. 
+ 
+ Saga pattern provides a scalable and fault-tolerant method for handling distributed transactions.
+ 
+ For example: In a real world like online travel booking, the Flight Booking service initiates the transaction and starts communicating with other services
+ through events where each service follows a specific workflow like if successful, 
+ it sends to the next service; if it fails, it triggers a compensating transaction to maintain the data consistency.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

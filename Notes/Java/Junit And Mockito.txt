@@ -1,0 +1,160 @@
+JUnit and Mockito
+----------------
+Why Junit is important?
+assertEquals(), assertTrue(), @Before, @After, @BeforeClass, @AfterClass, @assertArrayEquals()
+testing exception @Test(expected = NullPointerException.class)
+testing performance @Test (timeout=100) 
+
+parametrized testing (can pass differnet test cases as collection and test it without writing the test cases separately for each )
+1) use @RunWith(Parameterized.class) before class name
+2) input and output defne it, and add taht as parameterized constructor
+3) write all possible test cases as like below.
+
+@Parameters
+	public static Collection<String[]> allPossibleTestCases() {
+		String testCases[][] = { 
+				{"AABC", "BC"},
+				{"MNC", "MNC"},
+				{"All", "ll"}
+		};
+		return Arrays.asList(testCases);
+	}
+4) for passing that data..in test..use like below.
+assertEquals(output, helper.truncateAInFirst2Positions(input)); 
+
+SUT
+-------
+System under test (SUT) refers to a system that is being validated by the testers. The terminology is also known as application under test.
+
+Stub: return some dummy data.
+
+Mocks and stubs are fake Java classes that replace these external dependencies. 
+These fake classes are then instructed before the test starts to behave as you expect.
+
+Stub and Mock are dummy object, but more precisely, a Stub is an object that simulates real objects with the minimum number of methods required for a test.
+For example, if your class is dependent upon the database, you can use HashMap to simulate database operation.
+
+On the other Mock objects are usually created by open-source libraries and mock frameworks like Mockito, 
+jMock and EasyMock. These library helps to create, verify, and stub mocks.
+
+ Stub object is usually used for state verification, while mock object is mostly used for behaviour verification.
+
+In general - Mock means implement some behavior, 
+stubs - just supply some data. in other words preferable use the work mock when you need to demonstrate that it changes/keeps some state
+
+use the word stub when your classes only expose the internal state. indeed you can use mock everywhere, and stub is just subset of mock
+
+Verify calls on mocks
+-------------------------
+if we have certain condition for delete and has some logic associated there.
+
+ In simple terms, it validates the certain behavior that happened once in a test
+ . It is used at the bottom of the testing code to assure that the defined methods are called.
+ 
+ 
+
+(e.g) if(!todo.contains("Spring")) {
+         todoService.deleteToDo(todo);
+       }
+
+      verify(toDoServiceMock).deleteToDo("Learn to Dance") // to verify for this argument the deleteToDo is called..
+	  verify(todoServiceMock, never()).deleteToDo("Learn Spring") //  to verify for this argument the deleteToDo is NOT called..
+	(or) 
+// In BDD format: then(toDoServiceMock).should(never()).deleteToDo("Learn to Dance");	
+	   verify(todoServiceMock, times(1)).deleteToDo("Learn Spring") //  to verify for this argument, number of times it gets called.
+	  verify(todoServiceMock, atleastOnce()).deleteToDo("Learn Spring") //  to verify for this argument, atleast once its calling.
+	
+	// In BDD format: then(toDoServiceMock).should(never()).deleteToDo("Learn to Dance");(then is similar to verify)
+	
+Argument Capture
+----------------
+It is useful when you want to check the values that are passed to a mocked method.	
+
+ 1) declare argument captor
+	ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class)
+ 2) stringArgumentCaptor.capture()
+    then(toDoServiceMock).should(never()).deleteToDo(stringArgumentCaptor.capture());
+ 3) stringArgumentCaptor.getValue()
+   assertThat(stringArgumentCaptor.getValue(), is("Learn to Dance"))
+   
+   If argument capture occurs multiple times.
+  assertThat(stringArgumentCaptor.getAllValues().size(), is(2))
+  then(toDoServiceMock).should(times(2)).deleteToDo(stringArgumentCaptor.capture())
+  
+  
+Hamcrest Mathchers
+-------------------
+press ctrl+o to show all method to be listed.in a class or java file.
+
+List<Integer> scores = Arrays.asList(90,98,89,78);
+
+asserThat(scores, hasSize(4))
+hasItem(99);
+everyItem(greaterThan(90))
+isEmptyString()
+
+Mockito Annotation
+-----------------------
+@Mock
+@InjectMocks
+@RunWith(MockitoJunitRunner.class)
+@captor
+
+One Junit class can have only one runner, so only one @RunWith, we can't both runner together e.g SpringJunitRunner
+In order to solve this , @Rule can be used.
+
+@Rule
+public MockitoRule mr = MockitoJunit.rule(); 
+
+prefer @Rule over @RunWith
+
+@Rule : Basically for multiple runners
+@RunWith: Basically for one runner
+ 
+Spy 
+----------
+A spy gets all the logic from the class and overrides some of them if we want.
+
+List arrayListMock = mock(ArrayList.class)  // to mock
+List arrayListSpy = spy(ArrayList.class) // to spy the arraylist with some overriding stuff.
+
+stub(arrayListSpy.size()).toReturn(5); // always returns 5...here it overrides.
+
+arrayListSpy.add("test");
+verify(arrayListSpy).add("test");
+verify(arrayListSpy, never()).clear();
+
+power  mock ( can mock static, private, constructor etc)
+--------------------------------------------------------------
+PowerMock is an open-source Java framework used for creating a mock object in unit testing.
+ It extends other mocking frameworks such as EasyMock and Mockito to enhance the capabilities.
+enable the mocking of static methods, final classes, final methods, private methods, constructor, and removal of static initializers. 
+
+The main aim of PowerMock is to extend the existing APIs with some methods and annotations to provide extra features that make unit testing quite easy.
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(StaticClassName.class) // class containing static method to be mocked.
+
+Whitebox.invokeMethod(className, privateMethodName); // to call private method
+
+
+Two important things in junit
+-----------------------------------
+1) Readability (name should be logical, it should say what it is testing)
+2) test should fail only when the real logic fails.
+
+how to name a test
+--------------------
+Syntax: whichMethod_whatScenario_whatIsResult
+
+Example: saveChangedProducts_ProductInScreenAndNotInDatabase_ProductIsInserted()
+
+tip2: use given when then format.
+
+
+
+  
+   
+   
+   
+   

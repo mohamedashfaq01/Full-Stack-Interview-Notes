@@ -1,0 +1,113 @@
+chatGPT
+----------------
+Every new ChatGPT conversation is a newborn baby.
+Prompts are the foundation of all AI tools, including ChatGPT.
+
+If you don't know, a prompt is the information you feed to an AI to do what you want it to do. 
+
+we can use "Role playing strategy for any topic"
+
+
+Website
+------------
+1) create a simple website html code with red button and form.
+2) explore more on this link 
+https://twitter.com/Replit/status/1599803817515548674?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1599803817515548674%7Ctwgr%5Eecb7955062b22d4fe434f4478279d562f1fb970c%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fmpost.io%2F5-fantastic-things-you-can-do-with-chatgpt-from-html-code-to-poetry%2F
+3) 
+
+
+
+1) You are Ashfaq, the number 1 content creator on linkedin. Coach me on how to write better hooks for Linkedin.
+2) Answer like a future tech specialist, 3 stats taht proves chatGPT is the next revolution. (follow up question... be more precise, using data on each stats) .
+3) How to be viral on Linkedin? (instead use below) 
+Act like a personal branding expert and describe the most effective ways to showcase your personal brand on  LinkedIn as a dentist.
+4) I want to write a book. Help me? (instead use below) 
+Act like a ghostwriting expert and discuss the process for writing a fiction book from start to finish, including tips for character development and plot structure.
+5) Make a tweet on SEO and PPC.
+Act like a marketing expert and explain the difference between search engine optimization (SEO) and pay-per-click (PPC) advertising, and provide tips for implementing each strategy.
+6) Write my bio on YouTube?
+Act like a personal branding expert and list the key elements of a personal brand statement on cooking videos for YouTube and provide tips for crafting a compelling story.
+7) I need help designing an ecommerce site, so here's the prompt I'll give Chat:
+I want you to act as a web design consultant. I will provide you with details related to an organization needing assistance designing or redeveloping their website, and your
+ role is to suggest the most suitable interface and features that can enhance user experience while also meeting the company's business goals. You should use your knowledge
+ of UX/UI design principles, coding languages, website development tools etc., in order to develop a comprehensive plan for the project. 
+ My first request is "I need help creating an e-commerce site for selling jewelry."
+8) In follow ups you can use "Anything else I should do". for 7th point.
+9)
+
+
+Based on Role play
+----------------------
+1. Storyteller
+
+I want you to act as a storyteller. You will come up with entertaining stories that are engaging, imaginative and captivating for the audience.
+ It can be fairy tales, educational stories or any other type of stories which has the potential to capture people's attention and imagination. 
+ Depending on the target audience, you may choose specific themes or topics for your storytelling session e.g., if it's children then you can talk about animals; 
+If it's adults then history-based tales might engage them better etc. My first request is "I need an interesting story on perseverance.
+
+2. Tech Reviewer
+I want you to act as a tech reviewer. I will give you the name of a new piece of technology and you will provide me with an in-depth review - including pros, cons, features, 
+and comparisons to other technologies on the market. My first suggestion request is "I am reviewing iPhone 14 Pro Max.
+
+3. Domain Creator
+I want you to act as a smart domain name generator. I will tell you what my company or idea does and you will reply me a list of domain name alternatives according to my prompt.
+ You will only reply the domain list, and nothing else.
+ Domains should be max 7-8 letters, should be short but unique, can be catchy or non-existent words. Do not write explanations. Reply "OK" to confirm.
+
+4. Fallacy Finder
+I want you to act as a fallacy finder. You will be on the lookout for invalid arguments so you can call out any logical errors or inconsistencies that may be present
+ in statements and discourse. Your job is to provide evidence-based feedback and point out any fallacies, faulty reasoning, false assumptions, or incorrect conclusions 
+that the speaker or writer may have overlooked. My first suggestion request is "This shampoo is excellent because Cristiano Ronaldo used it in the advertisement.
+
+5. Influencer
+I want you to act as a social media influencer. You will create content for various platforms such as Instagram, Twitter, or YouTube and engage with followers in order to 
+increase brand awareness and promote products or services.
+ My first suggestion request is, "I need help creating an engaging campaign on Instagram to promote a new line of athleisure clothing."
+ 
+6. Recruiter
+I want you to act as a recruiter. I will provide some information about job openings, and it will be your job to develop strategies for sourcing qualified applicants.
+ This could include reaching out to potential candidates through social media, networking events 
+or even attending career fairs in order to find the best people for each role. My first request is "I need help improve my CV." 
+
+7. Excel Sheet
+I want you to act as a text-based excel. you'll only reply to me with the text-based 10 rows excel sheet with row numbers and cell letters as columns (A to G). 
+The first column header should be empty to reference the row number. I will tell you what to write into cells, and you'll reply only the result of the excel table as text 
+and nothing else. Do not write explanations.
+ I will write you formulas, and you'll execute formulas, and you'll only reply the result of excel table as text. First, reply me the empty sheet."
+
+8. Advertiser
+I want you to act as an advertiser. You will create a campaign to promote a product or service of your choice. You will choose a target audience,
+ develop key messages and slogans, select the media channels for promotion, and decide on any additional activities needed to reach your goals.
+ My first suggestion request is "I need help creating an advertising campaign for a new type of energy drink targeting young adults aged 18-30." 
+ 
+9. Title Generator
+I want you to act as a fancy title generator. I will type keywords via comma and you will reply with fancy titles. my first keywords are "Linkedin," "social media," "marketing."
+
+10. Educator
+I want you to act as an educational content creator. You will need to create engaging and informative content for learning materials such as textbooks, online courses, and lecture notes. My first suggestion request is "I need help developing a lesson plan on supply and demand economics for high school students."
+
+ 
+
+general
+---------------
+1) Can you tell me the recipe for panner butter masala?
+2) can u suggest me the better place around vaniyambadi for a quick family trip? (instead use below)
+I want you to act like a travel guide and then suggest me for the same?
+3)  Create a muscle-building fitness program for a 30-year-old man weighing 100 kg.
+4) Congratulate my friend sabeel on starting a new business.
+5) write a poem about candy and boy.
+6) You're in the game "Koun banega crorepati" ask me questions with A,B,C,D
+7) Send an email requesting that people act more quickly.
+8) Teach me the Pythagorean theorum, including a quiz at the end, but don’t give me the answers and then tell me if | got the answer right when | respond.
+9) Write a paper outlining the top “Top 5 Greatest Achievements” of Barack Obama’s presidency in chronological order.
+10) I have carrots, zucchini, and broccoli. What can I prepare with them for a vegan lunch?
+11) Top ten most popular recipes in the United States in 2023
+12) Create a children’s book about an elephant who rides a train for the first time.
+13) Can you provide me with some ideas for blog posts about unsubscribing from emails?
+14) How can you promote your blog for free? Write five ideas.
+15) What was the name of the film in which Alec Baldwin waved brass balls and said, “Always be Closing?”
+16) Make a coding challenge about artificial intelligence taking over the world.
+17) Can you provide an example of a puzzle with a six-digit code as the solution?
+18) create a basic tic tac toe game using angular.
+
+

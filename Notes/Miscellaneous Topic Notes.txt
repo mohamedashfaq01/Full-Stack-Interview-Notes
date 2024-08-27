@@ -1,0 +1,373 @@
+Finacial Planning
+--------------------
+It is the process of turning your Needs and Wants into GOALS.
+
+Goals are planned expenses in different point of life.
+
+MWPA Act in insurance company: 
+Who can opt for insurance under MWPA (Married Women Property Act)? If you are a resident of India and a married man, you can take an insurance policy under the MWPA. 
+You can also purchase the policy if you are a widower or a divorcee in such a scenario, you may name your children as beneficiaries.
+
+
+designation: Corporate Salary Relationship Manager.
+rashid.anwar@idfcfirstbank.com
+9591536931
+
+https://www.maxlifeinsurance.com/
+
+
+Health Insurance (80D)
+Term Insurance
+Life Insurance
+
+
+Planning is for direction.
+
+These Both are dangerous.
+Over Planner: Will get demotivated if we don't acheive all of that. 
+Under Planner: will regret a lot for all the things which has not done.
+
+difficult, boring, 
+
+Skills are Process to acheive goals.
+
+Desire -> Goal -> Skill
+
+Deserve before u desire.
+-----------------------------------------------
+Nutrition:
+
+CUT Your junk foods, fried foods, oily foods, and sugar snacks & drinks,
+EAT soaked almonds everyday in the empty stomach, its helps to lose weight and its good for skin, hair as well.
+DRINK lots and lots of water in the empty stomach(morning) for better digestion,
+SLEEP right time and wake up at the right time everyday,
+AVOID Carbs in your diet plan,
+
+Avoid foods that contain trans fats.
+Reduce your salt intake
+
+The most effective exercise to burn stomach fat is crunches. 
+  Crunches rank top when we talk of fat-burning exercises. You can start by lying down flat with your knees bent and your feet on the ground
+Drink green tea with honey every day morning before breakfast.
+Do excercises like sit ups, plank and push up’s as these help reduce belly fat.
+Walk at least 30 mins a day
+
+https://twitter.com/warikoo/status/1281498178135756801?lang=ha
+best excel for daily time logs planner
+
+	
+--------------------------------------------------
+
+Pre-Conceived Notion: an opinion formed beforehand without adequate evidence, Concluding something without knowing much about it.
+Synonyms: assumption, prejudgment
+
+When I lost my excuses, I found the results.
+
+epitome: perfect example
+
+Being Shy is wrong, but being introvert is fine. understand the difference ..
+
+vernacular language: Regional language medium like urdu medium.
+
+E+R = O
+Event+Response =  Outcome
+
+Example: overweight + 30min walk = Some change
+overweight + 30min walk + healthy food = big change
+overweight + 30min walk + healthy food + Exercise in Gym = big big change
+
+Don't talk like a looser.
+
+Pain Vs Suffer 
+(exercise, baby birth sweet pain)
+
+if not manage properly, they'll suffer
+1. Time
+2. Money
+3. Mindset (just stop thinking like a looser).
+
+Have a goal, Formalise it, and Hit it.
+
+1) Speak the leanguage of the land. even if it broke.
+2) Confidence
+3) Clarity of thought
+
+When in meeting, just think about the stuff..
+
+Don't apply rules and grammar and then speak.. just practice 
+
+Listening...POrocessing...and Speaking...
+
+Grammer is just for polishing the language.
+
+good pronunciation always makes a good first impression.
+
+Put yourself in their shoes and think...
+
+
+tech Interview
+--------------------
+Testing and Automation skills
+High level design concepts
+Low level design concept
+Documentation
+Deployment concepts (jenkins, kubernate, )
+
+1-2 coding language
+OOPS Concepts
+Coding principle
+Design pattern
+Sql concept
+
+Interview skills :
+Conceptualize or visualize your solution.
+think small and solve big
+
+Dynamic program: FInd min number of insertion to make string palindrome.
+bcd: 2, (cd bcd)
+
+First dry run, and create pseudo code.
+
+
+Two pointer technique
+Sliding window
+Mathematical equation
+Recursion and Backtracking
+Hashing
+Divide and Conquer
+Greedy
+
+
+System Design
+------------------
+Functional 
+Non-Functional
+
+HLD: (Bird Eye view)
+
+	Microservice Pattern like SAGA Pattern
+	Load balancer
+	Reverse Proxy
+	Forward proxy
+	CDN
+	REST, GraphQL
+	SQL, NOSQL
+	(e.g) Design Youtube
+	
+LLD:
+    DB Normalization, ACID, CAP
+    SOLID and STUPID Principle
+    Class Design
+    Index, Sharding	
+	(e.g) Design Google calendar
+	
+	
+	learn how to think as a software developer.
+	
+Behavioral Skills
+---------------------
+Communication skill
+Interpersonal skill
+Ownership 
+Adaptability
+Curiousity
+Highest Standard (writing the code with your best knowledge) 
+	
+	
+	
+	
+Advent of Code is an annual set of Christmas-themed computer programming challenges that follow an Advent calendar.
+It has been running since 2015.
+
+The programming puzzles cover a variety of skill sets and skill levels and can be solved using any programming language. 
+Participants also compete based on speed on both global and private leaderboards.
+
+
+
+Smart Tips: Soft skills
+---------------------------
+1) what is the diff between IQ and EQ? get explanation from chatGPT.
+2) what is soft skills? example of it. and scenario. what's the consequence of not having it.
+3)  difference between growth and fixed mindset.
+4) Approaches to   embrace a growth mindset.
+5) Adaptibility, flexiblility and resilience as soft skills.?
+
+Resilience: It is the ability to handle challeneges or bounce back from a difficult situation. It is used to help manage disappointment.
+
+Disappointment = Expectations minus Reality.
+
+When a project encounters a problem. We figure out solutions, workarounds and fixes.
+Personal resilience is utilizing those skills on the challenges that arise in your career.
+
+Approaches to   embrace a growth mindset.
+-----------------------------------------------
+1) Acknowledge and embrace limitations in yourself and others.
+2) Even though most of us want to hide our weaknesses, everyone has them.
+And by taking stock of them, they can be addressed and overcome.
+3) Value the process over the end result.
+4)Growth comes at the end of your comfort zone.
+5) Be willing to be a little scared.
+6) Try some new approaches or take on new responsibilities when you start feeling nervous or anxious.
+7)  
+
+At the end of the day, strong personal bonds will support good decisions, reduce conflict and promote
+a healthy work environment.
+	
+We all experienced setbacks and career successes guided by how we deal with adversity and move forward.
+
+Most companies, even technical companies, now consider EQ as important, if not more important than IQ.
+Technical professionals typically have no problem in the IQ department.
+
+work harder and embrace challenges.
+
+Immerse yourself in the topic, learn as much as you can, and become the go to person in your organization.
+
+Devote the time and effort to develop true expertise.
+
+Sudoku and crossword puzzles, Sudoku promotes strategic thinking and problem solving.
+Crosswords require out of the box thinking, alternative solutions and riddle assessments.
+
+To some, listening is as easy as falling from a boat and getting wet.
+
+Truthfully, listening is a complicated skill, and it's muddled because of our internal biases.
+
+
+
+As technical professionals, we often think our work should speak for itself.
+Early in my career, all I worried about was getting my job done.
+I was unconcerned and perhaps more importantly, unaware that just being technically competent or accomplished wasn't enough.
+
+At some point, we all get called on to explain our work.
+Describe our thinking or process.
+Present our results are deliverables.
+Advocate for next steps.
+When that happens, technical professionals are often caught unprepared for those critical business
+discussions that impact how they're viewed and overall career growth.
+
+We communicate all day, every day, and our audiences will vary.
+Communicating effectively means tailoring your communications accordingly.
+Let's think about three audiences.
+First, the technical professionals within your team.
+Second, technical professionals outside of your team.
+And third, non-technical professionals.
+
+Each audience has a different level of understanding, interest, investment and need.
+Each audience also comes in with expectations and will often just listen for what's important to them.
+Just because a particular data point is interesting to you doesn't mean it'll be relevant to your audience.
+
+A piece of advice I often give to young professionals is you have two years and one mouth.
+Listen twice as much as you speak.
+
+Don't believe it when your colleagues and co-workers claim that they never experience stress.
+
+Henry Ford said "Improved productivity means less human sweat, not more."
+
+
+Too often, the idea of asking for help is seen as a sign of weakness.
+If I can't do this on my own, my boss may think I'm not capable,
+We're not a team player.
+
+Does this resonate for you and the story you tell yourself?
+In reality, proactively asking for help is a sign of strength, since it combines your self-awareness
+around your personal workload, consciousness of deadlines and interest in overall success.
+
+My very insightful daughter taught me, you have to name it, to tame it.
+
+The responsible person rolls up his or her sleeves and gets the work done.
+
+KPI:
+
+KPI stands for Key Performance Indicator. 
+In the context of a job, KPIs are measurable metrics that are used to evaluate an employee's performance and determine if they are meeting the expectations set by their employer.
+
+For example, if you work in a retail store, your KPIs might include the number of sales you make per day or the number of customers you assist. 
+These KPIs help your employer determine if you are doing a good job and meeting their expectations.
+
+KPIs are important because they give you a clear idea of what is expected of you and how your performance will be evaluated. By setting and achieving KPIs, 
+you can demonstrate your value to your employer or organization and show that you are capable of meeting their expectations.
+
+In simple terms, KPIs are like a scorecard that developers use to measure their performance and track their progress towards achieving specific goals or targets.
+
+Team Work:
+
+According to Steve Jobs, "Great things in business are never done by one person,
+they're done by a team of people."
+I agree with the sentiment completely.
+
+Feedback:
+
+Something happens when we hear a colleague, boss or team member say, "can I give you some feedback?"
+I suspect it's a common feeling our minds begin to scramble for what we did wrong or who we ticked off
+or some other personal transgression.
+
+Getting feedback is scary, but integral to growth and improvement.
+Getting past the scary part of proactively asking for feedback allows you to accelerate your growth,improve your performance and become more valuable within your organization.
+
+Tips:
+1) When in doubt, ask for clarification.
+It seems simple, but often we just listen and nod, even if something is not clear.
+
+2) Take in the information.
+Consider it, reflect on the message and then respond.
+
+3) The new role and responsibilities means you'll likely make some mistakes along the way.
+That's OK.
+
+
+team Meeting: 
+Equally as important end on time.
+So you don't impact someone else's meeting that may utilize the same room.
+
+It's a sign of respect to those who show up on time and those outside of your team. As you work through
+
+your agenda
+
+if new topics arise, that would push time limits, use a virtual parking lot and schedule a follow
+
+up meeting that also gives you a chance to think about who really needs to be in on that discussion.
+
+Pareto Priniciple (80/20 Rule): 
+-----------------------------------
+The Pareto principle, also known as the 80/20 rule, states that 80% of the effects come from 20% of the causes. 
+This means that a small percentage of inputs or activities often lead to a large percentage of the results or outputs.
+
+For example, in business, it is often observed that 80% of a company's profits come from just 20% of its customers.
+
+Another example could be that 80% of a person's happiness may come from just 20% of their activities or relationships.
+ The exact percentages may vary, but the principle holds that a small portion of inputs or activities often lead to a large portion of results or outcomes.
+
+The Pareto principle is often used as a tool for prioritizing tasks or resources, where focusing on the most important or impactful 20% can lead to significant improvements in overall results.
+
+data vs storytelling
+-------------------------
+Research shows that a story is twenty two times more likely to stick with your audience than the data alone.
+
+I know it may be disappointing.
+
+We live for the data and the numbers, but alas, the cognitive psychologists have proven us wrong.
+
+The left side of our brain is activated by facts data which helps identify patterns.
+
+The right side is associate of creativity and intuition, which allows us to see the big picture.
+
+A story bridges the two and stimulates a greater percentage of our brains, which promotes retention
+and recall of information and experiences.
+
+Career Progression
+--------------------
+There was a need for non-technical skills in navigating an organization.
+You could try and fight the system, but in the end, you'll need these skills to deliver your projects,
+manage your team and provide increased value to your organization.
+
+Those skills include networking, professional presence, critical thinking, and empathy.
+
+
+To explore
+---------------
+1) what is the mentor role? how to approach for online mentor.
+2) what is creativity, example, how to improve our creative skills.
+3) explore on RACI model, which is used for team meetings.
+4) what is critical thinking? how to improve it
+5) what is networking. tips? and why ?
+
+

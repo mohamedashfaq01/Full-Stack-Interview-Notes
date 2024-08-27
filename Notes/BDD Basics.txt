@@ -1,0 +1,102 @@
+If we take a look at the type of software applications prevailing in current market scenario, most of the software applications are written as web-based applications to be run in an internet browser.
+
+Automation testing tools can access the test data, controls the execution of tests and compares the actual result against the expected result. Consequently, generating detailed test reports of the system under test.
+
+Automation testing is the best way to increase the effectiveness, efficiency and coverage of your software testing.
+
+Automation Testing tools which are used for functional automation: (Quick Test Professional, provided by HP, Selenium, open source etc)
+Automation Testing tools which are used for non-functional automation:(Load Runner, provided by HP. JMeter, provided by Apache etc)
+
+Why Automation
+--------------
+1) Automated testing tools can be programmed to build and execute test scripts at a specific time without involving any human intervention.For instance, automated test can be automatically kicked off overnight, and the testers can analyse the results of the automated the next morning.
+
+2) It provides rapid feedback to developers.
+3) Less error prone as compared to manual testing.
+4) It provides disciplined documentation of test cases.
+5) Automated test generates customized defect reports.
+6) It saves time and money.
+7) Selenium supports automation across different browsers, platforms, and programming languages.
+
+Selenium
+--------------
+Selenium is one of the most widely used open source Web UI (User Interface) automation testing suite.	
+Selenium can be used to automate functional tests and can be integrated with automation test tools such as Maven, Jenkins, & Docker to achieve continuous testing. 
+
+What is BDD?
+-----------
+BDD (Behavioral Driven Development) is a software development approach that was developed from Test Driven Development (TDD).
+
+BDD is written in simple English language statements rather than a typical programming language, which improves the communication between technical and non-technical teams and stakeholders.
+
+
+Cucumber
+----------
+Cucumber is a software tool used by the testers to develop test cases for the testing of behavior of the software.
+
+Cucumber is a Behavior Driven Development tool used to develop test cases for the behavior of software's functionality. It plays a supporting role in automated testing.
+
+Cucumber tool supports BDD and it is as cool as "Cucumber". End-user experience is a priority
+
+
+If we run the feature file without stepdefs. then in console those stepddefs will be auto genearted and we can use that..
+
+CucumberOptions
+---------------------
+@CucumberOptions(
+		glue = "com.ford.test.stepdefs", 
+		monochrome = true, 
+		dryRun: true,
+		plugin = { "pretty", "html:target/results",		
+				   "json:target/results/Output.json", 
+				   "rerun:target/results/rerun.txt",
+				   "junit:target/results/junitrslt.txt" }, 
+		features = { "src/test/resources/Features" }, 
+		strict = true,
+		name = {"Logo"}
+		tags = "@HOME")
+		
+		glue: path where our stepdefs is kept.
+		features : path where our features is kept.
+		plugin: which type of report we want (junit, json, html).
+		dryRun: runs the features which doesn't have any stepdefs and we can copy and use it.
+		strict: it must contain the stepdefs, otherwise fails junit report.
+		monochrome: It shows the output in console with a clear format.
+		tags: which tags to execute.
+		name: if that keyword is mentioned then all that scenario will get execute.
+		
+ChroPath:  ChroPath extension can be used to get the xpath for an element.
+
+Global Hooks: In order to avoid redundunt code. we use global hooks (@Before and @After) will execute the code 
+before and after executing the each scenario.. (Like common steps)	.
+
+Data Table in Cucumber
+-------------------------
+Data tables are used when we need to test numerous input parameters of a web application. For example, the registration form of the new user involves several parameters to test, so for this, we can use the data table.
+
+Cucumber Parameters
+-------------------------
+When I Search for 'iphone 11' (use with quotes In step def, just use {string}..for string)
+Then I validate atleast 100 search item present (In step def, just use {int} in place of that number)
+
+
+Scenario Outline (Data Driven Testing)
+--------------------------------------
+To execute the same scenario with different data.
+
+Cucumber Tags.
+-----------------
+"@T1 and @T2" (runs scenario which has both this tag).
+"@T1 or T2 or T3" (runs scenario which has any of this tag).(if scenario has both t1 and t2) then only one time is executed.
+
+Page Factory/ Objects
+-----------------
+All the action stuffs should be kept in Page Factory. and it should not be there in the stepdefs.
+
+Page Object Model
+---------------------
+
+
+
+
+

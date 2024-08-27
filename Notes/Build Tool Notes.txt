@@ -1,0 +1,33 @@
+Build Tools.
+--------------
+A carpenter uses a lot of tools for his work to make his work faster, easier, efficient, organised and also 
+helps in maintenace.
+
+Build Tools: It is software application taht helps in build automation.
+
+Build Automation: 
+-----------------------
+The process of automating a wide variety of tasks that are required by software developers to build the application like:
+Compiling source code
+Packaging into binary code
+Manage required libraries (dependencies)
+Running automated tests
+Deployment
+Notifications/emails
+
+Some common Build Tools
+--------------------------
+Apache Ant
+Apache Maven
+Gradle
+Grunt
+Gulp
+
+What is Gradle
+--------------------
+Gradle is an open-source build automation tool 
+Gradle build scripts are written using a Groovy or Kotlin DSL
+
+Faster
+Powerful
+Customizable

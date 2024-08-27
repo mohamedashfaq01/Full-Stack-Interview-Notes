@@ -1,0 +1,296 @@
+Code Decode - https://www.youtube.com/watch?v=GqpQ3J40Op8
+
+What is a transaction?
+Transactions manage the changes that you perform in one or more systems. 
+These can be databases, message brokers, or any other kind of software system. 
+
+The main goal of a transaction is to provide ACID characteristics to ensure the consistency and validity of your data.
+
+In simple terms, a transaction is a series of operations that are treated as a single unit.
+ For example, when you transfer money from one bank account to another, 
+you want both the withdrawal and the deposit to succeed or fail together. 
+If something goes wrong, the transaction should be rolled back, and no changes should be made.4
+
+private method using  @transactional??
+------------------------------------------
+@Transactional on a private method will not have any effect because the proxy cannot apply transactional behavior.
+
+Key Points
+Proxy-Based AOP: Spring's transaction management relies on proxy-based AOP (Aspect-Oriented Programming).
+ It creates a proxy object around the class where @Transactional is applied. This proxy intercepts method calls to manage transactions.
+
+Private Methods and Proxies: Since private methods are not accessible from outside the class, 
+the Spring proxy cannot intercept them. Therefore, @Transactional on a private method will not have any effect because the proxy cannot apply transactional behavior.
+
+Best Practices
+Apply @Transactional to Public Methods: To ensure that transactions are managed correctly, 
+
+Service Layer: Typically, @Transactional is used in service layer methods that interact
+ with the repository layer. This is where transactional boundaries are most needed.
+
+What is ACID transaction?
+----------------------------
+ACID is an acronym that stands for atomicity, consistency, isolation, and durability:
+
+Atomicity describes an all or nothing principle. Either all operations performed within the transaction get executed or none of them. 
+That means if you commit the transaction successfully, you can be sure that all operations got performed.
+ It also enables you to abort a transaction and roll back all operations if an error occurs.
+ 
+The consistency characteristic ensures that your transaction takes a system from one consistent state to another consistent state. 
+That means that either all operations were rolled back and the data was set back to the state you started with or the changed data passed all consistency checks.
+ In a relational database, that means that the modified data needs to pass all constraint checks, like foreign key or unique constraints, defined in your database.
+
+Isolation means that changes that you perform within a transaction are not visible to any other transactions until you commit them successfully
+
+Durability ensures that your committed changes get persisted.
+
+How to implement transaction in spring /  Hibernate
+When you integrate Your hibernate with a spring boot project then you don’t need to use Hibernate Transaction Management, 
+as you can leave it to the Spring declarative transaction management using @Transactional annotation.
+
+Using @Transactional annotation.
+
+What Is @Transactional?
+We can use @Transactional to wrap a method in a database transaction.
+
+It allows us to set propagation, isolation, timeout, read-only, and rollback conditions for our transaction.
+
+Uses of @Modifying in Spring Data JPA:
+------------------------------------------------
+By default, Spring Data JPA repository methods are expected to be SELECT queries. 
+The @Modifying annotation is necessary to signal to the framework that the method will execute an update or delete operation.
+
+Transactional Context: Modifying queries should be executed within a transaction, which is why @Transactional is often used alongside @Modifying.
+
+public interface UserRepository extends CrudRepository<User, Long> {
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.status = :status WHERE u.id = :id")
+    int updateUserStatus(Long id, String status);
+	
+	@Modifying
+    @Transactional
+    @Query("DELETE FROM User u WHERE u.status = :status")
+    int deleteUsersByStatus(String status);
+}
+
+@Modifying: This annotation tells Spring Data JPA that the annotated method is not a SELECT query but rather an UPDATE, DELETE, or INSERT operation.
+@Transactional: This annotation ensures that the method runs within a transactional context. 
+If anything goes wrong during the operation, the transaction can be rolled back to maintain data integrity.
+
+How @Transactional works internally ?
+---------------------------------------------
+Spring creates a proxy, or manipulates the class byte-code, to manage the creation, commit, and rollback of the transaction. 
+
+ If we have a method like callMethod and we mark it as @Transactional, 
+ Spring will wrap some transaction management code around the invocation @Transactional method called:
+
+the Spring @Transactional annotation uses the proxy pattern to manage transactions. 
+This means that when you apply the @Transactional annotation to a method or class, Spring creates a proxy for that bean to handle the transaction management.
+ The proxy intercepts method calls and wraps them with transaction logic, ensuring that transactions are started, committed, or rolled back appropriately.
+
+createTransactionIfNecessary();
+try {
+    addEmployee();
+    commitTransactionAfterReturning();
+} catch (exception) {
+    rollbackTransactionAfterThrowing();
+    throw exception;
+}
+
+
+How to use @Transational
+You can use this annotation on following in the lowest to highest priority order : 
+interface, 
+superclass, 
+class, 
+interface method, 
+superclass method, and 
+method.
+
+The EmployeeService class is annotated at the class level with the settings for a read-only transaction, 
+but the @Transactional annotation on the addEmployee() method in the same class takes precedence over the transactional settings defined at the class level.
+
+Usually it's not recommended to set @Transactional on the interface; however, 
+it is acceptable for cases like @Repository with Spring Data.
+ We can put the annotation on a class definition to override the transaction setting of the interface/superclass:
+
+
+
+
+Transaction Propagation
+-----------------------------
+Propagation defines our business logic's transaction boundary. Spring manages to start and pause a transaction according to our propagation setting.
+
+Transaction propagation refers to how transactions are managed across different methods or services.'
+ It defines the behavior of a transactional method when it is called by another transactional method.
+
+Transaction Propagation Levels
+Spring provides several propagation levels with the @Transactional annotation:
+
+REQUIRED: (It is default propagation level).
+   If there's an existing transaction, the current method joins it. If not, a new transaction is started. 
+   Method needs a Transaction. either open one for me or use an existing one.
+   Spring checks if there is an active transaction. and if nothing exist, it creates a new one.
+   Otherwise the business logic appends to the currently active transaction.
+   If exception occurs, both transaction parent and child will be rolled back as they both use same physical transaction.
+		
+
+REQUIRES_NEW: Always starts a new transaction. If there's an existing transaction, it is suspended.
+SUPPORTS: If there's an existing transaction, the method joins it. If not, it runs without a transaction.
+NOT_SUPPORTED: The method runs without a transaction, suspending any existing transaction.
+
+MANDATORY: Requires an existing transaction. Throws an exception if there isn't one.
+			Like @Transactional should be there in Employee and Address service should have  "@Transactional (propagation = Propagation.MANDATORY)"
+
+NEVER: The method should not run within a transaction. Throws an exception if there is an active transaction.
+		I'm going to throw an exception if someone else have started up a transaction 
+		Like @Transactional should NOT be there in Employee and Address service should have  "@Transactional (propagation = Propagation.NEVER)"
+
+NESTED: If there's an existing transaction, it creates a nested transaction that can be independently committed or rolled back.
+		NESTED acts like REQUIRED, only it uses savepoints between nested invocations.
+
+	For NESTED propagation, Spring checks if a transaction exists, and if so, it marks a save point.
+	 This means that if our business logic execution throws an exception, then the transaction rollbacks to this save point. 
+	If there's no active transaction, it works like REQUIRED.
+       
+
+
+Employee Service 
+---------------------
+@Transactional
+public Employee addEmployee(Employee emp) {
+
+ Employee saveEmp = crudRepo.save(emp);
+ 
+  Address addr = new Address();
+  addr.setId(22);
+  addr.setName("Khaderpet")
+  addr.setEmployee(employee);
+  addressService.addAddress(addr);
+  return savedEmployee;  
+}
+
+Address Service 
+---------------------
+
+class AddressService {
+  @Transactional (propagation = Propagation.REQUIRES_NEW)  (address will be saved independently)
+  public void  addAddress(Address addr) {
+    addrRepo.save(address)
+  }
+}
+
+(propagation = Propagation.NESTED) -> Employee will be saved, but address stuffs can be rolled back indepedently. It has savePoints.
+
+
+
+
+Transaction Isolation Levels
+----------------------------------
+Transaction Isolation Levels define how data accessed during a transaction is isolated from other concurrent transactions. 
+They help manage the visibility of data changes made by one transaction to other transactions. 
+
+4 Isolation Levels
+READ_UNCOMMITTED
+READ_COMMITTED
+REPEATABLE_READ
+SERIALIZABLE
+
+
+
+Transaction Management in Microservices?
+----------------------------------------------
+Transaction management in microservices handles operations across multiple services, each with its own database or state.
+ 
+Traditional database transactions, which rely on atomicity and rollback within a single system, are challenging in distributed environments. 
+Instead, patterns like SAGA and compensating transactions are used. 
+
+**SAGA** involves a sequence of local transactions with compensations for failures, ensuring overall consistency.
+ **Compensating transactions** undo the effects of a failed transaction to maintain data integrity. 
+These methods enable coordination and consistency across distributed services while accommodating failures and ensuring reliable system behavior.
+
+
+
+SAGA Design Pattern
+------------------------ 
+
+Order service 
+Payment service
+Delivery Service (exception occured in this microservice) how to rollback.
+
+This(Below)  is the classic example where your application completely failed to manage distributed transaction.
+Distributed Transaction: A transaction which spans across multiple services. To handle that problem we use SAGA design pattern.
+
+How It Works:
+
+Execute Local Transaction: Each microservice performs its local transaction.
+Compensate on Failure: If a failure occurs, compensating transactions undo the effects of previous steps.
+
+For a distributed transaction across multiple microservices or databases, you might use the Saga pattern:
+
+Step 1: Execute a transaction in each service/database.
+Step 2: If any transaction fails, execute compensating transactions to roll back the changes made by previous steps.
+Step 3: Ensure that all services eventually reach a consistent state, either through successful completion or compensating actions.
+
+Why compensating transaction is used instead of rollback
+------------------------------------------------------------
+Distributed Systems Challenge
+Problem: In a distributed system, a transaction might involve multiple microservices or databases.
+ A traditional rollback, which works well in single-database transactions, is challenging to implement across multiple services or databases because each service
+ may have its own transaction management system.
+ 
+Solution: Instead of rolling back all actions, which might be impractical or impossible, 
+compensating transactions are used to correct the effects of the initial transaction.
+
+Definition: A compensating transaction is an operation that reverses or mitigates the effect of a previously executed transaction.
+ It is designed to bring the system back to a consistent state after a failure.
+
+Example: Consider a payment service and an order service. If a transaction to place an order and deduct payment fails, 
+the compensating transaction might be to refund the payment or cancel the order.
+Example Scenario:
+
+Place Order Process:
+Service 1: Create an order.
+Service 2: Process payment.
+Failure: Payment fails after the order was created.
+Compensating Transaction: The compensating transaction might be to cancel the created order or issue a refund if the payment was partially processed.
+
+SAGA: sequence of local transaction.
+
+Ways to Implement SAGA?
+There are two type of saga implementation ways
+choreography (all microservices will be communicated to a centralized  message broker and triggers the next events)
+orchestration (all microservices will be communocated to a centralized  controller tells the saga participants what local transactions to execute.)
+
+Why SAGA ??
+We know that Design pattern gives solutions to common problems faced by us “THE DEVELOPERS”. So What problem is solved by this SAGA design pattern ?
+
+The problem started as soon as we moved from Monolithic application to Microservice Architecture. 
+
+We will take example of Swiggy , zomato.
+You 
+Choose your dishes,
+Add them to Cart and checkout
+Make Payment 
+Order gets Delivered
+Our order is marked as completed after delivery is successful.
+
+In monolithic it’s not a problem as we have 1 database , multiple Tables like Orders, Payments, Delivery Etc. 
+Now in 1 Single Atomic transaction we can do all these steps and if payment fails, everything gets rolled back.
+
+
+Now we moved to microservices architecture and Segregated the whole zomato or swiggy application to
+Order service 
+Payment service
+Delivery Service
+
+Now your order service accepts your order, Payment service validates the payment done and Delivery service is responsible for delivery of your order to your home.
+ When delivered successfully the orders is marked completed in the application. This is happy case.
+
+ Ever thought about the worst case Delivery is failed as no delivery partner was available. Your payment was done, Money got deducted and now No food.
+ At Least we need to get the money back and Order must be marked as cancelled. 
+
+For this to happen we need a Transaction rollback . Transaction did get rolled back but only the scope of transaction was in Delivery service. 
+The boundary for this transaction ended in Delivery service.

@@ -1,0 +1,124 @@
+
+Babel:
+-----------
+ 
+ Babel is a popular JavaScript compiler or transpiler. It allows developers to write code using the latest JavaScript syntax and features (which are often referred to as ES6 or ES2015 and newer versions) while ensuring that this code can run on older web browsers that only understand older JavaScript syntax (commonly referred to as ES5).
+
+Here's how Babel works:
+
+You write your code using modern JavaScript syntax. For example, you might use features like arrow functions, template literals, or the let and const keywords.
+Babel takes your modern JavaScript code and transforms it into equivalent code using older syntax that older browsers can understand.
+The transformed code is what gets delivered to the user's browser, ensuring compatibility with a wide range of browser versions.
+In summary, Babel helps you write modern JavaScript code without worrying about whether it will work on older browsers.
+
+In the context of JavaScript, Babel is an example of a transpiler because it takes modern JavaScript code and transpiles it into older JavaScript code.
+
+Webpack
+--------
+Webpack is a tool used in web development to bundle, manage, and optimize your project's files, including JavaScript, CSS, and other assets. 
+Think of it as a packaging and optimization tool for your web application.
+
+In simple terms, Webpack is like a packaging and optimization tool for your web project. 
+It helps you organize and prepare your code and assets so that your website loads quickly and efficiently, making for a better user experience. 
+It's especially valuable for larger web applications where managing many files and dependencies can become complex.
+
+benefits:
+It bundles modules into one js file.
+
+
+
+Typescript
+----------------
+TypeScript is JavaScript with added syntax for types.
+
+JavaScript is a loosely typed language. It can be difficult to understand what types of data are being passed around in JavaScript
+For example, TypeScript will report an error when passing a string into a function that expects a number. JavaScript will not.
+
+TypeScript uses compile time type checking. Which means it checks if the specified types match before running the code, not while running the code.
+
+Type Assignment
+-----------
+When creating a variable, there are two main ways TypeScript assigns a type:
+
+1) Explicit
+let firstName: string = "Dylan";
+Explicit type assignment are easier to read and more intentional.
+
+2) Implicit
+let firstName = "Dylan";
+Implicit - TypeScript will "guess" the type, based on the assigned value:
+Note: Having TypeScript "guess" the type of a value is called infer.
+
+Special Types:
+1) Type: any
+any can be a useful way to get past errors since it disables type checking, but TypeScript will not be able provide type safety, 
+and tools which rely on type data, such as auto completion, will not work. Remember, it should be avoided at "any" cost...
+
+2) Type:unknown
+If we are not sure about its type and you want to play safe then use unknown and use (typeOf unknownVariable == 'string')
+
+Type Inference
+TypeScript can infer the type of an array if it has values.
+
+const numbers = [1, 2, 3]; // inferred to type number[]
+numbers.push(4); // no error
+// comment line below out to see the successful assignment
+numbers.push("2"); // Error: Argument of type 'string' is not assignable to parameter of type 'number'.
+let head: number = numbers[0]; // no error
+
+type alias:
+
+type Point = {x: number, y:number};
+let center: Point = {x: 0, y:0 };
+
+TypeScript Tuples:
+--------------------
+A tuple is a typed array with a pre-defined length and types for each index.
+
+// define our tuple
+let ourTuple: [number, boolean, string];
+
+// initialize correctly
+ourTuple = [5, false, 'Coding God was here'];
+
+useState returns a tuple of the value and a setter function.
+
+TypeScript Enums
+---------------------
+An enum is a special "class" that represents a group of constants (unchangeable variables).
+
+Enums come in two flavors string and numeric. Lets start with numeric.
+
+enum StatusCodes {
+  NotFound = 404,
+  Success = 200,
+  Accepted = 202,
+  BadRequest = 400
+}
+// logs 404
+console.log(StatusCodes.NotFound);
+// logs 200
+console.log(StatusCodes.Success);
+
+Union Type
+--------------
+Union types are used when a value can be more than a single type.
+Such as when a property would be string or number.
+
+function printStatusCode(code: string | number) {
+  console.log(`My status code is ${code}.`)
+}
+
+Optional Parameters
+By default TypeScript will assume all parameters are required, but they can be explicitly marked as optional.
+// the `?` operator here marks parameter `c` as optional
+function add(a: number, b: number, c?: number) {
+  return a + b + (c || 0);
+}
+
+
+Optional Chaining ( It can be used with the ?. operator when accessing properties.)
+
+non-null assertion operator (!.
+
+

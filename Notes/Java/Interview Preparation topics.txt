@@ -1,0 +1,86 @@
+Java Interview: Top 25 Must-Know Questions.
+
+Java Basics:
+What are the key features that distinguish Java in the programming world?
+
+Object-Oriented Programming:
+How does Java support object-oriented principles, and why is it essential?
+
+Java Memory Management:
+Explain the Java memory model and garbage collection mechanisms.
+
+Java Collections Framework:
+Differentiate between ArrayList and LinkedList, and when would you use one over the other?
+
+Multithreading in Java:
+What is multithreading, and how does it differ from multitasking? Explain the 
+Runnable interface.
+
+Exception Handling:
+Discuss the importance of exception handling in Java and demonstrate the use of try/catch blocks.
+
+Java Streams API:
+Explain the purpose of the Java Streams API and provide examples of its usage.
+
+Lambda Expressions:
+What are lambda expressions, and how do they enhance code conciseness in Java?
+
+Java 8 Features:
+Highlight key features introduced in Java 8, such as default methods and the Stream API.
+
+Concurrency in Java:
+How does Java manage concurrent access to shared resources, and what is the significance of synchronized methods?
+
+Design Patterns:
+Discuss the Singleton design pattern and its implementation in Java.
+
+Serialization and Deserialization:
+Explain the concepts of serialization and deserialization in Java.
+
+Dependency Injection:
+What is dependency injection, and how is it implemented in Java?
+
+Hibernate Framework:
+Describe the purpose of Hibernate in Java, and how does it simplify database operations?
+
+Spring Framework:
+What is the Spring framework, and how does it facilitate the development of Java applications?
+
+RESTful Web Services:
+Explain the principles of RESTful web services and their implementation in Java.
+
+Java Generics:
+What are generics in Java, and how do they enhance type safety?
+
+JDBC (Java Database Connectivity):
+How does JDBC facilitate database connectivity in Java applications?
+
+Java Design Principles:
+Discuss SOLID principles in Java and their significance in software design.
+
+JUnit Testing:
+How does JUnit support testing in Java, and what are its key features?
+
+Java Servlets:
+Explain Java servlets and their role in web applications.
+
+Maven Build Tool:
+What is Maven, and how does it simplify the build process in Java projects?
+
+Java Garbage Collection:
+Describe the different types of garbage collection in Java.
+
+Java Reflection API:
+Explain the purpose of the Reflection API in Java and provide use cases.
+
+
+Ramdom
+---------------
+Why to Override equals(Object) and hashCode() method ?
+Java memory management (especisally heap area structire)
+How to handle CORS in RESTful web services.
+what is the use of RabbitMQ and Kafka.
+Git MERGE vs REBASE vs Git SQUASH 
+	
+	
+	

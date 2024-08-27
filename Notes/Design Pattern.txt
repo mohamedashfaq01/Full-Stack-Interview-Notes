@@ -1,0 +1,507 @@
+Java Design Patterns
+----------------------------
+1)  Why do we need Design pattern?
+
+Design patterns are solutions to general problems that software developers faced during software development. 
+These solutions were obtained by trial and error by numerous software developers over quite a substantial period of time.
+
+Design patterns are meant for common problem-solving. Whenever there is a need, you have to implement a suitable pattern to avoid such problems in the future.
+
+Patterns give a software developer an array of tried and tested solutions to common problems, thus reducing the technical risk to the
+ project by not having to employ a new and untested design, thus saving time and effort during the implementation stage of the software development lifecycle.
+
+Solution to the specific known problem like if we want to use single object throughout the application, we can use singleton.
+
+
+2)  Types of Design Patterns?
+
+Design patterns are divided into three fundamental groups:
+
+Behavioral,
+Creational, and
+Structural
+J2EE (MVC Pattern, Front Controller pattern, DAO Pattern)
+
+3) What are the Creational Patterns?
+Creational design patterns are related to the way of creating objects. 
+This pattern is used to define and describe how objects are created at class instantiation time.
+Basically divided into 5 types.
+	1) factory Method
+	2) Abstract Factory
+	3) Builder
+	4) Prototype
+	5) Singleton
+
+4) What Is Factory Pattern?
+In the Factory pattern, we don't expose the creation logic to the client and refer the created object using a standard interface.
+The Factory Pattern is also known as Virtual Constructor.
+
+In other words, subclasses are responsible to create the instance of the class.
+
+It is the most used design pattern in Java.
+
+Steps:
+1) create main class which call factory class.
+2) Factory class returns required class instance 
+
+5) What Is Abstract Factory Pattern?
+This factory is also called as factory of factories. 
+Abstract Factory lets a class returns a factory of classes. 
+So, this is the reason that Abstract Factory Pattern is one level higher than the Factory Pattern.
+
+An Abstract Factory Pattern is also known as Kit.
+
+Steps:
+	1) create main class which call factory of factory class.
+	2) Factory of factory / factory Producer creates instance of factory class.
+	3) Factory class returns required class instance 
+
+6)  What Is Builder Design Pattern?
+Builder Pattern refers to approach that focuses on constructing a complex object from simple objects using step-by-step approach.	
+
+Analogy: Like building a custom sandwich by choosing each ingredient step by step.
+
+Builder Pattern
+---------------
+public class House {
+    private int rooms;
+    private boolean garage;
+    private boolean swimmingPool;
+    private boolean garden;
+
+    private House(HouseBuilder builder) {
+        this.rooms = builder.rooms;
+        this.garage = builder.garage;
+        this.swimmingPool = builder.swimmingPool;
+        this.garden = builder.garden;
+    }
+
+    @Override
+    public String toString() {
+        return "House [rooms=" + rooms + ", garage=" + garage + ", swimmingPool=" + swimmingPool + ", garden=" + garden + "]";
+    }
+
+    // The Builder Class
+    public static class HouseBuilder {
+        private int rooms;
+        private boolean garage;
+        private boolean swimmingPool;
+        private boolean garden;
+
+        public HouseBuilder(int rooms) {
+            this.rooms = rooms;
+        }
+
+        public HouseBuilder withGarage(boolean garage) {
+            this.garage = garage;
+            return this;
+        }
+
+        public HouseBuilder withSwimmingPool(boolean swimmingPool) {
+            this.swimmingPool = swimmingPool;
+            return this;
+        }
+
+        public HouseBuilder withGarden(boolean garden) {
+            this.garden = garden;
+            return this;
+        }
+
+        public House build() {
+            return new House(this);
+        }
+    }
+}
+
+Using the Builder to Create a House: Now, we can use the builder to create a House object step by step
+
+public class HouseBuilderDemo {
+    public static void main(String[] args) {
+        House house = new House.HouseBuilder(4) // Start with 4 rooms
+                .withGarage(true) // Add a garage
+                .withSwimmingPool(false) // No swimming pool
+                .withGarden(true) // Add a garden
+                .build(); // Build the house
+
+        System.out.println(house); // Output: House [rooms=4, garage=true, swimmingPool=false, garden=true]
+    }
+}
+
+
+factory pattern
+-------------------
+Factory Design Pattern: A pattern that provides a way to create objects while hiding the creation logic,
+ typically through a method that returns objects of a common interface or superclass.
+ 
+Purpose: The Factory Design Pattern is a way to create objects without specifying the exact class of object that will be created. 
+It provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created. 
+
+public interface Pizza {
+    void prepare();
+    void bake();
+    void cut();
+}
+
+public class CheesePizza implements Pizza {
+    public void prepare() {
+        System.out.println("Preparing Cheese Pizza...");
+    }
+    public void bake() {
+        System.out.println("Baking Cheese Pizza...");
+    }
+    public void cut() {
+        System.out.println("Cutting Cheese Pizza...");
+    }
+}
+
+public class PepperoniPizza implements Pizza {
+    public void prepare() {
+        System.out.println("Preparing Pepperoni Pizza...");
+    }
+    public void bake() {
+        System.out.println("Baking Pepperoni Pizza...");
+    }
+    public void cut() {
+        System.out.println("Cutting Pepperoni Pizza...");
+    }
+}
+
+public class VeggiePizza implements Pizza {
+    public void prepare() {
+        System.out.println("Preparing Veggie Pizza...");
+    }
+    public void bake() {
+        System.out.println("Baking Veggie Pizza...");
+    }
+    public void cut() {
+        System.out.println("Cutting Veggie Pizza...");
+    }
+}
+
+Create the Pizza Factory: The factory will decide which type of pizza to create based on an input parameter.
+
+public class PizzaFactory {
+    public Pizza createPizza(String type) {
+        if (type.equals("cheese")) {
+            return new CheesePizza();
+        } else if (type.equals("pepperoni")) {
+            return new PepperoniPizza();
+        } else if (type.equals("veggie")) {
+            return new VeggiePizza();
+        } else {
+            return null;
+        }
+    }
+}
+
+Using the Factory to Create Pizzas: Now, we can use the factory to create pizzas without worrying about the details of their creation.
+
+public class PizzaShop {
+    public static void main(String[] args) {
+        PizzaFactory factory = new PizzaFactory();
+
+        Pizza cheesePizza = factory.createPizza("cheese");
+        cheesePizza.prepare();
+        cheesePizza.bake();
+        cheesePizza.cut();
+
+        Pizza pepperoniPizza = factory.createPizza("pepperoni");
+        pepperoniPizza.prepare();
+        pepperoniPizza.bake();
+        pepperoniPizza.cut();
+
+        Pizza veggiePizza = factory.createPizza("veggie");
+        veggiePizza.prepare();
+        veggiePizza.bake();
+        veggiePizza.cut();
+    }
+}
+
+
+
+Singleton
+--------------------------
+	
+6) What Is Singleton Design Pattern?
+Singleton pattern is one of the simplest design patterns in Java. 
+This pattern involves a single class which is responsible to create an object while making sure that only single object gets created. 
+This class provides a way to access its only object which can be accessed directly without need to instantiate the object of the class. 
+
+Java.lang.Runtime classes uses singleton pattern in JDK.
+
+
+There are two forms of singleton design pattern
+
+7) what is Early and Lazy Instantiation?
+
+Early Instantiation: creation of instance at load time.
+Lazy Instantiation: creation of instance when required.
+
+early Instantiation of Singleton Pattern: (Exception Handling is not possible here)
+----------------------------------------------------------------------------------------
+	public class GFG
+	{
+	  // public instance initialized when loading the class
+	  private static final GFG instance = new GFG();
+	 
+	  private GFG()
+	  {
+		// private constructor
+	  }
+	  public static GFG getInstance(){
+			return instance;
+		}
+	}
+Pros:
+	Very simple to implement.
+	May lead to resource wastage. Because instance of class is created always, whether it is required or not.
+	CPU time is also wasted in creation of instance if it is not required.
+	Exception handling is not possible.
+
+early Instantiation of Singleton Pattern Using Static Block: (Exception Handling is possible here)
+-------------------------------------------------------------------------------------------------------
+	public class GFG
+	{
+	  // public instance
+	  public static GFG instance;
+	 
+	  private GFG()
+	  {
+		// private constructor
+	  }
+	static
+	  {	
+	  try{
+           instance = new GFG();
+        }catch(Exception e){
+            throw new RuntimeException("Exception occured in creating singleton instance");
+        }
+	  }
+	}
+	
+Pros:
+	Very simple to implement.
+	No need to implement getInstance() method. Instance can be accessed directly.
+	Exceptions can be handled in static block.
+	May lead to resource wastage. Because instance of class is created always, whether it is required or not.
+	CPU time is also wasted in creation of instance if it is not required.
+	
+3) 	Lazy initialization: 
+	------------------------------
+	public class GFG
+	{
+	  // private instance, so that it can be
+	  // accessed by only by getInstance() method
+	  private static GFG instance;
+	 
+	  private GFG()
+	  {
+		// private constructor
+	  }
+	 
+	  //method to return instance of class
+	  public static GFG getInstance()
+	  {
+		if (instance == null)
+		{
+		  // if instance is null, initialize
+		  instance = new GFG();
+		}
+		return instance;
+	  }
+	}
+
+Pros:
+	Object is created only if it is needed. It may overcome resource overcome and wastage of CPU time.
+	Exception handling is also possible in method.
+	Every time a condition of null has to be checked.
+	instance can’t be accessed directly.
+	In multithreaded environment, it may break singleton property.
+	
+4) Thread Safe Singleton
+------------------------------	
+A thread safe singleton is created so that singleton property is maintained even in multithreaded environment.
+ To make a singleton class thread-safe, getInstance() method is made synchronized so that multiple threads can’t access it simultaneously.
+
+public class GFG
+{
+  // private instance, so that it can be
+  // accessed by only by getInstance() method
+  private static GFG instance;
+ 
+  private GFG()
+  {
+    // private constructor
+  }
+ 
+ //synchronized method to control simultaneous access
+  synchronized public static GFG getInstance()
+  {
+    if (instance == null)
+    {
+      // if instance is null, initialize
+      instance = new GFG();
+    }
+    return instance;
+  }
+}
+
+Pros:
+	Lazy initialization is possible.
+	It is also thread safe.
+	getInstance() method is synchronized so it causes slow performance as multiple threads can’t access it simultaneously.
+	
+
+Ways To Break Singleton Design Pattern
+-------------------------------------------
+1) Using Cloneable
+2) using Serialization
+3) Using Reflection
+
+*How do you solve rule breakers?
+
+It is much safer to do eager initialization
+
+To prevent deserializing to create new object you may override readResolve() method in your class and throw exception
+To prevent cloning, you may overrride clone() and throw CloneNotSupported exception
+To escape for reflective instantion, we can add check in the constructor and throw exception.
+
+public class Singleton {
+
+    private static final Singleton INSTANCE = new Singleton();
+
+    private Singleton() {
+        // Check if we already have an instance
+        if (INSTANCE != null) {
+           throw new IllegalStateException("Singleton" +
+             " instance already created.");
+        }
+    }
+    public static final Singleton getInstance() {
+        return INSTANCE;
+    }
+    private Object readResolve() throws ObjectStreamException         {
+            return INSTANCE;
+    }
+    private Object writeReplace() throws ObjectStreamException {
+            return INSTANCE;
+    }
+    public Object clone() throws CloneNotSupportedException {
+        // return INSTANCE
+        throw new CloneNotSupportedException();
+    }
+}
+
+
+1) Using Reflection (Reflection is an API which is used to examine or modify the behavior of methods, classes, interfaces at runtime)
+ Singleton instance1 = Singleton.instance;
+        Singleton instance2 = null;
+        try
+        {
+            Constructor[] constructors =
+                    Singleton.class.getDeclaredConstructors();
+            for (Constructor constructor : constructors)
+            {
+                // Below code will destroy the singleton pattern
+                constructor.setAccessible(true);
+                instance2 = (Singleton) constructor.newInstance();
+                break;
+            }
+        }
+		
+Resolve: To overcome issue raised by reflection, enums are used because java ensures internally that enum value is instantiated only once. 	
+
+Enum singleton pattern - using class object
+--------------------------------------------------
+Enum Singleton Pattern
+Advantages:
+
+Thread-Safety: The enum type ensures that the singleton instance is thread-safe and is created only once.
+Serialization: Enums handle serialization correctly by default, preventing multiple instances.
+Simplicity: The code is concise and avoids complex synchronization or reflection issues.
+
+As enums don’t have any constructor so it is not possible for Reflection to utilize it. Enums have their by-default constructor, 
+we can’t invoke them by ourself. JVM handles the creation and invocation of enum constructors internally.
+
+public enum Singleton
+{
+  INSTANCE;
+}
+		
+public enum Singleton {
+
+    // Single instance of the enum
+    INSTANCE;
+
+    // Example method
+    public void showMessage() {
+        System.out.println("Hello from Singleton!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Access the singleton instance
+        Singleton singleton = Singleton.INSTANCE;
+        
+        // Call a method on the singleton
+        singleton.showMessage();
+    }
+}
+
+
+Significance of Serialization in Singleton Pattern
+-------------------------------------------------------
+If singleton class is Serializable, you can serialize the singleton instance. Once it is serialized, you can deserialize it but it will not return
+ the singleton object.
+
+To resolve this issue, you need to override the readResolve() method that enforces the singleton. It is called just after the object is deserialized.
+ It returns the singleton object.	
+	
+	
+Builder Design Pattern 
+-------------------------
+https://stacktraceguru.com/builder-pattern/ (Must Watch)
+
+Builder design pattern in Java is a creational pattern i.e. used to create objects, 
+similar to factory method design pattern which is also a creational design pattern
+
+Builder design pattern is one of the most important and simple design pattern in java.
+
+We use it in real life also. For instance, consider assembling a car or making a burger.
+
+Builder pattern can be defined as, a design pattern that separates the construction of a complex object from its representation.	
+	
+What to solve?
+
+The Builder design pattern solves problems like:
+
+How can a class (the same construction process) create different representations of a complex object? 
+How can a class that includes creating a complex object be simplified? 
+
+Let's say we have a class with parameterized constructor with some parameters. If we want to create an object of this class,
+ we need to pass all the parameters of the constructor. 
+If we need to create object with different set of parameters we can not do with same constructor.	
+
+How does Builder pattern work?
+Let us divide the code in 3 parts to understand how this pattern works. Then we will see the significance of each part. 
+
+Product : This part of the code is the actual object that we are trying to build. For example, in our case it would be 'the burger'. 
+Builder : It will contain the general methods needed to build the product.
+Executor : This is the important part which actually calls the builder methods to create the 'Product'. 
+This in our case would be the 'Employee' who prepares the burger for us. He/She will invoke appropriate method from the 'BurgerBuilder'.
+
+What problem Builder pattern solves in Java?
+----------------------------------------------
+As I said earlier Builder pattern is a creational design pattern it means its solves problem related to object creation. Constructors in Java are used 
+to create objects and can take the parameters required to create objects. The problem starts when an Object can be created with lot of parameters,
+ some of them may be mandatory and others may be optional. 
+
+Consider a class that is used to create Cake, now you need a number of items like egg, milk, flour to create cake.
+ many of them are mandatory and some  of them are optional like cherry, fruits etc. 
+ If we are going to have overloaded constructor for a different kind of cake then there will be many constructors and even worst they will accept many parameters.
+
+Read more: https://javarevisited.blogspot.com/2012/06/builder-design-pattern-in-java-example.html#ixzz7OH3cUdKm
+
+When to use Builder Design pattern in Java
+Builder Design pattern is a creational pattern and should be used when a number of parameters required in the constructor is more than manageable usually 4 or at most 5. 

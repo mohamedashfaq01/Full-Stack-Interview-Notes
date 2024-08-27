@@ -1,0 +1,86 @@
+Interview Questions
+---------------------
+1) What is lazy initialization in hibernate.
+2) what is differnce between hashtable and hashmap
+3) how java garbage collection works? (Mark-in and sweep)
+4) heap Memory structure.
+5) what is weakhashmap
+6) what are functional interface?
+7) If synchronized map is there why concurrent hash map was introduced.
+8) Why string is immutable in java?
+9) Can u override private or static method in java
+10) differnce between predicate and function.
+11) Can you explain Why optional class instead we can check for null using == ? 
+12) What is metaspace ? ow does it differ from permgen space
+13) what is Hibernate Criteria?
+14) Types of cascade supported by JPA?
+15) Explain Collection Hierarchy?
+16) what kind of tree is used in treeset and treemap?
+17) Difference between fail-fast and fail-safe Iterators?
+18) Diffrence between Synchronized collection and Concurrent Collection?
+19) Auth guard, appp interceptor
+20) what is spring.profiles.active?
+21) Difference between jar and war?
+22) How to use application.yml instead of application.properties ?
+23) Load Balancing ?
+24) what is JWT?
+25) Why We Use Static Class in Java?
+26) Can we use object as a key in hashmap in Java?
+27) concurrentHashMap vs HashTable
+28) Enum and its uses.
+29) what is @Autowired & @Qualifer?
+30) what is the difference between truncate and delete
+31) what is stored procedure?
+32) what is eureka server? its uses?
+33) what is rest template? more about it.
+34) Difference between getOne and findById in Spring Data JPA?
+35) Does each microservice really need its own database?
+36) Memory Management in java?
+
+
+
+
+switchMap, mergeMap.
+what is special about functional interface,
+why we should use interface and class combination like Map<Integer> map = new HashMap();
+how to craete custom exceotion
+If i create custoim unchecked exception shoild i have to give Throws (and isndie it used throw keyword)
+Types of queries (@Query, @NativeQuery)
+what is Criteria Query.(Update and delete is not possible)
+properties vs yml files.
+Difference between ngOnchanges and ngDoCheck
+
+
+
+Diff between maven and gridle.
+How to exclude dependecy. like tomcat
+assertThrows
+wht we should use Observables instead od Promised for API calls in angular?
+what is SPA?
+angular router.
+what is WebFlux.
+Why we really use Factory design pattern/.
+Can we use Okta and Spring security together? why?
+Java 8 Program to find duplocate with count in a single stream function.
+Java 8 Program to shift all 0's or 1's to end.
+
+
+Coding
+--------------
+1) Program to convert a given number to words
+https://www.geeksforgeeks.org/convert-number-to-words/
+https://stackoverflow.com/questions/3911966/how-to-convert-number-to-words-in-java
+2) How to use replace,replaceAll, split with different regExp?
+3) Stack and queue usage interview coding question samples.
+4) https://www.geeksforgeeks.org/java-tricks-competitive-programming-java-8/
+5) https://www.geeksforgeeks.org/interesting-and-cool-tricks-in-java/
+6) https://www.javacodegeeks.com/2015/06/java-programming-tips-best-practices-beginners.html
+
+
+Palindrome can be made or not by rearranging the string
+How stream works internally
+Child to child communcation from the same parent.
+What is builder design pattern
+what is facade
+WHich design pattern singeloton uses..
+

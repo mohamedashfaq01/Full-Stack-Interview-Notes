@@ -1,0 +1,151 @@
+Changes A should not impact changes in B.
+let a = {currency: 'INR'}
+let b = a;
+a.currency = 'USD';
+console.log(b)
+
+How to make sure in angular?
+-------------------------------------------------------
+
+Shallow Copy: (For simple, non-nested objects, this works fine.)
+Copies only the top-level properties. Nested objects or arrays are not duplicated but rather referenced.
+Performance: Generally faster to create since it only copies references for nested structures.
+
+
+Using Spread Syntax for Shallow Copy:
+let b = { ...a }; // Shallow copy
+
+Using Object.assign() for Shallow Copy:
+let b = Object.assign({}, a); // Shallow copy
+
+Deep Copy.
+(Full Duplication: Creates a copy of the entire object, including nested objects and arrays.)
+No reference sharing
+
+Using JSON Serialization:
+let a = { x: 1, y: { z: 2 } };
+let b = JSON.parse(JSON.stringify(a)); // Deep copy
+b.y.z = 3;
+console.log(a.y.z); // Output will be 2 (a and b are completely separate)
+
+css specificity
+---------------------
+It helps manage and resolve conflicts between different CSS selectors by assigning weights to rules based on their specificity.
+
+Inline Styles: Styles directly applied to an element via the style attribute (e.g., <div style="color: red;">) have the highest specificity. These override all other styles.
+Specificity Value: 1,0,0,0
+
+IDs: Selectors that use IDs (e.g., #header) have high specificity. An ID selector is more specific than class, attribute, and element selectors.
+Specificity Value: 0,1,0,0
+
+Classes, Attributes, and Pseudo-classes: Selectors that use classes (e.g., .menu), attributes (e.g., [type="text"]), and pseudo-classes (e.g., :hover) have moderate specificity.
+Specificity Value: 0,0,1,0
+
+Element and Pseudo-elements: Selectors that use element names (e.g., div) and pseudo-elements (e.g., ::before) have the lowest specificity.
+Specificity Value: 0,0,0,1
+
+
+h1: 0,0,0,1
+.header: 0,0,1,0
+#main: 0,1,0,0
+<div style="color: red;">: 1,0,0,0
+When multiple CSS rules match an element, 
+the rule with the highest specificity is applied. If two rules have the same specificity, the one that appears later in the CSS is used.
+
+Media Queries
+---------------------
+Media queries are essential for creating responsive web designs that adapt to different screen sizes and devices.
+
+Media Queries are a feature of CSS3 that allow you to apply CSS styles conditionally based on characteristics of the device or viewport,
+ such as its width, height, resolution, orientation, and more.
+ 
+ Synatx:
+ @media media-type and (condition) {
+    /* CSS rules here */
+}
+media type (such as screen or print)
+
+example:
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+    body {
+        background-color: lightgreen;
+    }
+}
+
+Position relative vs position
+-------------------------------
+relative: The element is positioned relative to its original position in the document flow.
+Other content will not be adjusted to fit into any gap left by the element.
+Moves the element from its original position but keeps its original space on the page.
+Usage: Useful for slight adjustments without affecting the layout of other element
+
+absolute: An element with position: absolute; is positioned relative to the nearest positioned ancestor (if we have given position relative
+ to it's parent, otherwise it'll use the document body)
+(instead of positioned relative to the viewport, like fixed).
+Note: he element is removed from the normal document flow and positioned relative to its nearest ancestor. It can overlap/
+Moves the element to a specific spot on the page and doesn't keep its original space.
+Usage: Useful for precise control over an element's position, often used in conjunction with relative positioning.
+
+Static: Default, follows normal flow.
+Fixed: Positioned relative to the viewport, does not move when the page is scrolled.
+Sticky: Behaves like relative until a specified threshold is reached, then behaves like fixed
+
+flex box
+-------------
+In CSS, the flex property is part of the Flexbox layout model, which is used to create flexible and responsive layouts.
+ It helps in aligning and distributing space among items in a container. 
+
+Default Direction: By default, Flexbox arranges items in a row (horizontally).
+.container {
+  display: flex;
+  flex-direction: row; /* Items arranged in a row (or can use column) */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Center items vertically */
+}
+
+var let const
+-------------------
+var: Function-scoped
+redeclaration Allowed in the same scope
+Can be updated
+
+let: Block-scoped
+redeclaration NOT Allowed in the same scope
+Can be updated
+
+const: Block-scoped
+redeclaration NOT Allowed in the same scope
+Cannot be updated
+
+javascript calling 3 args function without any args
+typescript-- how to call function without any args
+----------------------------------------------------------
+function exampleFunction(a, b, c) {
+    console.log(a, b, c); // result: undefined undefined undefined
+}
+
+// Calling the function without any arguments
+exampleFunction();
+
+// to set default value
+function exampleFunction(a = 1, b = 2, c = 3) {
+    console.log(a, b, c);
+}
+
+TypeScript:
+TypeScript also supports default parameters and optional parameters to handle missing arguments.
+
+// Default values
+function exampleFunction(a: number = 1, b: number = 2, c: number = 3) {
+    console.log(a, b, c);
+}
+
+exampleFunction(); // Output: 1 2 3
+
+// Optional parameters
+function exampleFunctionOptional(a?: number, b?: number, c?: number) {
+    console.log(a, b, c);
+}
+
+exampleFunctionOptional(); // Output: undefined undefined undefined
+

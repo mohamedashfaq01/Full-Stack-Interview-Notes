@@ -1,0 +1,311 @@
+what is teh use of Hibernate dialect?
+--------------------------------------------------
+SQL Generation: Ensures that Hibernate generates SQL statements that are compatible with your database.
+Error Prevention: Prevents runtime errors that might occur due to SQL syntax incompatibilities.
+
+database-platform: org.hibernate.dialect.SQLServerDialect
+(By changing the dialect and other config we can change the db of an applocation without chaning any code logic)
+
+what is the different method of forEach like forEachOrdered?
+--------------------------------------------------------
+
+// Traditional for loop
+for (int i = 0; i < array.length; i++) {
+    System.out.println(array[i]);
+}
+
+// Enhanced for-each loop
+for (String item : array) {
+    System.out.println(item);
+}
+
+// stream based forEach
+// Using forEach with Map
+map.forEach((key, value) -> System.out.println(key + ": " + value));
+
+forEach:
+order:  In parallel streams, the order of elements may not be preserved.
+performance: Potentially faster in parallel streams because it doesn't need to preserve order.
+ 
+ List<String> list = Arrays.asList("A", "B", "C", "D");
+list.stream().forEach(System.out::println);
+list.parallelStream().forEach(System.out::println); (order not guarantee)
+ 
+
+forEachOrdered:
+order: In parallel streams, the order of elements will always be preserved.
+performance: May be slower in parallel streams due to the overhead of maintaining order.
+list.parallelStream().forEachOrdered(System.out::println);
+
+
+difference bwtween streams and parallel streams.
+------------------------------------------------------------
+
+
+Feature			Streams							Parallel Streams
+Processing		Sequential						Concurrent, multiple threads
+Threading		Single thread					Multiple threads (ForkJoinPool)
+Performance		Suitable for small datasets		Better for large datasets or intensive operations
+Order Guarantee	Preserves order					No inherent order guarantee; use forEachOrdered for order
+Thread Safety	Generally not a concern			Operations must be thread-safe
+
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Parallel processing
+List<Integer> squares = numbers.parallelStream()
+                               .map(n -> n * n)
+                               .collect(Collectors.toList());
+							 
+Possible Outputs:
+
+[1, 4, 9, 16, 25]
+[25, 16, 9, 4, 1]
+[9, 1, 25, 4, 16]
+Any other permutation of [1, 4, 9, 16, 25]
+
+CREATE,UPDTE, CREATE_UPDATE. in hibernate?
+---------------------------------------------------
+Operation		Method					Description
+CREATE			session.save()			Inserts a new entity into the database
+UPDATE			session.update()		Updates an existing entity in the database
+CREATE_UPDATE	session.saveOrUpdate()	Inserts a new entity or updates an existing one
+(When you are not sure whether the entity is new or existing, and you want Hibernate to handle the decision automatically.)
+
+
+Maven parent and child in pom.
+----------------------------------
+Parent Project Pom.xml
+
+A Maven parent project is a project that contains common configuration, dependencies, and plugins that are shared among multiple child projects. 
+The parent project typically does not produce a final artifact like a JAR or WAR; instead, it serves as a central place for configuration.
+Uses <packaging>pom</packaging> to indicate it is not a final artifact but a configuration aggregator.
+Defines common plugins and configurations
+<dependencyManagement>, <pluginManagement>, <build>	
+
+Child Project pom.xml
+
+A Maven child project inherits configuration from a parent project and can override or extend this configuration as needed. 
+The child project typically produces a final artifact (e.g., JAR, WAR).<packaging>jar</packaging>
+Inherits configurations from the parent project.
+Can override or extend inherited configurations.
+Inherits plugin configurations from the parent but can define or override its own plugins.
+<dependencies>, <build>, <parent>
+
+
+Using a parent-child relationship in Maven simplifies dependency management, ensures consistency, and promotes better organization in complex projects.
+
+
+What are the requirements that made people to create OOPS concepts
+----------------------------------------------------------------------\
+to put it simply: for school management system.
+
+Complexity: Breaks down complex systems into manageable parts (e.g., boxes for students, teachers).
+Reusability: Allows you to use and extend existing parts (e.g., reusing the “Student” box).
+Modularity: Keeps parts of the system separate and manageable (e.g., updating the “Teacher” box without affecting others).
+Maintainability: Makes fixing issues or adding features easier.
+Abstraction: Simplifies interactions by hiding complex details.
+Flexibility: Easily add or change features.
+Real-World Modeling: Represents real entities in an intuitive way.
+Encapsulation: Protects and manages data effectively.
+
+
+How do you scale your application when the application service is deployed in different region and in different clusters
+---------------------------------------------------------------------------------------------------------------------------
+To scale an application deployed in different regions and clusters:
+
+Load Balancing: Use global and regional load balancers to distribute traffic.
+Auto-Scaling: Implement auto-scaling at both cluster and regional levels.
+Data Consistency and Replication: Ensure data is replicated and partitioned across regions.
+Caching: Use distributed caching and CDNs to improve performance.
+
+Function vs Procedure
+----------------------
+Function:
+Function: Designed to compute and return a single value based on input parameters. 
+Typically used for computations and return results that can be used in SQL statements.
+Always returns a value of a specified type.
+Can be used in SQL queries directly. For example, you can use a function in a SELECT statement.
+Generally cannot manage transactions (like committing or rolling back changes).
+
+Procedure: Intended for executing a series of SQL statements.
+ It performs tasks such as modifying data or interacting with the database, and does not necessarily return a value.
+Does not return a value directly. 
+Cannot be used directly in SQL queries. It is called with a CALL or EXEC statement.
+Can include transaction control statements like BEGIN, COMMIT, and ROLLBACK.
+
+If you have two tables TableA and Table B with employee names in both. Write a query to fetch records from TableA which are not present in Table B
+---------------------------------------------------------------------------------------------------------------------------
+SELECT EmployeeName
+FROM TableA
+WHERE EmployeeName NOT IN (
+    SELECT EmployeeName
+    FROM TableB
+);
+
+Method 2:
+SELECT a.EmployeeName
+FROM TableA a
+LEFT JOIN TableB b ON a.EmployeeName = b.EmployeeName
+WHERE b.EmployeeName IS NULL
+
+
+
+Fortify
+------------------
+
+It helps in identifying and mitigating security vulnerabilities in your codebase. Fortify enhances security by analyzing both the code and its dependencies, 
+
+1. Static Application Security Testing (SAST)
+Fortify performs static code analysis to identify security vulnerabilities in your source code. For a Spring Boot application, this means:
+
+Code Review: Fortify scans your Java code to detect vulnerabilities such as SQL injection, Cross-Site Scripting (XSS), insecure deserialization, and more.
+Compliance: Ensures that your code adheres to security best practices and industry standards.
+
+2. Dynamic Application Security Testing (DAST) (like performance test, load test)
+Web Application Security: For web-based Spring Boot applications, DAST helps find issues like improper input validation, authentication problems,
+ and other runtime security risks.
+
+3. Software Composition Analysis (SCA)
+Dependency Scanning: Fortify can analyze third-party libraries and dependencies used in your Spring Boot application. 
+					It identifies known vulnerabilities in these libraries and helps ensure that they are up-to-date and free of security issues.
+Licensing Issues: It also helps in managing open-source components and their licenses to ensure compliance with legal requirements.
+
+4. Integration into CI/CD Pipeline
+Fortify can be integrated into your Continuous Integration/Continuous Deployment (CI/CD) pipeline:
+
+Automated Scanning: Automatically scans your codebase and dependencies as part of the build process, providing feedback on security issues as part
+ of your CI/CD workflow.
+We can then send those detail reports and cretaes alerts/
+
+Fortify and Sonarqube and Black Duck Scan
+----------------------------------------------
+Fortify is specialized in security, offering robust tools for detecting and managing security vulnerabilities, 
+including SAST, DAST, and SCA. It is geared towards ensuring application security and compliance with standards.
+
+SonarQube focuses on overall code quality, including code smells, bugs, and security issues, providing a broader view of code maintainability and quality. 
+It is useful for continuous improvement in coding practices and technical debt management.
+
+Black Duck: Focuses on managing risks associated with open-source components, including security vulnerabilities, license compliance, and policy enforcement.
+ It provides in-depth analysis and reporting related to open-source components and their associated risks
+
+In practice, organizations often use both tools in complementary ways—
+Fortify : Application security and vulnerability management (SAST, DAST,SCA) Limited focus on licensing
+SonarQube : Code quality and maintainability, Basic license management
+Black Duck: Open-source component management and Detailed license compliance
+
+
+How gto handle security vulnerabilities
+-------------------------------------------------
+To handle security vulnerabilities:
+
+Identify: Use tools and manual reviews to detect vulnerabilities. like Fortify and Sonarqube and Black Duck Scan
+Assess: Evaluate severity and risk.  (the tool automtically dettects high, medium, low )
+Prioritize: Focus on high-risk issues.
+Remediate: Apply and test fixes.
+Mitigate: Implement workarounds if needed.
+Document: Track and report vulnerabilities and fixes.
+Verify: Retest and monitor.
+
+
+What is docker? and why we use that?
+-------------------------------------------------------
+Docker is an open-source platform that automates the process of developing, shipping, and running applications using containerization technology.
+ Containers allow you to package an application and its dependencies together into a single, lightweight, and portable unit.
+
+Key Concepts
+Container: A container is an isolated environment that runs an application and its dependencies. 
+It includes everything needed to run the application, such as code, runtime, libraries, and configurations.
+
+Image: An image is a read-only template used to create containers. It contains the application code, runtime, libraries, and configurations. 
+Images are built from Dockerfiles, which define how the image is constructed.
+
+Dockerfile: A text file with instructions for building a Docker image. It specifies the base image,
+ the application code, and any dependencies or configurations needed.
+ 
+Docker Engine: The Docker Engine is the runtime that runs and manages containers.
+
+Why Use Docker?
+
+1) Consistency Across Environments:
+Environment Uniformity: Docker ensures that the application runs the same way in different environments (development, testing, production)
+ by packaging everything needed into a container. This eliminates issues related to environment inconsistencies.
+
+2) Portability:
+Cross-Platform Compatibility: Docker containers can run on any system that supports Docker,
+ regardless of the underlying operating system or hardware. This makes it easy to move applications between different environments and platforms.
+
+3) Scalability:
+Efficient Resource Utilization: Docker containers are lightweight and share the host OS kernel, which allows for higher density and more efficient resource usage compared to virtual machines.
+Ease of Scaling: Docker simplifies scaling applications by allowing you to quickly deploy multiple instances of containers.
+
+4) Rapid Deployment:
+Faster Startup: Containers start up quickly compared to traditional virtual machines because they share the host OS kernel and do not require a full OS boot.
+Easy Updates: Docker makes it easy to update applications by redeploying new container images.
+
+5) Version Control:
+Image Versioning: Docker images can be versioned and tagged, allowing you to manage and roll back to previous versions of an application if needed.
+
+6) Integration with CI/CD:
+
+Continuous Integration/Continuous Deployment: Docker integrates well with CI/CD pipelines, facilitating automated testing, building, and deployment processes 
+ 
+command To build: docker build -t my-spring-boot-app .
+
+command to Run: docker run -p 8080:8080 my-spring-boot-app
+
+In this example, Docker packages the Spring Boot application into a container, allowing it to run consistently across different environments and making it easy to deploy and scale.
+
+Docker COntainer vs Docker Images
+----------------------------------
+Docker Container: Docker Containers are actually Docker Virtual Machines.Docker image is a map of the house, while a Docker container is the actual house itself.
+Using images, containers can be created as many times as necessary.
+A container requires computing resources to run since it runs as a Docker Virtual Machine.
+
+Docker Image : Images are templates containing instructions for creating containers. With Docker images, containers can be created to run on the Docker platform.
+An image is only created once.
+Computing resources aren't required to work with images.
+
+docker vs kubernetes.
+-----------------------------
+
+Feature				Docker									Kubernetes
+Purpose				Containerization platform				Container orchestration platform
+Primary Function	Creates, manages, and runs containers	Manages clusters of containers
+Deployment			Single-node deployment					Multi-node, distributed deployment
+Use Case			Suitable for development and small-scale deployments	Suitable for large-scale, production-grade deployments
+
+Conclusion
+Use Docker for creating and managing individual containers and small-scale projects.
+Use Kubernetes for orchestrating and managing large-scale, distributed applications requiring high availability and scalability.
+
+
+Flyway : Springboot database migration tool.
+------------------------------------------------
+Imagine you're working on a school project with your friends to create a simple web application for managing a library's book inventory. 
+
+In this project, you start with a basic database that has a table for books. As you work on the project, you and your friends realize you need to make changes to the database.
+
+Problem: Keeping Database Changes Organized
+Without a tool like Flyway, you might face these challenges:
+
+Inconsistency: Different team members might have different versions of the database.
+Confusion: It can be hard to remember what changes were made and in what order.
+Errors: Manually applying changes to the database can lead to mistakes.
+
+Solution: Using Flyway
+
+1) Write Migration Scripts:
+
+Each change to the database is written as a separate script file.
+For example:
+V1__Create_books_table.sql: Creates the initial books table.
+V2__Add_genre_column.sql: Adds a new column for the genre.
+V3__Create_members_table.sql: Creates a new table for library members.
+
+2) Store Migration Scripts in a Folder:
+These scripts are stored in a specific folder (src/main/resources/db/migration) in your project.
+
+3)Flyway Applies the Scripts Automatically:
+When you run your application, Flyway checks the folder, finds the scripts, and applies them to the database in the correct order.
+This ensures that everyone's database is always up-to-date and consistent.
+

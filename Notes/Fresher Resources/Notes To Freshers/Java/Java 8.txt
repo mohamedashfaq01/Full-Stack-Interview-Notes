@@ -1,0 +1,420 @@
+Functional Programming is a form of declarative programming. Each item can be run in any order to produce the same result.
+Imperative Programming is procedural. State and order is important.
+
+To get top 10 list of young persons who has the age less than 18. ( we can use 2 approaches java 7 logic whixh is for-loop and condtion or 
+java 8 streams).
+
+
+what is stream
+-------------------
+An abstraction
+Focuses on the all instead of parts.
+
+the Stream API is used to process collections of objects. 
+A stream is a sequence of objects that supports various methods which can be pipelined to produce the desired result.
+
+The features of Java stream are –
+
+1) A stream is not a data structure instead it takes input from the Collections, Arrays or I/O channels.
+2) Streams don’t change the original data structure, they only provide the result as per the pipelined methods.
+3) Each intermediate operation is lazily executed and returns a stream as a result, hence various intermediate operations can be pipelined.
+ Terminal operations mark the end of the stream and return the result.
+ 
+ 
+intermediate operation (filter, map etc) to convert to abstract type
+terminal operation (COllect, min, max,forEach, reduce, group by etc) to convert to concreate type
+(entire stream operation will work only we have terminal operation in it) therefore stream is called as Lazy valuation
+
+DIfferent ways to create streams
+1) Stream.of(val1, val2,..)
+2) Stream.of(arrayOfElement) Stream.of(new Integer[]{1,2,3})
+3) List.stream
+4) Arrays.stream(T[])
+
+https://mkyong.com/java8/java-8-find-duplicate-elements-in-a-stream/#:~:text=In%20Java%208%20Stream%2C%20filter,%3E()%3B%20return%20list.
+
+Three ways to get the duplicate elements.
+
+1) Filter & Set.add()  [ Set.add() returns false if the element was already in the set.]
+list.stream().filter(n -> !items.add(n)).collect(Collectors.toSet());
+
+2) Map & Collectors.groupingBy
+
+return list.stream()
+                .collect(Collectors.groupingBy(Function.identity()
+                        , Collectors.counting()))    // create a map {1=1, 2=1, 3=2, 4=2, 5=1, 7=1, 9=2}
+                .entrySet().stream()                 // Map -> Stream
+                .filter(m -> m.getValue() > 1)       // if map value > 1, duplicate element
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+				
+3) Collections.frequency
+list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toSet());
+
+java.util.Optional
+--------------
+Java 8 documentation says that an Optional is "A container object which may or may not contain a non-null value. 
+If a value is present, isPresent() will return true and get() will return the value."
+
+purpose
+----------
+Optional is intended to provide a limited mechanism for library method return types where there is a clear need to represent "No result"
+and where using null for that is overwhelmingly likely to cause errors.
+
+Optional class basically help us to avoid writing null check and avoid NullPointerException. 
+Optional makes us deal with nullable values explicitly as a way of enforcing good programming practices.
+You can view Optional as single-value container that either contains a value or doesn't (it is then said to be "empty"). 
+But for sure it won't throw NullPointerException.
+
+Advantages
+---------
+Null checks are not required.
+No more NullPointerException at runtime.
+we can develop clean and neat API
+No more boiler plate code.
+To avoid abnormal termination, we use the Optional class. 
+
+Optional.Of(str) // the argument should not allow null value otherwise it'll throw NullPointerException.
+optional.ofNullable(str) // the argument can allow null value. it'll not throw NullPointerException rather returns empty Optional object.
+
+id Name
+1  test
+2  test2
+3  Null
+4  Null
+
+String b = null;
+Optional<String> s = Optional.Empty(); // same as above stmt. s=null
+Optional<String> s = null // It Cannot be NULL.
+
+get() can only return a value if the wrapped object not null, otherwise it will throw NoSuchElementException
+(e.g): Employee e = repo.findById(id).get(); // if we pass id which is not available in db.
+
+hence we should call get() method by conditioning it using isPresent()
+
+Optional<Employee> e = repo.findById(id);
+if(e.isPresent()) {
+  Optional<String> empName = Optional.ofNullable(e.get().getName())
+  if(empName.isPresent()) {
+     return new ResponseEntity
+  return new ResponseEntity<>(e.get(), HttpStatus.OK)
+} else {
+  return new ResponseEntity<>("Sorry employee with the give id is not found", HttpStatus.NOT_FOUND)
+  }
+  
+orElse(default) // opt.map(Customer::getName).orElse("Unknown")
+orElseGet(supplier) // opt.orElseGet(Data::new)
+orElseThrow(exceptionSupplier)// opt.orElseThrow(IllegalArumentException::new)
+ 
+Avoid using Optional in
+1) Fields
+2) Method Parameters 
+3) COllections
+
+Remember eliminating nulls isn't a goal of Optional.
+
+https://www.oracle.com/technical-resources/articles/java/java8-optional.html
+https://javarevisited.blogspot.com/2017/04/10-examples-of-optional-in-java-8.html#axzz7QLAEHs9j
+https://homes.cs.washington.edu/~mernst/advice/nothing-is-better-than-optional.html
+https://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html
+
+https://www.youtube.com/watch?v=hjIlTaAMsbI&ab_channel=ContinuousDelivery (explore)
+https://www.youtube.com/watch?v=salqMzVPopM&ab_channel=ITian
+
+Java 8
+----------
+New Features:
+		Lambda Expression
+		Stream API
+		Default methods in the interface
+		Functional Interface
+		Optional
+		Method references
+		Date API
+		Nashorn, JavaScript Engine
+		
+A lambda expression is a short block of code which takes in parameters and returns a value. Lambda expressions are similar to methods, but they do not 
+need a name and they can be implemented right in the body of a method.
+
+Remember, lambdas should be an expression, not a narrative. Despite its concise syntax, lambdas should specifically express the functionality they provide.
+
+why lambdas?
+  Enables functional programming
+  Readable and concise code.
+  Easier to use APIs and libraries
+  Enables support for parallel processing.
+  A function that can be created without belonging to any class.
+  A lambda expression can be passed around as if it was an object and executed on demand.
+  
+Lambda expression   
+aBlockOfCode = () -> {
+ System.out.println();
+}
+greetFunction = () -> Syso("Hello World");
+getSumOfTwoNumber = (a) -> {a+8};  
+(for one line of code, we can remove the curly bracket)
+Avoid Specifying Parameter Types like (int a)
+Avouid return and braces.
+
+
+Use Java's Consumer interface to store a lambda expression in a variable:
+public static void main(String[] args) {
+    ArrayList<Integer> numbers = new ArrayList<Integer>();
+    numbers.add(5);
+    numbers.add(9);
+    numbers.add(8);
+    numbers.add(1);
+    Consumer<Integer> method = (n) -> { System.out.println(n); };
+    numbers.forEach( method );
+  }
+  
+  
+  
+List<Product>productsList = new ArrayList<Product>();  
+        //Adding Products  
+        productsList.add(newProduct(1,"HP Laptop",25000f));  
+        productsList.add(newProduct(2,"Dell Laptop",30000f));  
+        productsList.add(newProduct(3,"Lenevo Laptop",28000f));  
+        productsList.add(newProduct(4,"Sony Laptop",28000f));  
+        productsList.add(newProduct(5,"Apple Laptop",90000f));  
+
+Set<Float>productPriceList =   
+                productsList.stream()  
+                            .map(x->x.price)         // fetching price  
+                            .collect(Collectors.toSet());   // collecting as list  
+        System.out.println(productPriceList);
+		
+Java Collectors Example: using sum and average method
+------------------------------------------------------------
+ Double sumPrices =   
+                productsList.stream()  
+                            .collect(Collectors.summingDouble(x->x.price));  // collecting as list  
+        System.out.println("Sum of prices: "+sumPrices);  
+Integer sumId =   
+		productsList.stream().collect(Collectors.summingInt(x->x.id));  
+System.out.println("Sum of id's: "+sumId);  
+		
+Double average = productsList.stream()  
+                         .collect(Collectors.averagingDouble(p->p.price));  
+        System.out.println("Average price is: "+average);  		
+		
+		
+Stream Processing -
+___________________________________________________________________________
+
+Collect - 
+If we want to collect elements of stream after filtering or mapping and add them to the required collection then use collect method.
+
+Count - 
+If we want to count how many elements are there in collection that satisfy given condition then use collect method.
+
+sorted - 
+If we want to sort elements inside a stream use this sorted() method.
+We can sort based on default natural sorting order 
+If we want to sort using customized sorting order then use comparator.
+
+Comparator 
+If we want to sort using customized sorting order then use comparator.
+
+Min Max-
+Min(Comparator)  will return the minimum value based on the defined comparator
+Max(Comparator)  will return the maximum value based on the defined comparator
+
+Foreach
+forEach() is a method . 
+All methods that we saw till now returned something, like min max value, sorted collection, etc
+This method does not return anything. 
+Rather This method takes lambda expression as argument and apply that lambda expression to each element present in that stream.
+
+toArray- 
+
+of() - 
+Stream concept is not applicable just for the collections it’s also applicable for “ANY GROUP OF VALUE”.
+Even for arrays you can use stream.
+Stream . Of() this method can take any group of values and convert them to stream so that multiple stream operations can be applied to it.		
+
+Stream with sorted(), min and max
+sorted
+----------
+If we want to sort elements inside a stream use this sorted() method.
+We can sort based on default natural sorting order 
+If we want to sort using customized sorting order then use comparator.
+
+filteredStream.sorted((i1, i2) -> i1.compareTo(i2))  // ascending or natural sorting
+filteredStream.sorted((i1, i2) -> i2.compareTo(i1))  // descending
+
+Min Max
+------------
+If we want to sort using customized sorting order then use comparator.
+
+Min Max-
+Min(Comparator)  will return the minimum value based on the defined comparator
+Max(Comparator)  will return the maximum value based on the defined comparator
+
+arrList.stream().min((i1, i2) -> i1.compareTo(i2)).get();
+arrList.stream().max((i1, i2) -> i1.compareTo(i2)).get();
+
+toArray()
+-----------
+Always return Object[].
+Object[] intArr = arrList.stream().filter(i -> i>2).toArray();
+
+Of()
+---------
+Stream concept is not applicable just for the collections it’s also applicable for “ANY GROUP OF VALUE”.
+Even for arrays you can use stream.
+Stream . Of() this method can take any group of values and convert them to stream so that multiple stream operations can be applied to it.	
+
+Stream.of(1,11,111,1111,11111).forEach(System.out::println());
+
+String[] name = {"Test", "Code", "Stream"};
+Stream.of(name).filter(x-> x.length >2).forEach(System.out::println())
+
+Java StringJoiner
+---------------------
+Java added a new final class StringJoiner in java.util package. It is used to construct a sequence of characters separated by a delimiter.
+ Now, you can create string by passing delimiters like comma(,), hyphen(-) etc. You can also pass prefix and suffix to the char sequence.
+
+ public static void main(String[] args) {  
+        StringJoiner joinNames = new StringJoiner(","); // passing comma(,) as delimiter   
+          
+        // Adding values to StringJoiner  
+        joinNames.add("Rahul");  
+        joinNames.add("Raju");  
+        joinNames.add("Peter");  
+        joinNames.add("Raheem");  
+                  
+        System.out.println(joinNames);  
+    }  
+	
+	Output: Rahul,Raju,Peter,Raheem
+	
+	
+Java 9 features.
+------------------
+Oracle has released Java 9 with rich set of new features. It includes various upgrades to the Java programming, JVM, Tools and libraries
+
+1) Platform Module System (Project Jigsaw)
+Java Module System is a major change in Java 9 version. Java added this feature to collect Java packages and code into a single unit called module.
+In earlier versions of Java, there was no concept of module to create modular Java applications, that why size of application 
+increased and difficult to move around. Even JDK itself was too heavy in size, in Java 8, rt.jar file size is around 64MB.
+
+To deal with situation, Java 9 restructured JDK into set of modules so that we can use only required module for our project.
+
+2) Interface Private Methods
+In Java 9, we can create private methods inside an interface. Interface allows us to declare private methods that help to share common code between non-abstract methods.
+	
+3) JShell: The Java Shell (REPL)
+It is an interactive Java Shell tool, it allows us to execute Java code from the shell and shows output immediately. JShell is a REPL (Read Evaluate Print Loop) tool and run from the command line. It is benificial, if we want to test our business logic and get result immediately. 	
+	
+Java 7 Features
+------------------
+1) Switch With String (case sensitive)
+
+2) Java 7 Multi Catch. (It helps to optimize code, using use vertical bar (|) to separate multiple exceptions in catch block.
+     catch(ArithmeticException | ArrayIndexOutOfBoundsException e){  
+            System.out.println(e.getMessage());  
+        }    
+		
+3) Binary Literals (I allows you to express integral types (byte, short, int, and long) in binary number system. To specify a binary literal, add the prefix 0b or 0B to the integral value.)
+ int i1 = -0b101;   		// prints -5
+ long l1 = 0b0000011111100001; // prints 2017
+ 
+4)  Type Inference for Generic Instance Creation
+
+The following approach is used in Java 6 and prior version.
+
+Ex. List<Integer> list  = new List<Integer>();  
+Now, you can use the following new approach introduced in Java 7.
+
+Ex. List<Integer> list = new List<>(); // Here, we just used diamond 
+
+5) Java Numeric Literals with Underscore (Ot improves the readability of source code).
+
+    int a = 10_00000;  
+	System.out.println("a = "+a);  
+	// Underscore in floating literal  
+	float b = 10.5_000f;  
+	System.out.println("b = "+b);  
+
+Java 5 Features
+--------------
+1) Assertion
+2) Autoboxing and unboxing
+The automatic conversion of primitive data types into its equivalent Wrapper type is known as boxing and opposite operation is known as unboxing.
+int -> Integer (Boxing)
+Integer -> int (Unboxing)
+	 int a=30;
+	 Integer a3=a;//Boxing  
+	 
+3) Java Enums
+The Enum in Java is a data type which contains a fixed set of constants.
+
+It can be used for days of the week (SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, and SATURDAY) , directions (NORTH, SOUTH, EAST, and WEST), season (SPRING, SUMMER, WINTER, and AUTUMN or FALL)
+	 class EnumExample1{  
+		//defining the enum inside the class  
+		public enum Season { WINTER, SPRING, SUMMER, FALL }  
+		//main method  
+		public static void main(String[] args) {  
+		//traversing the enum  
+		for (Season s : Season.values())  
+		System.out.println(s);  
+	}}  
+
+4) Java Annotation ( represents the metadata, to indicate some additional information which can be used by java compiler and JVM.)
+
+5) Generics in Java : It makes the code stable by detecting the bugs at compile time.
+List<Integer> list = new ArrayList<Integer>();    
+
+6) For-Each loop
+It makes the code more readable.
+It eliminates the possibility of programming errors.
+int arr[]={12,13,14,44};  
+   //traversing the array with for-each loop  
+   for(int i:arr){  
+     System.out.println(i);  
+   }  
+   
+7) Java Static Import
+-----------------------------
+The static import feature of Java 5 facilitate the java programmer to access any static member of a class directly.
+ There is no need to qualify it by the class name.
+
+import static java.lang.System.*;    
+class StaticImportExample{  
+  public static void main(String args[]){  
+     
+   out.println("Hello");//Now no need of System.out  
+   out.println("Java");  
+  
+ }   
+}      
+   
+   
+8) Variable Argument (Varargs):
+The varrags allows the method to accept zero or muliple arguments. 
+If we don't know how many argument we will have to pass in the method, varargs is the better approach.
+
+Rules for varargs:
+	There can be only one variable argument in the method.
+	Variable argument (varargs) must be the last argument.
+
+	void method(String... a, int... b){}//Compile time error  
+	void method(int... a, String b){}//Compile time error     
+
+class VarargsExample3{  
+   
+ static void display(int num, String... values){  
+  System.out.println("number is "+num);  
+  for(String s:values){  
+   System.out.println(s);  
+  }  
+ }  
+  
+ public static void main(String args[]){  
+  
+ display(500,"hello");//one argument   
+ display(1000,"my","name","is","varargs");//four arguments  
+ }   
+}  	
+

@@ -1,0 +1,119 @@
+To explore
+-------------
+1) what is Virtual Machine.
+2) what is the use of SSH public keys.
+
+
+Develop -> Build -> Deploy in Production.
+
+DevOps: 
+DevOps, short for Development and Operations, is a set of practices, principles, and
+cultural philosophies that aim to bridge the gap between software development and IT
+operations teams.
+
+
+CI/CD Pipeline (jenkins, Github Actions, Gitlab CI/CD)
+
+CI (You're taking the code, you're packaging it up, and then you are giving it to the CD process to continuous Deployment or continuous delivery process including sonarQube
+or any security check)
+CD (the point is, you take the gift, that packaged gift and you drive it to the person's house, you deliver it. So that's that CD process.)
+CD (Continous Delivery/Deployment)
+Containous Delivery: There will be manual intervention of like button click event etc. 
+COntinous Deployment: As soon as we push the code to github, jenkins automatically pick up and deploy it. (no human intervention)
+
+
+Container Images : (While duting the build process)
+
+Containers help package the application and its dependencies into an image that can then be run on any
+system without worrying about dependencies.
+
+So now during the build, you build a container image with the application and its dependencies packaged
+into it, and all other systems can now simply run a container from that image without worrying about
+installing and configuring libraries and dependencies.
+
+Now, one technology that enables working with containers is Docker with Docker.
+The developer can create a Docker file which specifies what the dependencies are, and that Docker file
+can be used during the build to build an image.
+And that image can then be run on any server using a simple Docker run command.
+)
+
+COntainer Orchestration:
+
+How do you ensure if a container fails, it is automatically brought back up?
+And that's where container orchestration platforms come in.
+Kubernetes is a popular container orchestration platform that helps declare how containers should be
+deployed and ensure that it is always run in the same way as declared.
+It can help auto scale containers as well as the underlying infrastructure based on need and manage
+resources on the underlying servers to ensure optimal resource utilization.
+
+Terraform: 
+
+Prometheus: Imagine Prometheus as a diligent watcher constantly keeping an eye on your systems and applications.
+ It's a monitoring and alerting toolkit that collects metrics from your infrastructure, such as CPU usage, memory usage, and network activity.
+
+Grafana: Grafana, on the other hand, is like a skilled artist who takes the raw data collected by Prometheus and turns it into beautiful, 
+interactive visualizations. 
+It's a visualization and dashboarding tool that allows you to create custom dashboards displaying your metrics in various charts, graphs, and tables.
+
+Kubernetes: The continuous operations stage involves the reduction or elimination of planned downtime like scheduled maintenance. The goal of this phase is
+to increase the uptime or the time the users can use the application.Companies use container management systems like Kubernetes or Swarm in this phase.
+
+
+Jenkins
+---------------
+Jenkin is the most popular, open source Continuous Integration tool. It has tons of plugins that enhance its functionality. 
+if your team is developing a project, Jenkins will continuously test your project builds and show you the errors in early stages 
+of your development.
+
+In Continuous Integration after a code commit, the software is built, deployed and tested immediately.This commit, build, test, 
+and deploy is a continuous process, and hence the name continuous integration/deployment.
+
+CI process helps you to build better quality software.
+
+Jenkins is free and is entirely written in Java.It is a server-based application and requires a web server like Apache Tomcat.
+
+The reason why Jenkins became popular is that it was created by a developer for developers.
+
+disadvantage:
+Its interface is out dated and not user friendly compared to current UI trends.
+One of the reasons why many people don't implement Jenkins is due to its difficulty in installing and configuring Jenkins.
+
+
+GitHub is a web-based repository of code which plays a major role in DevOps.Jenkins needs to have GitHub plugin installed to be 
+able to pull code from the GitHub repository.
+
+The Role Strategy Plugin enable you to assign different roles and privileges to different users. Select Role-based Authorization
+ Strategy plugin.
+
+In sum, we have executed a HelloWorld program hosted on GitHub. Jenkin pulls the code from the remote repository and builds 
+continuously at a frequency you define.
+
+To Create and Manage Users in Jenkins (we have to Install Role-based Authorization Strategy Plugin. it gives like admin, developer (manage and assign role options)
+
+Jenkins Pipeline
+In Jenkins, a pipeline is a collection of events or jobs which are interlinked with one another in a sequence.
+In a Jenkins Pipeline, every job has some sort of dependency on at least one or more jobs or events.
+
+It contains a collection of states such as build -> deploy -> test -> release.
+ These jobs or events are interlinked with each other. Every state has its jobs, which work in a sequence called a continuous delivery pipeline.
+ 
+ pipeline{
+  agent any
+  stages {
+    stage('Build') {
+	  steps {
+	    echo 'Building...'
+	  }
+	}
+	stage('Test') {
+	  steps {
+	    echo 'Testing...'
+	  }
+	}
+	stage('Deploy') {
+	  steps {
+	    echo 'Deploying...'
+	  }
+	}
+  }
+}

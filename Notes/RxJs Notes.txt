@@ -1,0 +1,236 @@
+RxJs
+-----------
+RxJs is a javascript library, heavily used in angular
+EventEmitter vs Subject
+for custom observables, we need to manage the subscripition correctly. means unsubscribe whenever we don't need it anymore.
+unsubscribe it in ngOnDestroy(). otherwise memeory leak may happen.
+
+Learn RxJS: https://www.learnrxjs.io/
+Official documentation: http://reactivex.io/rxjs/
+
+Introduction to RxJS
+-------------------------
+RxJS is an acronym that stands for Reactive Extension for JavaScript. RxJs helps to handle asynchronous data stream with ease.
+
+It is a JavaScript library that is used to work with Reactive programming that deals with asynchronous data calls, callbacks and event-based programs.
+ RxJS can be used with other JavaScript libraries such as Angular, ReactJS, Vue.js, Node.js etc. It is supported by JavaScript and also with TypeScript.
+
+RxJS is a JavaScript library that has introduced the concept of "reactive programming" to the web. 
+In general terms, you can say that RxJS is a Reactive programming language. It provides way to write assembly lines in your software applications. 
+It facilitates you to write software that can be reusable, configurable, and asynchronous.
+
+In simple word observable represents async stream of data and observer subscribes to the observable to receive the stream.
+observers also called as listeners or consumers
+
+What is stream in RxJs?
+Stream in RxJs is asynchronous data emitted from observables.
+
+When to use RxJS?
+--------------------
+RxJS is preferred to use when your project contains lots of async task handling. 
+It is the right choice for these conditions. RxJS is loaded by default with the Angular project.
+
+What are operators in RxJs?
+----------------------------------
+Operators are logics which manipulate an observable stream and create new observable streams.
+
+The purpose of operator, to modify or filter originally emitted values in the way we need for the project tasks.
+
+For example you can have a stream which emits decimal numbers.
+
+You can then apply a Map operator and round the stream, which generates a new stream without decimals.
+
+You can again apply filter operator on the stream and say give values which are only greater than 3.
+
+var stream1 = Observable.create(AsyncStream);
+var stream2 = stream1.pipe(map(x=>Math.round(x)));
+var stream3 = stream2.pipe(filter(x=>x>3));
+
+Name some rxJs Operators?
+Map :- Transforms data in a observable in to a different format.
+Filter :- Allows data which meets conditions.
+Merge :- This operator will combine multiple Observables into one. So if one of the observables emit a value the combined one will emit as well.
+Concat :- only when observable completes, it will start with the next observable.
+From :- This operator will turn array, promise or iterable into an observable.
+debouncetime :- discard emitted values if a certain time didn't pass between the last input
+distinctuntilchanged :- only emits a value if it is different than the last one.
+pluck :- select a property to emit.
+delay :- emits a value with a delay.
+
+rxJs pipe operators.
+--------------------------
+In RxJS, the pipe operator is a method that allows you to compose multiple operators into a single function.
+This method helps to create a readable and concise way to chain operators together for handling observables.
+This is particularly useful for transforming, filtering, or handling errors in observable streams.
+
+const numbers$ = of(1, 2, 3, 4, 5);
+
+const transformedNumbers$ = numbers$.pipe(
+  filter(number => number % 2 === 0),
+  map(number => number * 2)
+);
+
+transformedNumbers$.subscribe(result => console.log(result));
+
+The pipe method is used to chain filter and map operators.
+filter(number => number % 2 === 0) filters out odd numbers, allowing only even numbers to pass through.
+map(number => number * 2) multiplies each number by 2.
+
+
+The result of subscribing to transformedNumbers$ will be the even numbers from the original sequence, each multiplied by 2: 4 and 8.
+
+getUsers(): Observable<any> {
+    return this.http.get(this.apiUrl).pipe(
+      map(response => {
+        // Transform the response if needed
+        return response;
+      }),
+      catchError(error => {
+        // Handle errors
+        console.error('Error fetching users:', error);
+        throw new Error('Failed to fetch users. Please try again later.');
+      })
+    );
+  }
+ 
+The pipe method is used to chain the map and catchError operators.
+map(response => { ... }) can transform the response data if needed.
+catchError(error => { ... }) handles any errors that occur during the HTTP request. 
+
+Subject vs BehaviourSubject
+-------------------------------
+In Angular, Subject and BehaviorSubject are both types of Observables provided by RxJS. 
+They are used to handle asynchronous data streams and allow multiple subscribers to listen for updates. 
+
+Subject:
+Does not have an initial value.
+Does not emit the last value to new subscribers.
+private subject = new Subject<string>();
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotificationService {
+  private notificationSubject = new Subject<string>();
+
+  sendNotification(message: string) {
+    this.notificationSubject.next(message);
+  }
+
+  getNotifications() {
+    return this.notificationSubject.asObservable();
+  }
+}
+
+Component 1 (Notification Sender):
+@Component({
+  selector: 'app-notification-sender',
+  template: `
+    <button (click)="sendNotification()">Send Notification</button>
+  `
+})
+export class NotificationSenderComponent {
+  constructor(private notificationService: NotificationService) {}
+
+  sendNotification() {
+    this.notificationService.sendNotification('New notification!');
+  }
+}
+
+@Component({
+  selector: 'app-notification-receiver',
+  template: `
+    <p>{{ notification }}</p>
+  `
+})
+export class NotificationReceiverComponent implements OnInit {
+  notification: string;
+
+  constructor(private notificationService: NotificationService) {}
+
+  ngOnInit() {
+    this.notificationService.getNotifications().subscribe(message => {
+      this.notification = message;
+    });
+  }
+}
+
+Notification System (using Subject): Multiple components can receive notifications in real-time. 
+When the sender component sends a notification, all subscribed receiver components get updated instantly.
+
+
+BehaviourSubject:
+************************
+Requires an initial value.
+Emits the current (most recent) value to new subscribers immediately.
+private behaviorSubject = new BehaviorSubject<string>('Initial Value');
+
+User Authentication State (using BehaviorSubject): 
+The authentication state is maintained and any component that needs to know whether the user is authenticated can subscribe to
+ the BehaviorSubject and get the current state immediately. 
+When the user logs in or logs out, all subscribed components are updated accordingly.
+
+AuthenticationService
+LoginComponent
+HomeComponent
+
+
+
+Callbacks
+------------
+First I will say What is callback in General terms : A callback is a function that is to be executed after another function has finished executing
+
+In JavaScript, functions are objects due to this function can take another function as an argument and can be returned by another function. 
+Any function that is passed as an argument is called callback.
+
+For one important reason why we need is consider JavaScript is an event driven language. This means that instead of waiting for a response before moving on,
+ JavaScript will keep executing while listening for other events.
+
+Callbacks are a way to make sure certain code doesn’t execute until other code has already finished execution.
+
+e.g: 
+function first(){  // Simulate a code delay 
+  setTimeout( function(){ 
+    console.log(1); 
+  }, 500 );} 
+function second(){  console.log(2);} 
+first();second(); 
+
+Now why it is actually called as callback function? Generally callbacks are used to execute after execution of certain function or after satisfying certain condition 
+inside a function.
+
+
+Asyn Call
+-----------
+There is two types of java script we can use
+
+Synchronous: (Execution one after other)
+Asynchronous (Execution in-parallel)
+
+Synchronous Java Script : If you have 100 lines of code then 100th line can’t be execute without executing first 99 lines.
+ This is synchronous. Most of the program uses this method.
+
+Asynchronous Java Script : Here it comes asynchronous js, in which if you have 100 lines of code then 100th line can be executed before some of it’s previous lines executes.
+ Say for example, on it’s 50th line it has some instruction which can take some time. So, during it’s execution next instructions will be process without waiting for the task
+ finished.
+ 
+forkJoin()
+------------
+getRecruiterAndHLDetailsUsingFork(createEventPayloadObj: EventInfo) {
+    forkJoin([this.getForkJoinResponseForRecruiters(), this.getForkJoinResponseForHiringLeader(), this.getForkJoinResponseForPanelist()]).pipe(
+      map(([api1Result, api2Result, api3Result]) => {
+        return { api1Result, api2Result, api3Result };
+      })
+    ).subscribe(({ api1Result, api2Result, api3Result }) => {
+      createEventPayloadObj.recruiters = api1Result;
+      createEventPayloadObj.hiringLeaders = api2Result;
+      createEventPayloadObj.panelists = api3Result;
+      console.log('final hiringLeaders api response ', api2Result);
+      console.log('final recruiters api response', api1Result);
+      console.log('final panelists api response', api3Result);
+      this.callSaveEventDetailsApi(createEventPayloadObj);
+    });
+  } 
+
+
+

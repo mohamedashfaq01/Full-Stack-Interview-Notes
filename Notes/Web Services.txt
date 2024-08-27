@@ -1,0 +1,375 @@
+Web Services.
+-------------------
+Web Service: Providing Service over the web.
+
+W3C Definition: Software system designed to support interoperable machine-to-machine interaction over a network.
+
+3 Keys
+Designed for machine-to-machine (or application-to-application) interaction
+Should be interoperable - Not platform dependent
+Should allow communication over a network
+
+How can we make web services platform independent?
+-------------------------------------------------
+webservice ---> java application
+                 .Net application
+				 PHP Application.
+				
+Hence Request and Response should be in Platform Independent. (XML and JSON).
+
+Service Definition: 
+
+1) Request/Response Format
+2) Request Structure
+3) Response Structure
+4) EndPoint
+
+SOAP and REST are not really comparable.
+
+SOAP: need to create an SOAP envelop, Header and Body.
+Service Definition: WSDL (Web Service Definition Language)
+
+REST: REpresentational State Transfer
+No Standard Service Definition.	Can use Swagger.
+
+1) Make use of HTTP Methods and HTTP Codes.
+2) Make use of the proper resources URI.
+JSON is popular but we can use other type like XML also.
+
+Tranport is always i HTTP.
+
+No Standard Service Definition.	
+
+Java Beans vs Spring beans
+-----------------------------
+Java Bean: Class adhereing to 3 constraints.
+
+1) No-arg constructor.
+2) implements serializable interface.
+3) getters and setters.
+
+POJO:
+No Constraint.
+Any java pbject is pojo
+
+Spring bean:
+ Any java object that is managed by Spring.
+ Spring uses IOC containers to manage these objects.
+ 
+DTO object
+------------------
+A Data Transfer Object (DTO) is a design pattern used to transfer data between software application subsystems.
+DTOs are used to reduce the number of method calls, improve performance, and simplify the data transfer process.
+
+Exmaple: User Management System
+
+public class User {
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+
+    // Getters and setters
+}
+
+public class UserDTO {
+    private Long id;
+    private String username;
+    private String email;
+    // no password.
+    // Getters and setters
+}	
+
+Service:
+public UserDTO convertToDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setEmail(user.getEmail());
+        return userDTO;
+    }
+
+Controller: 	
+@GetMapping("/users/{id}")
+    public UserDTO getUser(@PathVariable Long id) {
+        return userService.getUserDTO(id);
+    }
+}	
+	
+
+		
+
+SpringBoot
+---------------
+Spring beans are just instance objects that are managed by the Spring container, namely, they are created and wired by the framework and put into a "bag of objects" 
+(the container) from where you can get them later.
+
+The "wiring" part there is what dependency injection is all about, what it means is that you can just say "I will need this thing" and the framework will follow 
+some rules to get you the proper instance.
+
+Spring beans are just object instances that are managed by the Spring IOC container.
+
+Spring IOC container carry the Bag of Bean. Bean creation,maintain and deletion are the responsibilities of Spring Container.
+
+We can put the bean in to Spring by Wiring and Auto Wiring.
+
+Wiring mean we manually configure it into the XML file.
+
+Auto Wiring mean we put the annotations in the Java file then Spring automatically scan the root-context where java configuration file,
+ make it and put into the bag of Spring.
+
+
+
+Dependency Injection: Identify beans, their dependencies, and wire them together (provides IOC - Inversion Of Control). (Spring recommends constructor injection)
+
+With Spring framework, Instead of focusing on objects, their dependencies and its wiring. We can focus on the business logic.
+
+Spring Dependency (Lower level, service, dao etc) and Maven Dependency (higher dependency in pom.xml)
+
+Spring Projects. (It keep on evolving Rest API -> MicroServices -> Cloud).
+Springboot, SpringCloud, SpringData, SpringSecurity. etc
+
+Nice to use: Goal was to give 10000 feet overview about Spring Framework.
+
+
+Spring framework -> 2005
+Spring boot -> 2016
+
+
+World before Spring boot:
+1) Dependency Management.
+2) Web.xml (configuring dispatcher servlet).
+3) Spring Configuration (View Resolver, etc)/
+4) Manually implement Non-Functional Requirement( Logging, error handling, Monitoring)
+
+Most important goal of Springboot: 
+  Helps you build PRODUCTION_READY apps QUICKLY.
+  (Spring initilizer, starter projects, DevTools, Auto COnfiguration)
+
+When we run tghe application in debug mode, we can all the auto configuration report (which got configured and all)/
+for example ErrormvcAutoConfiguration (this will give the white label error page).
+
+If we update the pom.xml, we've to stop and start the server even though we have dev tools.  
+
+Use plurals in the URI. /users , /posts
+
+"Talend API Tester", It's a chrome extension..just an alternate solution for postman.
+
+
+
+
+
+
+
+
+
+
+check in chatGPT
+----------------
+When should we use constructor, setter, and feild level injections.
+
+
+
+https://www.springboottutorial.com/spring-boot-vs-spring-mvc-vs-spring
+
+spring-boot-starter-web..contains autoconfiguration stuff, json converter, logging etc.
+spring-boot-starter-test.. contains mockito, junit, hamcrest
+spring-boot-starter-web-services ..contains SOAP Web Services.
+spring-boot-starter-data-jpa
+
+spring-boot-starter-actuator
+spring-data-rest-hal-browser
+management.endpoints.web.exposure.include=* (add in application local property).
+
+
+who is configuring dispatcher servlet? (Spring Boot Auto Configuration)
+jackson2ObjectMapper(Json to Bean and vice versa)
+dispatcherServlet will act as Front Controller
+
+@ControllerAdvice( In order to share across multiple controller like ExceptionHandler)
+we can extend the ResposeEntityExceptionHandler class.
+
+spring-boot-starter-validation 
+( To validate the data like @Size(min=2, messsage="name should be atleast 2 character" @Past for dob, ) (we'll get bad request 400)
+
+HATEOAS: Hypermedia as the Engine of Application State
+
+
+To give default properties value: use colon after the property key.
+@Value("${app.name: Demo app}")
+@Value only works in the spring managed beans. (such as controller, service, and component). It will not work in the POJO class even if u have added the data.
+
+To run springboot jar file.
+command: java -jar filename.jar
+java -Dserver.port=8083 -jar filename.jar (from command prompt)
+
+We can set the server port in properties or in VM argument(-Dserver.port=8082 and it has higher precedence)
+
+Jackson library used by Spring Boot for JSON conversion 
+
+@JsonIgnore: if we don't want to provide any field to the response. then we can use @JsonIgnore.
+@JsonProperty:  if we want to to show the field name differently in the response, ww can use @JsonProperty("first_name")
+
+Lombok: 
+Its build with java.
+To avoid boiler plate code (getters and setters etc)
+we can download this from "projectlombok.org)
+@Data = @Getters + @Setters + @EqualsAndHashcode + @ToString
+
+
+Hibernate is one of the implementation of JPA.
+JPA is a ORM tool.
+JPQL (basically it will refer to the class instead of Table, we'll not write nativeQuery if we write it'll be difficult when we change the tarhet database)
+
+Mysql Server-> bin -> run mysqld.exe to run the mysql server (default port 3306)
+
+Scheduler or cron job.
+It perform a task at fixed time interval.
+Send mail of sales report at every 1 hour.
+
+cronmaker.com (To understand about the cron expression)
+
+If we're providing paframetrized constructor @AllArgsCOnstructor, then the default constructor is must for the entity class. otherwise it'll throw exception.
+simply use @NoArgsConstructor.
+
+JPARepository = CRUDRepository + PagingAndSortingRepository.
+
+Springboot validation. for version 2.3+ (we should explicitly add the dependency of it. and before version the spring web dependency automaticaly takes care of that.
+we can use @NotBlank("This field is required") in Entity class. and in controller we should use @Valid along with @RequesyBody. (@VALID IS MUST)
+
+Technically speaking, you can use POST for update operation and PUT for create operation, but this would be against the recommended convention for RESTful APIs.
+However, it is important to note that these are just conventions and not strict rules.
+
+JPA Method Proxy
+--------------------------
+And : findByFirstNameAndLastName(String firstName, String lastName);
+OR: findByFirstNameOrLastName(String firstName, String lastName);
+IN: findByFirstNameIn(List<String> firstName);
+
+Transient: This means it is not using any db column. (It will not persist or save the data).
+         @Transient
+example: private String fullName; (springboot will not persist in the table, this is just for internal purposes.
+
+Like: findByFirstNameContains(String firstName) (firstName like '%on%')
+
+StartsWith: findByFirstNameStartsWith(String firstName) (firstName like 'Jo%')
+
+Pagination:
+	select * from student limit 10 
+	
+	Pageable pageableObj = PageRequest.of(pageNo -1, pageSize)
+	return studentRepo.findAll(pageableObj).getContent();
+
+Sorting:
+   select * from student order by firstname, lastname asc;
+
+   Sort sortObj = Sort.by(Sort.Direction.ASC, "firstName")
+or) Sort sortObj = Sort.by(Sort.Direction.ASC, "firstName", "lastName")   
+   return studentRepo.findAll(sortObj);
+---------------------------------------- 
+JPQL
+
+Select:
+@Query("From Student where firstName=:firstname and lastName =:lastname")
+Student getByFirstAndLastName(String firstname, String lastname)
+ 
+Update: (delete)
+@Modifying
+@Transactional
+@Query("Update Student set firstName=:firstname where id =:id")
+Student UpdateFirstName(String firstname, Long id) 
+
+the return type would be void or integer when we use @Modifying. (Basically for update and delete)
+
+
+API documentation:
+Consumers should know what APIs are provided.
+Consumers should know what is the URl of the API.
+
+Swagger: 
+-----------
+API documentation tool.
+It automatically creates documentation for the API, no manual effort.
+It provides Swagger UI. we can use that as a postman.
+
+add swagger and swagger ui dependency with same version. (springfox-swagger)
+and then enable it using @EnableSwagger2
+we can access it using localhost:8080/swagger-ui.html
+
+Swagger ui has been renamed to Open Ui Specifications.
+latest version:
+add dependency (springdoc-openapi-ui), remove the swagger dependency.(No need to enable anything).
+
+Logging:
+-----------
+Logs are helpful to debug and troubleshoot the issue.
+Logging level : Error < Warn < Info < Debug < Trace.
+By default Info level is enabled.
+
+In properties we can use. (in order to override the default level)
+logging.level.root = debug (will have many logs in the console hence it may not be very useful).
+logging.level.com.example.controller = trace (only for that  controller)
+
+Logger logger = LoggerFactory.getLogger(StudentController.class)
+logger.error(different levels).
+
+logging.file.name = app.log (new file will be created with the logs). (by default is 10 MB.
+we can increase the size as well.
+
+AOP:
+---------
+Separting the logic and provies modularity.
+
+Point Cut = Which method to intercept.
+Advice: When to intercept method? @Before, @After, @AfterReturning, @Around.
+
+Aspect: Combination of Point Cut + Advice.(which and when to intercept in the method)./
+
+Join Point: Execution instance of an Advice.
+    
+
+
+To delete data in Spring Boot with JPA:
+1) Use built-in Delete APIs of Spring Data JPA repositories, should be used only when there is no entity relationship otherwise 
+SQLIntegrityConstraintViolationException  will be thrown. (e.g) delete(entity) and deleteById(entityId)
+
+2) Use CascadeType.ALL or CascadeType.REMOVE attributes to delete the child entities when the parent entity is deleted.
+3) Use orphanRemoval attribute on @OneToMany or @OneToOne annotation to delete the child entities when they are removed from the relationship with the parent entity
+4) for soft delete, we can use the annotation such as @SQLDelete. in order top retreive the undeleted records we should use.@Where(clause = “deleted = false”)
+in case if we want to retrive all the deleted and undeleted records based on parameter. we can use @FilterDef, @Filter.
+
+
+Heroku
+-----------
+It is a PaaS (Platform As A Service) CLoud Provider.
+Own by salesforce.
+We can deploy Java, Node.js, Scala, Python and PHP etc Application.
+Apps can be deployed for FREE.
+
+	
+What’s a CompletableFuture and Async Program
+---------------------------------------------
+CompletableFuture is used for asynchronous programming in Java. Asynchronous programming is a means of writing non-blocking code by running a task on a
+ separate thread than the main application thread and notifying the main thread about its progress, completion or failure.
+
+This way, your main thread does not block/wait for the completion of the task and it can execute other tasks in parallel.
+
+Having this kind of parallelism greatly improves the performance of your programs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

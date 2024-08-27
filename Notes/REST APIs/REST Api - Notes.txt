@@ -1,0 +1,127 @@
+What is a REST API?
+-----------------------
+a REST API is a medium for two computers to communicate over HTTP (Hypertext Transfer Protocol), in the same way clients and servers communicate.
+
+It is very easy to implement and consume as compared to REST.
+
+Social media Application
+
+User -> Posts
+
+Retrieve all users - GET /users
+Create a user		- POST /users
+Retrieve one user - GET /users/{id}
+Delete a user -     DELETE /users/{id}
+
+Retrieve all post for a user - GET /users/{id}/posts
+Create a post for a user     - POST /users/{id}/posts
+Retrieve details of a post   -  GET /users/{id}/posts/{post_id}
+
+Note: Obviously each post is associated to a particular user.
+
+In REST API, idempotency refers to the property of an API endpoint that can be called multiple times with the same input and produce the same result. 
+The term "idempotent" is often used to describe the behavior of certain HTTP methods, such as GET, PUT, and DELETE.
+For example, if you make a PUT request to update a user's information, and you make the same request multiple times, only the user's information will be updated once.
+
+The POST method is not idempotent, because each time a POST request is made, it creates a new resource on the server. 
+For example, if you make two POST requests to create a new user, two separate user resources will be created. 
+This behavior is not idempotent, because making the same request multiple times will result in different resources being created.
+
+POST sends data to the server and leaves it up to the server to do something with it. It is the most flexible verb. POST is also applicable to all non-CRUD actions.
+
+
+Best Practices
+---------------
+1.  Use Nouns Instead of Verbs in Endpoints
+
+URLs describe resources whereas HTTP verbs describe actions that can be taken upon them.
+
+https://mysite.com/getPosts or https://mysite.com/createPost
+Instead, it should be something like this: https://mysite.com/posts
+
+2.  Name Collections with Plural Nouns
+So, instead of https://mysite.com/post/123, it should be https://mysite.com/posts/123.
+
+3.Use Status Codes in Error Handling
+You should always use regular HTTP status codes in responses to requests made to your API. 
+This will help your users to know what is going on – whether the request is successful, or if it fails, or something else.
+
+4. Use Nesting on Endpoints to Show Relationships
+https://mysite.com/posts/postId/comments would make sense.(to retirve comeents of particular post)
+You should avoid nesting that is more than 3 levels deep as this can make the API less elegant and readable.
+API designers should avoid complex structures that require more than two levels of nesting.
+
+5. Use Filtering, Sorting, and Pagination to Retrieve the Data Requested
+https://mysite.com/posts?tags=javascript
+
+6. Use SSL for Security
+SSL stands for secure socket layer. It is crucial for security in REST API design. This will secure your API and make it less vulnerable to malicious attacks.
+
+https://mysite.com/posts runs on SSL.
+http://mysite.com/posts does not run on SSL.
+
+7. Be Clear with Versioning
+
+One of the commonest versioning systems in web development is semantic versioning.
+(e.g) 3.3.4. The first number represents the major version, the second number represents the minor version, and the third represents the patch version.
+
+Many RESTful APIs from tech giants and individuals usually comes like this:
+https://mysite.com/v1/ for version 1
+https://mysite.com/v2 for version 2
+
+When you make REST APIs available this way, you are not forcing clients to migrate to the new versions in case they choose not to.
+
+
+8. Provide Accurate API Documentation
+
+When you make a REST API, you need to help clients (consumers) learn and figure out how to use it correctly.
+ The best way to do this is by providing good documentation for the API.
+
+The documentation should contain:
+
+relevant endpoints of the API
+example requests of the endpoints
+implementation in several programming languages
+messages listed for different errors with their status codes
+
+One of the most common tools you can use for API documentation is Swagger. And you can also use Postman, 
+one of the most common API testing tools in software development, to document your APIs.
+
+9. Use Subresources for Relationships:
+When dealing with relationships between resources, use subresources.
+ For example, use /users/{user_id}/orders instead of /orders?user_id={user_id}.
+ 
+10. camelCase and snake_case in the api
+-------------------------------------------
+
+Here's an example of using snake_case in an API endpoint:
+
+GET /user_details
+
+And here's an example of using camelCase in an API endpoint:
+
+GET /userDetails
+
+In both examples, the endpoint retrieves the details of a user. The choice between snake_case and camelCase is a matter of personal preference and company convention,
+ but it's important to be consistent in the naming conventions used throughout the API. 
+
+11. Others
+--------------
+1) Do not make nouns unnecessarily long and complicated (users, not system-users).
+2) Use common terminology (people instead of special-snowflakes).
+3) Use lowercase (/items not /Items) to avoid the ambiguity around URL case-sensitivity.
+4) For individual resources, include resource identifiers in the path, not the query (/contacts/22 instead of /contacts?id=22).
+5) Nouns that are compounds of multiple words should use a hyphen as a separator (/legal-documents). 
+There’s a very mundane reason for this: when URLs are hyperlinks, they are often underlined, which would render an underscore separator invisible.
+6) URLs should never reveal the underlying implementation (/resources not /api.php/resources).
+7)The query part of the URL is for search and filtering and commonly used with a resource list endpoint (/contacts?first_name=Anna&limit=20).
+8) Good API design keeps URLs as short as possible.
+9) we can use camelCase in API endpoints, but it is more common to use snake_case in REST APIs. 
+This is because many programming languages use snake_case as the standard for naming conventions and it makes it easier to read in URLs.
+
+
+That covers all the routes for the current requirements. You can put them down in an OpenAPI file, for example using Stoplight’s Visual API Designer,
+ to have a machine-readable definition that can feed into the next steps of your API’s lifecycle, such as implementation, documentation, and testing.
+
+
+when should we use requestParam and pathVariable.

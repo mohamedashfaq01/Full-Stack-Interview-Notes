@@ -1,0 +1,191 @@
+Best Practices
+--------------------
+1) Utilize RxJS operators like retry and catchError to handle HTTP errors gracefully.
+Implement retry logic for transient errors using the RxJS retry operator.
+This can help mitigate issues with temporary network failures or server unavailability.
+
+@Injectable()
+export class ApiErrorInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      retry(1), // Retry the request once if it fails
+      catchError((error: HttpErrorResponse) => {
+        // Handle specific error codes or types
+        // ...
+        return throwError(error);
+      })
+    );
+  }
+}
+
+2) User-Friendly Error Messages:
+Provide user-friendly error messages and actionable feedback to users.
+Avoid exposing technical details to the end user.
+
+3) Logging:
+
+Log errors to an external service for monitoring and debugging.
+This helps in tracking and analyzing issues that occur in production.
+ Consider integrating logging libraries like ngx-logger
+
+4) Provide Meaningful Error Messages
+
+
+Error can be handled in different ways.
+1) Use ErrorHandler class.
+2) HTTP Interceptors for API Errors:
+
+
+
+Handle Errors Globally
+--------------------------
+1. Global Error Handling with ErrorHandler class
+
+a) Create a GlobalHandlerClass by implenting ErrorHanlder class.Handle the errors inside the handleError Method.
+b) Register the Global Error Handler: Provide your custom error handler in AppModule.
+providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
+    LoggingService,
+    NotificationService
+  ],
+
+  
+GlobalErrorHandlerService
+*******************************
+import { ErrorHandler, Injectable, Injector } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoggingService } from './logging.service'; // A custom logging service
+import { NotificationService } from './notification.service'; // A custom notification service
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GlobalErrorHandlerService implements ErrorHandler {
+
+  constructor(private injector: Injector) { }
+
+  handleError(error: any): void {
+    const loggingService = this.injector.get(LoggingService);
+    const notificationService = this.injector.get(NotificationService);
+
+    let message;
+    let stackTrace;
+
+    if (error instanceof HttpErrorResponse) {
+      // Server or connection error happened
+      message = `Http Error: ${error.message}`;
+    } else {
+      // Handle Client Error (Angular Error, ReferenceError...)     
+      message = error.message ? error.message : error.toString();
+      stackTrace = error.stack;
+    }
+
+    // Always log errors
+    loggingService.logError(message, stackTrace);
+
+    // Notify the user
+    notificationService.showError(message);
+
+    // Do not rethrow the error otherwise it will not be caught again
+    // throw error;
+  }
+}
+
+In logging.service.ts:
+----------------------------
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoggingService {
+  logError(message: string, stack: string) {
+    console.error('LoggingService: ' + message);
+    if (stack) {
+      console.error(stack);
+    }
+    // Here you can send the error to your backend server for logging
+  }
+}
+
+In notification.service.ts:
+----------------------------------
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Assuming you're using Angular Material for notifications
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotificationService {
+
+  constructor(private snackBar: MatSnackBar) { }
+
+  showError(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      verticalPosition: 'top',
+      panelClass: ['snackbar-error'] // Apply custom styles if necessary
+    });
+  }
+}
+
+
+
+2. Global HTTP Error Handling with Interceptors
+***************************************************'
+Create an Error Handling Service: Handle errors by logging and displaying user-friendly messages.
+Create an HTTP Interceptor: Intercept all HTTP requests and responses to catch errors.
+Register the Interceptor: Register the interceptor in your AppModule to apply it globally.
+Use in Components: Make API calls in components, relying on the interceptor to handle errors globally.
+
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+@Injectable()
+export class HttpErrorInterceptor implements HttpInterceptor {
+
+  constructor(private injector: Injector) { }
+  
+  const loggingService = this.injector.get(LoggingService);
+    const notificationService = this.injector.get(NotificationService);
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+
+        if (error.error instanceof ErrorEvent) {
+          // Client-side error
+          errorMessage = `Client-side error: ${error.error.message}`;
+        } else {
+          // Server-side error
+          errorMessage = `Server-side error: ${error.status} - ${error.message}`;
+        }
+
+        // Log the error to the console (or send to a logging service)
+        console.error(errorMessage);
+
+        // Optionally, redirect to a custom error page
+        if (error.status === 401 || error.status === 403) {
+          this.router.navigate(['/login']);
+        } else {
+          this.router.navigate(['/error']);
+        }
+
+        return throwError(errorMessage);
+      })
+    );
+  }
+}
+
+In your AppModule, provide the HTTP interceptor.
+@NgModule({
+  // other imports and declarations
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+  ]
+})
+export class AppModule { }

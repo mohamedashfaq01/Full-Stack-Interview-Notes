@@ -1,0 +1,111 @@
+
+
+Exceptions thrown by a Controller method is mapped to the ControllerAdvice method using @ExceptionHandler annotations.
+
+The ExceptionHandler ControllerAdvice will catch the exceptions thrown by the controller method, and we send more appropriate response
+ to the caller.
+ For example if an exception occurs we don't want the caller to get the entire stack trace involving technical details. 
+Also we can return the appropriate response status depending on the business logic.
+
+Spring 3.2 brings support for a global @ExceptionHandler with the @ControllerAdvice annotation.
+
+This enables a mechanism that breaks away from the older MVC model and makes use of ResponseEntity along with the type safety 
+and flexibility of @ExceptionHandler:
+
+Controller Advice
+The @ControllerAdvice is an annotation, to handle the exceptions globally.
+
+Exception Handler
+The @ExceptionHandler is an annotation used to handle the specific exceptions and sending the custom responses to the client.
+
+@ControllerAdvice
+public class ProductExceptionController {
+   @ExceptionHandler(value = ProductNotfoundException.class)
+   public ResponseEntity<Object> exception(ProductNotfoundException exception) {
+      return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
+   }
+}
+
+ResponseStatusException (Spring 5 and Above	spring boot 2.3)
+Spring 5 introduced the ResponseStatusException class.
+
+We can create an instance of it providing an HttpStatus and optionally a reason and a cause:
+@GetMapping(value = "/{id}")
+public Foo findById(@PathVariable("id") Long id, HttpServletResponse response) {
+    try {
+        Foo resourceById = RestPreconditions.checkFound(service.findOne(id));
+
+        eventPublisher.publishEvent(new SingleResourceRetrievedEvent(this, response));
+        return resourceById;
+     }
+    catch (MyResourceNotFoundException exc) {
+         throw new ResponseStatusException(
+           HttpStatus.NOT_FOUND, "Foo Not Found", exc);
+    }
+}
+
+@ExceptionHandler
+The first approach was to include @ExceptionHandler methods in each controller,
+
+they realized the approach was not optimal, since exception handlers might be repeated in many controllers 
+(PostController#create and CommentController#create throw the same exception).
+ One of the developers thought it would be great if they could create a centralized point for exceptions,
+ so that whenever an exception is thrown by any controller, it would be caught and handled by that point
+ instead of having handler methods in each controller class. @ControllerAdvice came into play.
+ 
+ Write a handleException method. This one is meant to be annotated with @ExceptionHandler and
+ will handle all exceptions declared in it and then will delegate to a specific handler method.
+
+
+
+
+CustomerAlreadyExistsException
+NoSuchCustomerExistsException
+Customer getCustomer(Long id): NoSuchElementException 
+String addCustomer(Customer customer): CustomerAlreadyExistsException 
+String updateCustomer(Customer customer): NoSuchCustomerExistsException 
+
+
+
+Standardize Error Responses:
+
+Define a common structure for error responses across all microservices. This makes it easier for clients to understand and handle errors.
+Include fields like error code, message, timestamp, and details.
+
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("NOT_FOUND", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse("INTERNAL_SERVER_ERROR", "An unexpected error occurred");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+public class ErrorResponse {
+    private String errorCode;
+    private String message;
+
+    // Constructor, getters, and setters
+
+    public ErrorResponse(String errorCode, String message) {
+        this.errorCode = errorCode;
+        this.message = message;
+    }
+
+    // Getters and setters
+}
+
+

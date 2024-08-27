@@ -1,0 +1,134 @@
+        
+FourthHighestSalary 
+--------------------------		
+List<Integer> salaries = Arrays.asList(50000, 60000, 75000, 90000, 120000, 80000, 100000, 110000);
+
+// Finding the 4th highest salary
+Integer fourthHighestSalary = salaries.stream()
+									  .sorted((s1, s2) -> s2 - s1)  // Sort in descending order
+									  .distinct()  // Remove duplicates if any
+									  .skip(3)      // Skip the top 3 salaries
+									  .findFirst()  // Get the first element (which is the 4th highest)
+									  .orElse(null); // Return null if there are less than 4 unique salaries
+
+System.out.println("4th Highest Salary: " + fourthHighestSalary);
+
+nth non-repeating character
+--------------------------------
+
+
+final String str = "ssaavhhtb";
+Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
+
+for(int i=0;i<str.length.i++) {
+  Character ch = str.charAt(i);
+  map.put(ch, !map.containsKey(ch) ? 1 : map.get(ch)+1);
+} 
+
+final int skipCount = 2;
+Syso("nth non-repeating characters")
+int result = map.entrySet().stream().filter(mp -> mp.getValue() == 1).skip(skipCount).findFirst().get().getKey();
+Syso(result);
+
+for repeating characters: filter(mp -> mp.getValue() > 1).
+
+output
+--------
+1st non repeating : v
+2nd non repeating : t
+ 
+Java 8 Sum of numbers.
+-------------------------
+ 
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+int sum = numbers.stream()
+				 .mapToInt(Integer::intValue)
+				 .sum();
+				
+To convert int array to list of integers.
+---------------------------------------------
+int[] arr = {1, 2, 3, 4, 5};
+List<Integer> list = Arrays.stream(arr).boxed().collect(Collectors.toList());
+
+To find Second Highest Number
+------------------------------------------
+Optional<Integer> secondLargest = numbers.stream()
+                                                 .distinct()
+                                                 .sorted(Comparator.reverseOrder())
+                                                 .skip(1)
+                                                 .findFirst();
+												 
+public int secondHighest(int[] nums) {
+ int highest = Integer.MIN_VALUE, secondHighest = Integer.MIN_VALUE;
+ for (int num : nums) {
+ if (num > highest) {
+ secondHighest = highest;
+ highest = num;
+ } else if (num > secondHighest && num != highest) {
+ secondHighest = num;
+ }
+ }
+ return secondHighest;
+}
+	
+Sort the employee based on name
+---------------------------------
+List<Employee> sortedEmployees = employees.stream()
+                .sorted(Comparator.comparing(Employee::getName))
+                .collect(Collectors.toList());
+
+List<Employee> sortedEmployees = employees.stream()
+                .sorted((emp1, emp2) -> emp1.getName().compareTo(emp2.getName()))
+                .collect(Collectors.toList());
+				
+Sum of even numbers
+----------------------
+int nums[] = { 2, 3, 1, 6, 4 };
+		List<Integer> arr = Arrays.asList(2, 3, 1, 6, 4 );
+		int sum = Arrays.stream(nums).filter(i -> i%2 ==0).sum();
+		int sum2 = arr.stream().filter(i -> i%2 ==0).mapToInt(Integer::intValue).sum(); // .mapToInt(i -> i.intValue())
+		System.out.println(sum);
+		System.out.println(sum2);
+				
+												 
+
+Java Map Example: comparingByKey()
+----------------------------------------
+Map<Integer,String> map=new HashMap<Integer,String>();          
+      map.put(100,"Amit");    
+      map.put(101,"Vijay");    
+      map.put(102,"Rahul");        
+      map.entrySet()  
+      .stream()  
+      .sorted(Map.Entry.comparingByKey())   
+      .forEach(System.out::println);  		
+
+Map.Entry.comparingByKey())
+Map.Entry.comparingByKey(Comparator.reverseOrder())
+Map.Entry.comparingByValue()
+Map.Entry.comparingByValue(Comparator.reverseOrder()
+
+Find the largest and smallest word in a given sentence
+---------------------------------------------------------
+public class WordLengthFinder {
+    public static void main(String[] args) {
+        String sentence = "Find the largest and smallest word in a given sentence";
+        
+        // Split the sentence into words
+        String[] words = sentence.split("\\s+");
+        
+        // Find the largest word
+        String largestWord = Arrays.stream(words)
+                                   .max(Comparator.comparingInt(String::length)) // Comparator.comparingInt(word -> word.length())
+                                   .orElse(null);
+        
+        // Find the smallest word
+        String smallestWord = Arrays.stream(words)
+                                    .min(Comparator.comparingInt(String::length))
+                                    .orElse(null);
+        
+        System.out.println("Largest word: " + largestWord);
+        System.out.println("Smallest word: " + smallestWord);
+    }
+	  

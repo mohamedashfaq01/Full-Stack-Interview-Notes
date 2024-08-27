@@ -1,0 +1,220 @@
+
+https://www.bezkoder.com/jwt-json-web-token/
+
+JWT consist of three parts
+1) Header
+2) Payload
+3) Signature
+
+JWT standard structure: header.payload.signature
+
+const data = Base64UrlEncode(header) + '.' + Base64UrlEncode(payload);
+const hashedData = Hash(data, secret);
+const signature = Base64UrlEncode(hashedData);
+
+Example:
+
+const encodedHeader = base64urlEncode(header);
+/* Result */
+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+const encodedPayload = base64urlEncode(payload);
+/* Result */
+"eyJ1c2VySWQiOiJhYmNkMTIzNDVnaGlqayIsInVzZXJuYW1lIjoiYmV6a29kZXIiLCJlbWFpbCI6ImNvbnRhY3RAYmV6a29kZXIuY29tIn0"
+const data = encodedHeader + "." + encodedPayload;
+const hashedData = Hash(data, secret);
+const signature = base64urlEncode(hashedData);
+/* Result */
+"crrCKWNGay10ZYbzNG3e0hfLKbL7ktolT7GqjUMwi3k"
+// header.payload.signature
+const JWT = encodedHeader + "." + encodedPayload + "." + signature;
+/* Result */
+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhYmNkMTIzNDVnaGlqayIsInVzZXJuYW1lIjoiYmV6a29kZXIiLCJlbWFpbCI6ImNvbnRhY3RAYmV6a29kZXIuY29tIn0.5IN4qmZTS3LEaXCisfJQhrSyhSPXEgM1ux-qXsGKacQ"
+
+AuthGuard
+------------------
+The auth guard is an angular route guard that's used to prevent unauthenticated users from accessing restricted routes, it does this by 
+implementing the CanActivate interface which allows the guard to decide if a route can be activated with the canActivate() method. 
+If the method returns true the route is activated (allowed to proceed), otherwise if the method returns false the route is blocked.
+
+HTTP is a stateless protocol, for static web page we don't have any issue, but for dynamic web page we have to send identity + data(to recognize 
+the user) that's where 
+1) session token (Reference token) and 
+2) JWT (Value Token)
+comes into picture.
+
+Session
+------------
+Analogy: Customer --> Customer support Rep call (for some issue)
+                   <--(ticket)  (next time we can identify the user and his problem with that ticket number)
+
+The client will send the session ID	(the server will lookup and authorize)	 
+usuaally Session ID will be stored in the cookies. 
+
+Session ID+Cookies (Most popular mechanism for Authorization)
+
+https://www.geeksforgeeks.org/session-vs-token-based-authentication/ (explore about it)
+
+Disadvantage: 
+		 
+JWT (token with json value)
+-------		 
+
+Authentication and Authorization in Angular
+-----------------------------------------------
+1) Using Basic AuthGuard to guard the route for unauthenticated logged in user.
+( we'll check hardcoded username and password and store in localstorage if loggedIn successfully)
+https://www.tutorialspoint.com/angular8/angular8_authentication_and_authorization.htm#:~:text=Authentication%20is%20very%20important%20process,authorised%20to%20access%20a%20resource.
+
+
+
+
+
+Google Platform Library (GAPI) for Google Sign-In and GMail 
+What is MSAL?
+MSAL (Microsoft Security Authentication Library) is a client-side js library that authenticate users and fetch access token to access Microsoft Graph.
+
+What is Microsoft Graph?
+It is an API that can be used to connect to Office 365 services.
+
+OAuth:
+https://www.youtube.com/watch?v=t4-416mg6iU&ab_channel=JavaBrains (Awesome Anology)
+
+Best Analogy: Valet Key (with reduced access, can start or stop but cannot open the fuel tank or trunk).
+Valet (prononced as Valeh): a person employed to clean or park cars.  
+Car has master key and valet key.
+A website with Upload Photo from google drive. (OAuth send Access Token)
+
+JWT (A token has data within it, but also secured so that it can be verified not modified)
+
+
+
+OAuth is about authorization and not authentication.
+
+OAuth 2.0 is a complete redesign from OAuth 1.0, and the two are not compatible. 
+If you create a new application today, use OAuth 2.0. This blog only applies to OAuth 2.0, since OAuth 1.0 is deprecated.
+OAuth 2.0 is faster and easier to implement. OAuth 1.0 used complicated cryptographic requirements, only supported three flows,
+ and did not scale.
+
+(Sign up with facebook, or google or twitter) 
+Resource Owner (Ashfaq - User)
+CLient (Linkedin)
+Gmail (Resoource Server)
+
+OAuth Allows you to 
+
+OAuth Examples:
+Facebook apps are a good OAuth use case example. Say you’re using an app on Facebook, and it asks you to share your profile and pictures. 
+Facebook is, in this case, the service provider: it has your login data and your pictures. The app is the consumer, and as the user,
+ you want to use the app to do something with your pictures. 
+You specifically gave this app access to your pictures, which OAuth is managing in the background.
+
+
+Difference Between Local Storage, Session Storage And Cookies
+------------------------------------------------------------------
+The main disadvantage of the HTTP protocol it is a stateless protocol that means it does not track any kind of information 
+of response and request by the server and the client, So in order to resolve this problem, 
+there are three ways to track useful information Local Storage, Session Storage, and Cookies.
+
+Why should we store data in the browser?
+One of the key reasons to store data in the browser is performance.
+ You can’t always wait for the server to send a response for every request.
+ Sometimes it’s better to have some piece of information stored in your browser for quicker access.
+ 
+ Check Flipkart, Paytm site's storage for instance.
+
+Cookies
+A cookie is the special type of storage on a web browser which helps to maintain the state of the user. 
+As we know that Http requests are stateless, to solve this problem cookies were invented. 
+Cookies can store small user information and pass with every request and response helps the server to identify the user.
+document.cookie="number=7"
+
+1)  4 kb memory for cookies.
+2) We can set expiration time along with cookies.
+3) Cookies are passed in request header with every request and response to the server.
+4) Cookie-Based Authentication. (Best place to store JWT Token).This way they're secure against XSS attacks.
+
+Common Use Cases
+Authenticating logged in users — Whenever the user successfully signs in, the server sends a success response and also sets a cookie, 
+so that whenever requests are sent in the future, the server recognizes that the user is signed in.
+
+Identifying user state — For example in an e-commerce site, whenever the user adds a new item and 
+refreshes the page, it automatically shows up the added item in the cart, with the help of cookies.
+
+you can consider this Web Storage as your small personal database present in your browser.
+
+LocalStorage 
+1) Data stored does not pass with every request to the server.
+2) There is no expiration time for local storage,
+3) Data stored in localStorage is not secured. Never store sensitive information to localStorage.
+4) Data in localStorage is shared between all tabs and windows from the same origin.
+5) It can store 5-10MB of data.
+6) One more important thing to note here is that due to security reasons it follows the same-origin policy. 
+Same-Origin refers to the same Protocol, same host, and the same port. 
+
+SessionStorage
+1) Data is sessionStorage exists only within the current browser tab.
+2) Data stored in sessionStorage is not secured. Never store sensitive information to sessionStorage.
+3) It can store 5MB of data.
+4) One more important thing to note here is that due to security reasons it follows the same-origin policy. 
+Same-Origin refers to the same Protocol, same host, and the same port. 
+5) To share data we only have to be on the same origin (domain/port/protocol), the URL path can be different.
+
+Common Use Cases
+An application’s light mode/dark mode can be stored here in the browser.
+Likewise you can store the web application’s user customized data here. Say, choosing themes, layouts, etc.
+
+Which one should you choose?
+
+The answer to this depends on what is your exact use case.
+localStorage: If you want your page to always hold some data that is not confidential.
+Cookies: If the server needs to know some information like authentication key, you should use cookies to store them
+sessionStorage : can be used to store the state of interface, i.e., whenever you visit a page, customize it, visit another page and return to the same page,
+ you would want to show the page how the user customized it.
+ 
+ 
+CORS (Cross-Origin Resource Sharing)
+---------
+What is Origin?
+
+https://www.example.com:8080 (Protocol, Domain, Port)
+Any web address has same three stuffs identical. Then it's called as Origin.
+
+Same Origin: Don't talk to to strangers.
+
+Cross Origin: The need to talk to strangers 
+(for exampole to use weather api, time and open source public apis etc)
+
+HTTP headers comes to rescue. (Access-Control-Allow-Origin: *) (wildCard)
+
+CORS:  a solution to a browser security problem. JavaScript will let you pull information from other pages into your current web page.
+CORS lets the owners of a website send HTTP headers that essentially say “no, it's OK to request this from that other site; there's no harm.” 
+
+In order to get data from different domain. we use that CORS.
+
+If origin A wants to use the resource from origin B.
+then it'll follow the CORS preflight mechanism.
+before the rest api call, it call the preflight api first.
+the server sends some additional http header after calling the preflight request.
+
+send like 
+Accepts-control-allow-origin: * (or) specific domain.
+
+Preflight Request:
+
+The preflight request is sent before the original request, hence the term “preflight.”
+The purpose of the preflight request is to determine whether or not the original request is safe (for example, a DELETE request). 
+The server will respond to the preflight request and indicate whether or not the original request is safe.
+
+If the server specifies that the original request is safe, it will allow the original request.  
+Otherwise, it will block the original request.
+
+@CrossOrigin(value="http://localhost:3000", allowedHeaders=["accept-language", "Authorization"])
+
+if the request http header doesn't matched with the allowedHeader. it'll throw preflight error issue.
+
+
+
+
+
+
+

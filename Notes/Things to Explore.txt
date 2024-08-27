@@ -1,0 +1,56 @@
+To Explore
+------------------
+1) What is BlockChain Technology? Common Examples
+2) what is NFT? full details about it.
+3) What is cryptocurrency? different types of it..in islamic perspective??
+4) what is web 3.0 and its uses.
+5) what is Machine Learning? basic concepts of it.
+6) what is Metaverse? concept and example of it. Recent Marriage held in metaverse.
+7) what is IoT? concept and uses of it.
+8) Virtual Reality and Augmented Reality in today's world.
+9) Basic concepts of data science, data mining.
+10) What is RPA? and its uses.
+11) what is DevOps and basics of it.
+12) What is COgnitive computing. basics of it.
+13) what is AI? uses and example..basic implementation of it.
+14) Different ways of Authentiaction and Authorization? best option? why?
+15) What is Big Data? and ETL.
+16) Basics of AWS and AZure.
+17) Angular Authentication with Azure. 
+18) What is ADFS and how it is implemented. 
+19) what is A/B testing.
+
+20) what is Nginx load balancer?
+21) what is web penetration technique.
+https://www.youtube.com/watch?v=uSVTNuA5Iu8&list=PLSbrmTUy4daOsm6ky-M5QmUnV31BkZ_6X&ab_channel=CyberWorldHindi
+
+1) Go through the backend code file structure.
+2) Go through the file one by one.
+3) write down the stuffs which we need to explore.
+4) Basic Monfgodb with spring boot application video from youtube and its implementation in my local machine.
+5) Basic Exception handling and handling the negative scenarios. (like method not allowed, id not exist, duplicate data).
+
+
+
+
+1) what is @slf4j.
+2) What is spring security?
+3) what is the use fo intervface AuthenticationProvider.
+4) What is the difference between JpaRepository and MongoRepository?
+5) what is spring boot logging framework and how to use it? why we should use logs instead of Syso?
+6) what is Swagger and how to use it with springboot.?
+7) what is the differnce between constants and enums? when to use enums?
+8) what is @Transactional and @Modifying
+9) hadnling error using DefaultResponseErrorHandler class.
+10) 
+
+
+1)what is strapi?
+2)what is Redis and use of it?
+3) what is Quartz scheduler java.
+4) what is the use of netflix hysterix
+
+General:
+--------------
+1) what is newsletters? example? and popular newsletters in the internet?
+2) 

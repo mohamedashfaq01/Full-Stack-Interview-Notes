@@ -1,0 +1,5 @@
+Agile: Focuses on iterative development and continuous feedback. It involves frequent
+releases and collaboration between teams.
+
+Scrum: A specific Agile framework that involves time-boxed iterations (sprints) and a
+structured set of roles and ceremonies.

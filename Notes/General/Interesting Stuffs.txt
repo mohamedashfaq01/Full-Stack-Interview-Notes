@@ -1,0 +1,175 @@
+Consume Open APIs like Spotify, live Cricket score, maps etc.
+https://reqres.in/ (Open Source API for testing) 
+and https://jsonplaceholder.typicode.com/
+
+Explore more about these 2 project from Hackerrank and create same project
+1) Convert Celcius to Farenheit
+2) Waether Details
+
+Angular Interceptors:
+-------------------------
+ It provides a way to intercept HTTP requests and responses to transform or handle them before passing them along.
+ Interceptors are a unique type of Angular Service that we can implement. Interceptors allow us to intercept incoming or outgoing HTTP requests using the HttpClient. By intercepting the HTTP request, we can modify or change the value of the request.
+ 
+ Handling HTTP Headers
+HTTP Response Formatting
+HTTP Error Handling
+
+https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6
+
+
+Angular 10
+SpringBoot - 2.3.3
+
+Calling differnet rest api form springboot application
+---------------------------------------------------
+Use restTemplate and UriComponentsBuilder to build the correct URL for it.
+http://test.com/solarSystem/planets/{planet}/moons/{moon}
+
+HttpHeaders headers = new HttpHeaders();
+headers.setBearerAuth(token);
+String url = UriComponentsBuilder.fromUriString(fds)
+		.pathSegment(userProvider.getUser().getCdsID()).toUriString();
+return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<AuthorDetails>() {});
+
+To get token we can use jwtProvider component, we can inject it. and use it..
+getToken(HttpServletRequest request) {
+  String token = jwtProvider.resolveToken(request);
+  AuthorDetails authorDetails = fdsService.getAuthorDetails(token);
+}
+
+Spring boot client application: It's an independent job component. It meant to say like we don't have proper URL or request mapping. 
+In Application.java itself we'll call the business logic like.
+
+@Override
+	public void run(String... args) throws Exception {
+		LOGGER.log(Level.INFO, "Actual Volume Client process started at : {}", new Timestamp(System.currentTimeMillis()));
+		actualVolumeService.loadPendingEngVolumes();
+	}	
+		
+Spring boot service application: It's an independent spring boot application which provides the REST service. like for getting employee details through FDS.
+
+Explore more on it OAuth2RestTemplate, JavaMailSender
+
+@Autowired
+OAuth2RestTemplate restTemplate;
+
+used...restTemplate.exchange()
+
+
+Synchronous behavior:
+Client send HTTP or any request and waits for the response HTTP.
+
+Asynchronous behavior:
+Client sends the request, There's another thread that is waiting on the socket for the response. Once response arrives, the original sender is notified (usually, using a callback like structure).
+
+Liquibase
+------------------------
+Liquibase : It is a source control tool for database scripts. (ALso used to store multiple versions)
+
+supports multiple database.
+supports code branching and merging.
+generate database change documentation.
+Supports YML, XML, JSON and SQL format.
+
+Changeset: Set of changes that liquibase executes within one transaction
+
+Liquibase Generate Database ChangeLog: mvn liquibase:generateChangelog (will create chnagelog from existing database).
+Liquibase SQL Output commands        : mvn liquibase:updateSQL (will convert chnagelogs to sql and store in target folder)
+
+	  
+preCondition (To validate the assumptio before the changeset execution)
+property (Global property and use as a placeholder)
+changeSet (atomic database transaction)
+include (to include the different changelog files in order to avoid more chagelog transaction).
+
+Flyway: Database Migration Tool which uses plain old sql scripts.
+
+Environment Variables and how to Access it
+---------------------------------------------
+@Value("${key.something}")
+private String injectedProperty; (field injection)
+
+or 
+
+We can also obtain the value of a property using the Environment API:
+
+@Autowired
+private Environment env;
+
+public String getSomeKey(){
+    return env.getProperty("key.something");
+}
+	  
+
+Volkswagon Scandal (Sept -2015)
+-----------------------
+Scandal Meaning : an action or event regarded as morally or legally wrong and causing general public outrage.
+Worldwide, there are two types of combustion engines widely used – Diesel and Gasoline.
+Diesel cars offer up to 30% higher mileage than Gasoline ones.
+However, there is a trade-off involved because Diesel engines also end up polluting the air more with higher emissions of Nitrogen oxides.
+
+ we need to understand that the modern car is a sophisticated computer with numerous software installed in it.
+
+• What Volkswagen did was that it inserted a complex code into the car’s software.
+• This code tracked steering and pedal movements of the car to judge if an emissions test was being carried out.
+• If yes, the code would automatically turn on the pollutions control and the car would pass the emissions test.
+
+This is how Volkswagen fooled the agencies and the customers that it was providing the same performance as diesel cars but with lesser emissions.
+
+However, when the car was on the road, the pollutions control would stop and the actual emissions would be much more than the permissible limit.
+
+Volkswagen R&D came up with a software that can beat this NOx detection test. And how does it works ? Well, under normal circumstances their car emits NOx which is 10 to 40 times the prescribed level by the US EPA (mind boggling, of course). This software tracked steering and pedal movements. When those movements suggested that the car was being tested for nitrogen-oxide emissions in a lab, the car automatically turned its pollution controls on. The rest of the time, the pollution controls switched off.
+
+That's it !! Volkswagen got the better of EPA guys. And the rest is history.
+11 million cars sold in quick time landing a shock defeat to BMW and Toyota guys. And the revenue ? $ 15 million. Wow. Could you beat that ? Even they couldn't.
+
+
+Revelation - One fine day, a Non-EPA team tested their car and found discrepancy in the level of NOx emission. On repeated testing it became clear that they have bypassed the EPA test unethically. This report was submitted to the US officials
+
+Aftermath - This sent a shockwave across the German territory leading to the following:
+
+
+1> Company CEO Martin Winterkorn stepped down with immediate effect.
+2> Volkswagen dived southwards on the local bourses plummeting 30% and counting.
+3> Cars manufactured in 2015/16 went on for hold and re-testing.
+4> Their 11 million cars sold were to be either re-purchased or fixed.
+5> They might be penalized anywhere around $18 billion.
+
+
+
+
+Retro Points
+------------------
+
+Its been a fantastic journey in FORD. Got to learn so much of things.
+
+Wanted to highlight small thing...
+
+When I started my career, I didn't get any developement project for almost 2 years.
+Then I got one development project in which I learnt angularJs and Java. 
+Due to other circumstances, I had to resign and join in capgemini. I got a project 
+in which I was UI developer and was working with PolymerJs, Predix-UI system, HighCharts. etc.
+
+After one year, I joined in FORD. When i joined here I didn't know anything about latest version angular (ANgular 2+) or any backend experience.
+I didn't had any experience working in agile methodology previously. like (standup, retro, iteration planning). Usually we have BA and they'll provide us the requirement we just had to develop that ..
+
+But here, I got to learn right from getting the requirement, creating the feature and its user stories. Implementing through the TDD and testing with BDD. and deployment.
+
+That is where I got to learn the exact meaning of Full Tack developer. 
+
+I got to learn a lot of stuff from this team and from this project.  2 year before i didn't know much about angular and springboot. Now I learnt a lot of stuffs. But I slightly regret that I couldn't explore much about Authentication, Authorization and other stuffs.
+I wanted to say this to team, we can learn a lot of stuffs from our project for example we have some services like FDS, Actual volume processing. ( u can explore more about it and see how it works).
+
+
+Siva: When I joined in HDVerify, He is the one who guided me right from the beginning. I really admire him. I really like the way he manage and leads the team. Te technical skills he has. He's just brilliant in it.
+
+Like i said earlier, we usually have architect who impelemnts the complicated business logics and all and even i actual volume processing we had some complicated logics but you've impelmented those things without any major help. You're a true inspiration siva. 
+
+Thank u soo much siva for everything. I wish you all the very best for your future and advance hapypy married life siva.
+
+Saravanan: Thank u so much Saravanan for giving me this wonderful opportunity. Got to learn a lof stuffs Saravanan. I have observed you, the way u manage the people and the situation is remarkable. I really like the way u motivate us. the same thing i applied to my younger brother who is stdying in MCA.
+
+
+As I move on to the next chapter of my professional life, I'll definitely 
+I’ll never forget my time here.

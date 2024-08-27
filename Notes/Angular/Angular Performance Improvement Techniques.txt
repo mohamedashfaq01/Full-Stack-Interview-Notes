@@ -1,0 +1,182 @@
+
+Optimization Techniques in Angular
+----------------------------------------
+1. Lazy Loading
+
+Definition: Load modules only when they are needed, rather than loading all at once at the start.
+How to Implement:
+Use Angular's lazy loading feature in the routing configuration.
+
+const routes: Routes = [
+  { path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule) }
+];
+
+preloadingStrategy is an Angular Router configuration option that allows you to control the preloading of lazy-loaded modules. ( to improve user experience)
+No Preloading: Default behavior, no preloading.
+PreloadAllModules: Preloads all lazy-loaded modules after the initial load.
+Custom Strategy: Define custom logic to selectively preload modules based on specific conditions or criteria.
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+we can also control it using customStrategy. by using preload: true (we can specify which modules should be loaded once the application loaded successfully)
+const routes: Routes = [
+  {
+    path: 'feature',
+    loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule),
+    data: { preload: true }
+  },
+  {
+    path: 'another-feature',
+    loadChildren: () => import('./another-feature/another-feature.module').then(m => m.AnotherFeatureModule),
+    data: { preload: false }
+  }
+];
+
+Create CustomPreloadingStrategy class. 
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: CustomPreloadingStrategy })
+  ],
+
+
+2. Ahead-of-Time (AOT) Compilation
+Definition: Compile your Angular application at build time, rather than at runtime, to reduce the size of the bundle and improve startup time.
+
+How to Implement:
+Use Angular CLI to build the project with AOT
+ng build --prod
+
+JIT: Just-In-Time Compilation,- When the code is compiled in the browser at runtime.
+AoT: Ahead-Of-Time Compilation: When the code is compiled as part of the build process, hence the name ahead-of-time.
+ng build --aod
+(From Angular 9 , by default AOT is enabled in project) 
+
+3. Change Detection Strategy
+Definition: Optimize how Angular checks for changes in components.
+
+How to Implement:
+Use OnPush change detection strategy for components that don’t change frequently. 
+
+@Component({
+  selector: 'app-example',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './example.component.html'
+})
+export class ExampleComponent { }
+
+
+4. Track By for ngFor
+Definition: Improve performance of *ngFor by tracking items by a unique identifier rather than by object reference.
+
+How to Implement:
+Use the trackBy function in *ngFor.
+
+<li *ngFor="let item of items; trackBy: trackById">{{ item.name }}</li>
+trackById(index: number, item: any): number {
+  return item.id;
+}
+
+5. Avoiding Memory Leaks.
+
+Definition: Prevent memory leaks by properly managing subscriptions and unsubscribing when components are destroyed.
+
+How to Implement:
+Use takeUntil or unsubscribe in the ngOnDestroy lifecycle hook.
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+export class ExampleComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
+  ngOnInit() {
+    this.dataService.getData().pipe(takeUntil(this.destroy$)).subscribe(data => {
+      // Handle data
+    });
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+}
+
+6. Efficient Use Of Pipes.
+Description: Use pure pipes for better performance as they only execute when their input changes.
+
+@Pipe({
+  name: 'myPipe',
+  pure: true
+})
+export class MyPipe implements PipeTransform {
+  transform(value: any): any {
+    // transformation logic
+  }
+}
+
+7. Bundle Optimization: 
+
+Techniques such as code minification, compression, and dead code elimination can further optimize the size of JavaScript bundles,
+ reducing load times and improving overall performance.
+
+
+8. Tree Shaking.
+Tree shaking is a process of eliminating dead code or unused modules from the final bundle.
+ By removing unnecessary code, tree shaking reduces the bundle size and improves application performance.
+
+Definition: Tree shaking is a process that analyzes your code to determine which parts are actually used and 
+removes the unused parts from the final bundle. This results in a smaller, more efficient bundle.
+
+e.g: If we're using only mat-table (angular material table, only material table module should be kept for that like MatTableModule
+and all othe runused modules should be remove like MatSelectModule, MatScackBarModule, MatDialogModule etc.
+
+if we have give the ng build --prod (before and after that) there will be 20% or more size will be reduced.
+
+for analysis : we can use source-map-explorer.
+install npm install source-map-explorer --save-dev
+ng build --prod --sourceMap
+
+npm source-map-explorer  dist/demo/main.efrgre.js (opens visualization UI tool, we can check which module takes more space)
+
+
+Minification and uglification
+----------------------------------
+Minification: Removes unnecessary characters from the code (e.g., whitespace, comments) to reduce file size without changing functionality.
+
+Uglification: Further obfuscates the code by renaming variables and functions to shorter names, making the code harder to read while also reducing file size.
+  (not human readable)
+
+Angular uses the Angular CLI and build tools like Webpack to perform minification and uglification during the production build process. 
+This is typically done automatically when you build your Angular application for production. ng build --prod
+
+Compression Technique.
+-----------------------------
+Compression techniques are used to improve the performance of Angular applications by reducing the size of the files that need to be transferred over the network. 
+Smaller file sizes result in faster load times and a better user experience. 
+
+Two common compression techniques used in web development, including Angular, are Gzip and Brotli.
+
+Gzip: 
+Definition: Gzip is a widely used compression method that reduces the size of HTTP responses before they are sent to the client. 
+
+How it works:
+When a client (browser) requests a resource, it includes headers indicating it can accept compressed responses.
+The server compresses the resource using Gzip before sending it to the client.
+The client then decompresses the resource and processes it normally.
+
+Enable: Compression is typically handled at the web server level rather than within the Angular application
+
+Real-Time Use Cases for Compression in Angular Applications
+
+1. E-commerce Websites
+Scenario: An online store with many product pages, images, scripts, and stylesheets.
+Use Case: By enabling Gzip or Brotli compression, the size of the HTML, CSS, JavaScript, and image files is reduced. 
+This results in faster page load times, which enhances the user experience, reduces bounce rates, and can lead to higher conversion rates.
+
+2. Educational Platforms
+Scenario: An e-learning platform that delivers video lectures, quizzes, and interactive content.
+Use Case: Compression helps in delivering video content and interactive modules more efficiently, 
+reducing buffering times and ensuring a smooth learning experience for students.

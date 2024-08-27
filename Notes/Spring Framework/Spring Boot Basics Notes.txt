@@ -1,0 +1,335 @@
+IoC Container:
+
+The IoC container is responsible to instantiate, configure and assemble the objects.
+The main tasks performed by IoC container are:
+
+to instantiate the application class
+to configure the object
+to assemble the dependencies between the objects
+There are two types of IoC containers. They are:
+
+BeanFactory
+ApplicationContext
+
+DI:
+The Dependency Injection is a design pattern that removes the dependency of the programs.so that it can be easy to manage and test the application.
+Dependency Injection makes our programming code loosely coupled. 
+
+
+
+
+
+
+
+A single @SpringBootApplication annotation is used to enable the following annotations:
+
+@EnableAutoConfiguration: It enables the Spring Boot auto-configuration mechanism.
+@ComponentScan: It scans the package where the application is located.
+@Configuration: It allows us to register extra beans in the context or import additional configuration classes.
+
+Spring Framework Stereotype Annotations:
+@Component: It is a class-level annotation. It is used to mark a Java class as a bean. 
+ Use this when you have a simple, auto-detected component that doesn’t require any complex configuration. 
+The Spring Framework pick it up and configure it in the application context as a Spring Bean.
+
+@Bean: Use this when you need to create a bean with more complex logic. It's useful when you need more control over bean instantiation. 
+  It's used in method level along with @Configuration.
+  
+@Configuration: Use this when you need to define multiple beans and configuration settings in a single class  
+
+
+@Controller: The @Controller is a class-level annotation. It is a specialization of @Component. It marks a class as a web request handler. 
+           It is mostly used with @RequestMapping annotation.
+@Service: It is also used at class level. It tells the Spring that class contains the business logic.		   
+@Repository: It is a class-level annotation. The repository is a DAOs (Data Access Object) that access the database directly.
+ The repository does all the operations related to the database.
+
+@RequestBody, @RequestMapping, @ResponseBody, @PathVariable, @RequestParam
+
+@Autowired vs @Primary vs @Qualifier
+------------------------------------------
+Imagine you have a few friends over and you're serving snacks. You have several types of snacks available, like chips, cookies, and fruit.
+
+@Autowired: Automatically inject a dependency (like automatically giving a snack)
+Your friend gets a snack automatically when they visit
+
+@Primary: Specify the default bean to use (like always giving cookies if no preference)
+Serve cookies if your friend doesn’t specify
+
+@Qualifier: Specify which bean to use when there are multiple options (like requesting chips)
+Your friend specifically asks for chips, so you give them chips instead of cookies
+
+@Component
+@Primary
+public class Cookie implements Snack {
+    @Override
+    public void eat() {
+        System.out.println("Eating cookies!");
+    }
+}
+
+
+@Component
+@Qualifier("fruit")
+public class Fruit implements Snack {
+    @Override
+    public void eat() {
+        System.out.println("Eating fruit!");
+    }
+}
+
+@Component
+public class SnackService {
+    
+    @Autowired
+    @Qualifier("chips")
+    private Snack snack;
+    
+    public void serveSnack() {
+        snack.eat();  // This will print "Eating chips!"
+    }
+}
+
+Autowire by name.
+--------------------------------
+@Component
+public class ServiceA {
+    // Fields and methods
+}
+
+@Component("specialServiceA")
+public class SpecialServiceA extends ServiceA {
+    // Fields and methods
+}
+
+@Component
+public class MyComponent {
+
+    @Autowired
+    @Qualifier("specialServiceA")
+    private ServiceA serviceA;
+
+    // SpecialServiceA bean will be injected here by name
+}
+
+What in case we don't want to use @Autowired .What are the other options we can make use of.
+-------------------------------------------------------------------------------------------------]
+Constructor Injection: Use constructors to inject dependencies. Preferred for mandatory dependencies.
+Setter Injection: Use setter methods to inject dependencies. Suitable for optional dependencies.
+XML Configuration: Define beans and their dependencies in an XML configuration file.
+Java Configuration with @Bean: Use @Configuration classes to define beans and their dependencies.
+Manual Dependency Injection: Manually create and inject dependencies without Spring.
+
+
+@Autowired internal working
+-----------------------------------
+
+1. Bean Creation
+
+Bean Definition: When Spring initializes, it scans the application context (packages and classes) for components annotated with stereotypes like 
+                  @Component, @Service, @Repository, and so on, including configuration classes annotated with @Configuration.
+Bean Instantiation: For each detected component, Spring creates a bean definition and then instantiates the bean.
+
+2. Dependency Injection.
+ a) Annotation Scanning: Spring scans the class for fields, constructors, or setter methods annotated with @Autowired.
+ b) Injection Point Determination: like field, constructor, or setter injection.
+ c) Dependency Resolution: If there are multiple candidates, Spring looks for a bean marked with @Primary or uses @Qualifier to distinguish between beans.
+ d) Proxy Creation (if necessary): For certain beans, especially those involved in transactions or aspects, Spring creates proxy objects to handle the additional 
+                               functionality (like transaction management).
+							   
+3. Post-Processing: Using AutowiredAnnotationBeanPostProcessor to handle the injection process.							   
+ It calls @PostConstruct logic.
+ 
+@PostConstruct
+------------------
+The @PostConstruct annotation is used on a method that needs to be executed after dependency injection is done to perform any initialization.
+
+Usage:
+Initialization Logic: To run initialization code that requires dependencies to be injected.
+Setting Up Resources: To allocate resources or perform setup tasks that the bean depends on.
+
+Example:
+@Component
+public class Car {
+
+    @Autowired
+    private Engine engine;
+
+    @PostConstruct
+    public void init() {
+        // Initialization logic after dependencies are injected
+        System.out.println("Car has been initialized with engine: " + engine);
+    }
+
+    public void drive() {
+        System.out.println("Driving with " + engine);
+    }
+}
+
+
+How springboot works internally
+-------------------------------------
+Setup: Include Spring Boot dependencies.
+Main Class: Annotate with @SpringBootApplication.
+Auto-Configuration: Spring Boot configures beans based on classpath dependencies.
+Embedded Server: Automatically starts if a web application.
+Actuator: Adds endpoints for monitoring. 
+
+
+
+
+
+What are conditional annotations and explain the purpose of conditional annotations in Spring Boot?
+----------------------------------------------------------------------------------------------------
+
+Conditional annotations in Spring Boot help us create beans or configurations only if certain
+conditions are met.
+It's like setting rules: "If this condition is true, then do this." A common example is
+@ConditionalOnClass, which creates a bean only if a specific class is present.
+This makes our application flexible and adaptable to different environments without changing the
+code, enhancing its modularity and efficiency.
+
+
+Explain the role of @EnableAutoConfiguration annotation in a Spring Boot application. How does Spring Boot achieve autoconfiguration internally?"
+--------------------------------------------------------------------------------------------------------------------------------------------------
+@EnableAutoConfiguration in Spring Boot tells the framework to automatically set up the application
+based on its dependencies.
+
+Internally, Spring Boot uses Condition Evaluation, examining the classpath, existing beans, and properties.
+It depends on @Conditional annotations (like @ConditionalOnClass) in its auto-configuration classes to
+determine what to configure. This smart setup tailors the configuration to our needs, simplifying and
+speeding up the development process.
+
+What strategies would you use to optimize the performance of a Spring Boot application?
+------------------------------------------------------------------------------------------------
+
+Let’s say my Spring Boot application is taking too long to respond to user requests. I could:
+• Implement caching for frequently accessed data.
+• Optimize database queries to reduce the load on the database.
+• Use asynchronous methods for operations like sending emails.
+• Load Balancer if traffic is high
+• Optimize the time complexity of the code
+• Use webFlux to handle a large number of concurrent connections.
+
+How to get the list of all the beans in your spring boot application?
+---------------------------------------------------------------------
+Step 1: First I would Autowire the ApplicationContext into the class where I want to list the beans.
+Step 2: Then I would Use the getBeanDefinitionNames() method from the ApplicationContext to get
+the list of beans
+
+
+Your Spring Boot backend needs to accept cross-origin requests from a specific frontend domain. Explain how you would configure CORS policies in your application.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(a WebMvcConfigurer bean, overriding the addCorsMappings method
+to apply rules across all controllers, using
+registry.addMapping("/**").allowedOrigins("http://example.com").)
+
+
+To enable cross-origin requests from a specific domain in Spring Boot, I would use the @CrossOrigin
+annotation on my controller or method, like @CrossOrigin(origins = "http://example.com").
+
+For a global approach, I'd configure a WebMvcConfigurer bean, overriding the addCorsMappings method
+to apply rules across all controllers, using
+registry.addMapping("/**").allowedOrigins("http://example.com").
+This setup allows my backend to accept requests from a designated frontend domain and enhancing
+security by restricting other cross-origin interactions.
+
+Springboot profiles
+--------------------------
+Spring Boot profiles provide a powerful way to manage application configurations for different environments, 
+making it easier to develop, test, and deploy applications with varying requirements.
+
+Configuration Files:
+You can create profile-specific configuration files such as:
+application-dev.properties for the dev profile
+application-prod.properties for the prod profile
+Spring Boot will automatically load the appropriate configuration file based on the active profile.
+
+Profiles can be activated in several ways:
+
+1) Application Properties: Using the spring.profiles.active property in application.properties or application.yml.
+
+2) Command-Line Arguments: Using --spring.profiles.active=profileName when starting the application.
+
+3) Environment Variables: Setting SPRING_PROFILES_ACTIVE environment variable.
+
+4) Programmatic: Using the @Profile annotation in your code.
+
+spring.profiles.active=dev
+
+application-dev.properties:
+datasource.url=jdbc:mysql://localhost/devdb
+
+application-prod.properties
+datasource.url=jdbc:mysql://localhost/proddb
+
+
+Springboot Interceptors.
+--------------------------------
+You can use the Interceptor in Spring Boot to perform operations under the following situations −
+
+Before sending the request to the controller (requestHeader)
+Before sending the response to the client (responseHeader)
+
+To work with interceptor, you need to create @Component class that supports it and it should implement the HandlerInterceptor interface.
+
+preHandle() method − This is used to perform operations before sending the request to the controller.
+			This method should return true to return the response to the client.
+
+postHandle() method − This is used to perform operations before sending the response to the client.
+
+afterCompletion() method − This is used to perform operations after completing the request and response.
+
+You will have to register this Interceptor with InterceptorRegistry by using WebMvcConfigurerAdapter as shown below −
+
+ProductServiceInterceptor class:
+
+@Component
+public class ProductServiceInterceptor implements HandlerInterceptor {
+   @Override
+   public boolean preHandle(
+      HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+      System.out.println("Pre Handle method is Calling");
+      return true;
+   }
+   @Override
+   public void postHandle(
+      HttpServletRequest request, HttpServletResponse response, Object handler, 
+      ModelAndView modelAndView) throws Exception {
+	  System.out.println("Post Handle method is Calling");
+	  }
+   
+   @Override
+   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
+      Object handler, Exception exception) throws Exception {
+	  System.out.println("Request and Response is completed");
+	  }
+}
+
+ProductServiceInterceptorAppConfig class:
+
+@Component
+public class ProductServiceInterceptorAppConfig extends WebMvcConfigurerAdapter {
+   @Autowired
+   ProductServiceInterceptor productServiceInterceptor;
+
+   @Override
+   public void addInterceptors(InterceptorRegistry registry) {
+      registry.addInterceptor(productServiceInterceptor);
+   }
+}
+
+Summary:
+Spring Boot interceptors allow you to intercept HTTP requests and responses for various purposes such as logging, authentication, and authorization.
+ By implementing the HandlerInterceptor interface and registering your interceptor in a configuration class, 
+you can add pre-processing and post-processing logic to your application's request handling lifecycle.
+
+
+Aspect						Filter																		Interceptor
+Scope				Servlet level; applies to all servlets and resources	Spring MVC level; applies to specific controller methods or classes
+Usage				Logging, security, compression, CORS					Logging, authentication, request modification, performance monitoring
+Configuration		Configured via FilterRegistrationBean or web.xml		Configured via WebMvcConfigurer
+Lifecycle Methods	init(), doFilter(), destroy()							preHandle(), postHandle(), afterCompletion()
+Execution Order		Filters are executed before and after the entire servlet processing		Interceptors are executed before and after controller method invocation
+Access to Handler	Does not have access to the handler (controller) information	Has access to the handler (controller) information
+

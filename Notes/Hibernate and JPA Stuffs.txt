@@ -1,0 +1,303 @@
+Hibernate:
+Hibernate is a Java framework that simplifies the development of Java application to interact with the database.
+ It is an open source, lightweight, ORM (Object Relational Mapping) tool that is used to store, manipulate, and retrieve data from the database. 
+Hibernate implements the specifications of JPA (Java Persistence API) for data persistence.
+
+ORM Tool
+An ORM tool simplifies the data creation, data manipulation and data access. 
+It is a programming technique that maps the object to the data stored in the database.
+
+What is JPA?
+Java Persistence API (JPA) is a Java specification that provides certain functionality and standard to ORM tools. 
+The javax.persistence package contains the JPA classes and interfaces.
+
+What are the advantages of using JPA over JDBC?
+----------------------------------------------------
+JPA is a higher-level abstraction of JDBC (Java Database Connectivity) that provides several advantages over JDBC. 
+Here are some of the key advantages of using JPA over JDBC:
+
+Object-Relational Mapping: It offers an Object-Relational Mapping (ORM) framework that enables developers to map Java objects
+ to database tables without having to create SQL queries. Developers will have to write less code as a result, and the codebase will be simpler to maintain.
+ 
+Portability: It is a standardized API that is independent of any specific database implementation. 
+This means that applications written using JPA can be easily ported to different databases without having to rewrite the database access code.
+
+Increased Productivity: It offers a higher-level API that is simpler and easier to use than JDBC.
+ This reduces the amount of time that developers spend writing and debugging database access code, and allows them to focus on other aspects of the application.
+ 
+Improved Performance: By minimizing the number of database queries that are run, 
+it uses a caching mechanism that can enhance performance. This may lead to quicker response times and improved scalability.
+
+Transaction Management: It offers a transaction management system that simplifies the process of managing database transactions. 
+Object-Oriented Features: It provides support for object-oriented features such as inheritance and polymorphism. 
+This allows developers to work with Java objects instead of relational tables, which is easy to maintain.
+
+HQL
+----
+HQL (Hibernate Query Language) is the object-oriented version of SQL. It generates the database independent queries. 
+So you don't need to write database specific queries. 
+
+Before Hibernate, if database is changed for the project, we need to change the SQL query as well that leads to the maintenance problem.
+Instead of table name, we use class name in HQL. So it is database independent query language.
+
+HCQL (Hibernate Criteria Query Language)
+The Hibernate Criteria Query Language (HCQL) is used to fetch the records based on the specific criteria. 
+
+The Criteria interface provides methods to apply criteria such as retreiving all the records of table whose salary is greater than 50000 etc.
+
+JPA vs Hibernate:
+---------------------
+JPA:  It is just a specification  of Java which is used to access, manage, and persist data between Java object and relational database. 
+Various ORM tools implement it for data persistence.
+It is defined in javax.persistence package.
+EntityManagerFactory  and EntityManager Interface.
+ORM tools like Hibernate, TopLink and iBatis implements JPA specifications for data persistence.
+
+Hibernate: It is one of the most frequently used JPA implementation.
+Hibernate is an Object-Relational Mapping (ORM) tool which is used to save the state of Java object into the database.
+It is defined in org.hibernate package.
+SessionFactory and session Interface
+
+Hibernate Lifecycle
+----------------------
+The Hibernate lifecycle contains the following states: -
+
+Transient state
+Persistent state
+Detached state
+
+save() vs persist()
+------------------------
+save returns the Serializable instance.
+persist doesn;t return any value. it's return type is null.
+
+get() and load()
+--------------------
+get: 
+Returns null if an object is not found.
+It returns the real object, not the proxy.
+get() method always hit the database.
+It should be used if you are not sure about the existence of instance.
+
+load:
+Throws ObjectNotFoundException if an object is not found.
+It returns proxy object.
+load() method doesn't hit the database.
+It should be used if you are sure that instance exists.
+
+Dialect:
+---------------------- 
+The dialect specifies the type of database used in hibernate so that hibernate generate appropriate type of SQL statements. 
+For connecting any hibernate application with the database, it is required to provide the configuration of SQL dialect.
+
+we have hbm.xml (hibernate mapping file)
+and configuration file hibernate.cfg.xml. (in xml)
+
+Generator classes in Hibernate
+-------------------------------------
+assigned (default)
+increment
+sequence (oracle)
+@GeneratedValue(strategy=GenerationType.AUTO) 
+
+Hibernate Mapping Concept
+------------------------------
+A Component is a part of a whole in such a way that if the whole is destroyed, all its parts are also destroyed with it.
+(e.g) House (whole) and Room(part)
+
+A component has no database identity.
+
+Its two type.
+1) Entity Type (Employee class) @Entity (primary key)
+2) Value Type (Address class) @Embeddable (no individual identity)
+
+@AttributeOverrides({ @AttributeOverride(name="street", column=@Column(name="addr_street")),....)
+(If we want to specify a diffrent column name for a company class ) then we can use that.
+
+CRUDRepository vs JPARepository.
+-------------------------------
+ JPA Repository extends the functionality of the CRUD Repository by providing additional methods and the ability to define custom queries.
+ CRUD functionality for the Product entity, such as save(), delete(), findById(), and findAll().
+ JpaRepository interface and provides additional methods, such as findByPriceGreaterThan() and findByNameContaining()
+
+@JoinColumn:
+-------------------
+The @JoinColumn annotation in JPA is used to specify a join column for a relationship mapping between two entities. 
+It is used to define the columns in a table that will be used to establish the association between two entities.
+You can also use the @JoinColumn annotation to specify the name of the table that contains the foreign key column.
+exmaple:
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
+    
+    // other fields and methods
+}
+
+
+
+One student has a one guide, but one guide can have many students
+Students(id,name,guide_id) 
+Guide(guide_id,name,salary)
+Therefore
+  In students class entity
+  @ManyToOne
+  @JoinColumn(name="guide_id")
+  private Guide guide;
+  
+* If the association is bi-directional, one of the sides and only one has to be the owner of the relationship.
+* the owner of the relationship is responsible for the association columns update.
+* Many side in a one-to-many bi-directional relationship is always the owner side.
+* the table which has forighn keu column (should be Owner).[e.g]: Students (owner), Guide(inverse end).
+
+oneToMany and ManyToOne
+-----------------------------
+@Entity
+public class Department {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany(mappedBy="department")
+    private List<Employee> employees;
+    
+    // other fields and methods
+}
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
+    
+    // other fields and methods
+}
+The mappedBy attribute is used to indicate that the relationship is mapped by the department field in the Employee entity.
+
+
+
+
+One-to-One 
+----------------
+* To declare a side is NOT responsible for the relationship, the attribute mappedBy is used.
+* The foreign key column should have unique constraint defined on it.
+Customer(Owner) has Passport(inverse end)
+
+Customer Class
+@OneToOne
+@JoinColumn(name="passport_id", unique=true)
+private Passport passport;
+
+Passport Class
+@OneToOne(mappedBy="passport")
+private Customer customer
+
+ManyToMany
+--------------
+(e.g) Movie and Actors
+Movie has many actors, An actor can have many movies
+
+Movie Table(id,name)
+Actor Table(id,name)
+movie_actor table(movie_id,actor_id)
+
+Movie Class
+***************
+@ManyToMany
+@JoinTable(name="movie_actor",
+            joinColumns=[ @JoinColumn(name = “movie_id”) },
+           inverseJoinColumns = { @JoinColumn(name = “actor_id”) })
+ private Set<Actor> actors = new HashSet<Actor>();
+ 
+Actor Class
+****************
+@ManyToMany(mappedBy="actors")
+private Set<Movie> movies = new HashSet<Movie>();
+
+
+Mapping Enums
+----------------
+public Enum EmployeeStatus {
+ PART_TIME,
+ FULL_TIME,
+ CONTRACT
+}
+
+Employee Class
+@Enumerated(EnumType.STRING)
+@Column(name="employee_status)
+private EmployeeStatus empStatus
+
+(EnumType.STRING) If we didn't specify this, It'll take like default type, EnumType.Ordinal(index) value. like 0,1,2.
+
+In employee class, if we have age field, I don't want to persist it. What should i do in the entity? (@Transient).
+
+  
+Cascade
+---------
+In JPA, if any operation is applied on an entity then it will perform on that particular entity only. 
+These operations will not be applicable to the other entities that are related to it.
+
+To establish a dependency between related entities, JPA provides javax.persistence.CascadeType enumerated types 
+that define the cascade operations. These cascading operations can be defined with any type of mapping i.e. One-to-One, One-to-Many, Many-to-One, Many-to-Many.
+
+cascade attribute transfers operations done on one object onto its related child objects
+
+If we write cascade = “all” then changes at parent class object will be effected to child class object too, 
+ if we write cascade = “all” then all operations like insert, delete, update at parent object will be effected to child object also
+
+default value of cascade =”none” means no operations will be transfers to the child class
+
+Usage Scenarios
+ALL: Use when you want all operations to be cascaded.
+PERSIST: Use when you want only save operations to be cascaded.
+MERGE: Use when you want only update operations to be cascaded.
+REMOVE: Use when you want only delete operations to be cascaded.
+REFRESH: Use when you want only refresh operations to be cascaded.
+DETACH: Use when you want only detach operations to be cascaded.
+
+
+Lazy and Eager loading
+---------------------------
+https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
+https://stackoverflow.com/questions/12569403/when-to-use-lazy-loading-eager-loading-in-hibernate
+
+
+
+
+Could you please help me out with my confusion that I can move ahead with my learning?
+
+1. JPA
+2. Spring JPA
+3. Spring Data JPA
+4. Hibernate
+
+JPA is the Java Persistence API, which is Java's standard API for object-relational mapping.
+
+JPA is only an specification - you need an implementation of it to be able to use it. 
+Hibernate is one of the most well-known and most used implementations of JPA, but there are others, such as EclipseLink JPA.
+
+The Spring Framework is a large framework to help you write enterprise-grade software easier. It contains support for many Java technologies, including JPA.
+
+The Spring Framework consists of a collection of projects, and one of these projects is Spring Data.
+
+The goal of Spring Data is to make it easier to work with different kinds of databases, from traditional relational databases to NoSQL databases. 
+Spring Data supports JPA via the Spring Data JPA subproject.
+
+To write a program that uses JPA, you need at least a JPA implementation, such as Hibernate.
+
+If you are using the Spring Framework for your application, you will most likely want to use Spring Data JPA together with Hibernate.
+
+
+
+
+

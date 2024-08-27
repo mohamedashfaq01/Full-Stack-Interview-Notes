@@ -1,0 +1,281 @@
+ChatGPT for Software Development: From Zero to Hero
+----------------------------------------------------
+OpenAI Models.
+
+1) GPT (Language Model)
+2) Codex (Programming Language Model)
+3) Dall-E (Image Based Model)
+4) Whisper (Speech to Text Model)
+
+use cases:
+--------------
+1) can you give me one coding assessment practice test in java language of medium complexity?
+2) Can u expalin the below code snippet "......"
+3) Can u give me another coding assessment test with higher difficulty.
+4) BrainStorm the thought process.
+5) get the skeleton code.
+6) Give me resorces to learn more on the dynamic programming stuffs like above.
+
+Interview Context: ( to simulate like a real interview)
+I have an upcoming technical interview for tech lead position as java full stack developer.
+ I have 8 years of experience in Angular, Java, SpringBoot, etc. Can u help me prepare for the interview. do not provide answer immediately. 
+ I will prompt "answer" for answer and "next" for new question. keep the difficulty level as easy now. Is that understood?
+ 
+ Please test my knowledge on dtabase, and system design questions.
+ 
+Certification plan.
+-------------------------- 
+1) Give me an overview for AWS Cloud Practitioner Certificaton Exam. Pricing , difficulty, and its benefot of completing it.
+2) How to apply for that?
+3) generate a study plan for it for 2 month. I have free time around 1-2pm and 7-9pm. Can u help me plan during these timeframes.
+4) what are the best resources to learn.
+
+
+API Documentation & Generate Test Case
+-----------------------------------------
+1) Can you create a markdown documentation for the below open API specification?Please include the introduction,
+Scope of the integration, request, response and examples for each endpoint, Models used.
+
+2) Generate Test Case for the below web API written in java. it should include serial number title steps, expected output and state.
+Do not include the class and method names directly. Consider the user as tester who is not aware of the project.
+format that as a tabular format.
+
+
+Can u provide an overview of the areas that i can cover further.
+
+Show me the Curl command to test the above endpoint. (Curl is used to test the API endpoint)
+
+explore ..how to copy and paste with the existing chatGPT format in wordpad.(markdown feature)
+
+use this senetence "Let me grab this code." and "refine it" and "we can tweak it"
+
+explore what is api key authentication.
+
+explore what is OpenApi Speification...for weather app.
+editor.swagger.io
+
+BrainStorm project design
+-------------------------------
+Context/ Prompt :
+1) I need to develop a web API for a product named "BrezyWeather" exposing the weather details. Can you show me 
+some design considerations that I should take care of.
+2) for eavh can you suggest me the best option for the current app for the above requirement.
+3) Create an outline for the API with above details.
+4) I will use mysql. Can u suggest me some database design with their datypes. with the best practices.
+5) plz summarize all the points discussed above as a document.
+6) create an openApi specification for the weather app named BrezyWeather.
+7) How to add tag "weather" to them. Show me only relevant code. do not repat entore code again. 
+8) what changes afre need to support basic authentication. give me only those details,
+
+
+learn new concept Docker
+----------------------------
+1) what is the difference bewteen docker and kubernetes.
+2) can you explain me the basics terminologies of it.	
+3) How do i get started with Docker. 
+4) how can i ensure docker is installed.
+5) I have installed docker and its running.Can u help me learning the basics of docker.
+6) Plz help me running basic commands with an example image, say busyBox.
+7) I got the basics of it. Can u test my knowledge on it with MCQ.
+8) Increase the difficulty level.
+9) Can u provide me a sample assignment that I can practice on docker.
+10) Can u give me one more assignment of medium difficulty. don't give me hints or solution.
+
+Multi Stage dockerFile:
+
+1) Can u create a docker file for a java web app named BrezyWeather with MultiStage format.
+2) how to buikd the image using docker file.
+
+
+
+
+
+
+
+
+
+ChatGPT Complete Guide: Learn Midjourney, ChatGPT 4 & More (Udemy)
+----------------------------------------------------------------
+Main Types of Outputs:
+
+Synthesizing Info - Summarize large amounts of content in a concise way.
+Content Creation and Copy - Generate brand new content for a specific topic and purpose.
+• Learning and Research - Get questions answered for extremely specific needs.
+• Coding - Generate code, info on programming concepts and APIs, and debugging.
+
+ChatGPT vs. Google:
+
+ChatGPT and Google search are both AI-powered tools, but they differ in several ways:
+1. Purpose: Google search is a search engine that helps you find links to information on the web, while
+ChatGPT is an interactive tool that not only finds you the information you’re searching for but can
+“intelligently” process that information and personalize for your needs/prompts.
+2. Input: Google search requires a user to type in a query, whereas ChatGPT interacts with users in a
+conversational or iterative manner, you must work with it to get the desired output such as asking follow up
+questions. (Even if you don’t know what question to ask)
+3. Output: Google search returns a list of web pages related to the query, whereas ChatGPT provides a
+single answer or response. (40% of 1st clicks on google return to search page)
+4. Scope: Google search has access to a vast amount of information on the web, while ChatGPT is limited to
+the information it was trained on. (This will change with time)
+In short, Google search is a tool to find information on the web, while ChatGPT is a conversational tool that
+can help you find the right questions to ask and synthesize large amounts of information for your specific
+needs.
+
+https://github.com/f/awesome-chatgpt-prompts
+
+https://prompts.chat/
+
+
+GPT4:
+1) Creativity (each sentence with a word from A-Z), 
+2) Visual Input (what recipe can be made with these with image as input), 
+3) Longer context(Text from: wiki link, descrive her abilities. etc)
+
+
+Prompt Engineering:(
+
+Prompt engineering is like a magical recipe that helps a computer understand what we want it to do.
+ It's about giving the computer the right words and instructions so it can give us helpful answers. 
+Just like telling a fairy exactly what you want, so she can grant your wish!
+
+Prompt priming: (with some initial value)
+
+Prompt priming is like giving a special hint to your computer friend before asking a question. 
+It helps the computer understand what you're looking for and gives better answers. 
+It's like telling your friend a little secret code that helps them find the right information faster.
+
+ Instead of simply asking, "Tell me about ocean animals," you can prime the prompt by saying,
+ "I want to learn about amazing sea creatures like dolphins, sharks, and colorful fish."
+ 
+ 
+Practical Everyday Prompts
+
+1) Generate Analogies:
+
+Prompt Formula
+• I'm trying to better understand the concept of [concept], please help me better understand this concept by creating a
+practical and easy to understand analogy.
+Examples
+• I'm trying to better understand the concept of photosynthesis, please help me better understand this concept by
+creating a practical and easy to understand analogy.
+• I'm trying to better understand the concept of search engine optimization, please help me better understand this
+concept by creating a practical and easy to understand analogy 
+ 
+2) Chain Of thought prompting
+
+Formula: [Your Question]. let's think step by step.
+
+Example:  
+ What is the diameter of the sun? Let’s think step by step.
+ What is the weight of an oxygen molecule? Let’s think step by step.
+what is the diameter of Sun, explain that to a toddler and Let's think step by step?
+
+
+Tabular Format:
+
+simple: what are the main factors for growing a youtube channel? (or)
+what are the different categories you can break your answer into for more descriptiveness?
+
+tabular: Now create a table that includes your original answer with these categories separated into different columns?
+(category, factor, explanation)
+more: what other categories can you add to this table.
+
+
+Ask Before Answer Prompting: 
+-----------------------------
+
+Prompt Formula
+1. You are an expert in the field of [industry]. I’m going to ask you to complete some specific tasks, but before you
+answer, I want you to do the following: If you have any questions about my task or uncertainty about delivering the
+best answer possible, always ask bullet point questions for clarification before generating your answer. Is that
+understood?
+2. Great, my question is [question]. Your task is to [task]. Please ask any questions you have so that I can improve my
+prompt before you complete your task.
+
+Examples
+• Great, my question is how can I drive more sales for my consulting business? Your task is to create a step by step
+guide for me to implement into my business. Please ask any questions you have so that I can improve my prompt
+before you complete your task.
+• Great, my question is how can I use ChatGPT to maximize my productivity? Your task is to make a weekly schedule
+that I can follow. Please ask any questions you have so that I can improve my prompt before you complete your task.
+
+ 
+Perspective Prompting:
+This framework can broaden your understanding and provide a more comprehensive view of the topic at hand.
+This can help you make more informed decisions and have a more nuanced understanding of complex issues.
+Prompt Formula
+• Singular Perspective: Please write about [topic] from the perspective of [view point]
+Examples
+• Singular Perspective: Please write about improving as a kickboxer from the perspective of a kickboxing coach.
+• Singular Perspective: Please write about improving as a kickboxer from the perspective of a human anatomy expert.
+
+
+
+Summarize dense text tips:
+ 
+1) Summarize the orginal text into a list of 10 bullet points.
+2) Please give me a list of 10 keywords from original text.
+3) Please give me a list of important date and people from the original text.
+4) Now please simplify the orginal text in and undersatable language.
+5) please compare building a rocket to baking a cake.
+6) please give me some historical context that lead to the invention of rocket science.
+7) Swap all complex terms with much more easy to understand termsfor the average person. " Quantum Physics theoru stuffs".
+
+Create MCQ, Essay Questions, True or False type
+--------------------------------------------------
+1) Create 10 MCQs regarding the information below "..Meditation essay.."
+2) Now create answer key for these questions.
+3) Now create 3 true or false questions for the original text.
+4) Now write the essay questions from the origibal text.
+
+
+
+Re-write Text to specific Audience.
+-----------------------------------------
+1) Explain gravity to a 5th grader.
+2) Explain gravity to a high school student.
+3) Explain AI to a software engineer.
+4) Explain AI to an entrepreneur.
+
+
+we can synthesize the data based on the comprehension level.
+
+Language Transalation
+------------------------
+1) Transalate the following text into 1. English, 2.Tamil and 3.Urdu. "Where are you".
+
+Proof Reading:
+1) we can find and replace the text, remove the "test" from para.
+2) fix all the grammatical errors with some given text.
+3) review and give me 5 ways I can improve the wriing in this "..text..."
+4) Improve this to make it sound better: "..text.."
+5) Improve this to make it sound professional and appeal to manager: "..text.."
+
+
+Re-Organize the Data:
+----------------------
+give me a list of 20 significant historical events that change the course of the World.
+
+1) Reorgaize this data Alphabetically.
+2)  Reorgaize this data Chronologically.
+3) Orgaize that in Tabular Format.
+4) Add a column for geographical location.
+5) Please extract name, data location from some text like "world war 2"
+6) Example: Take 20 historical events output in tabular format and ask for the following classifications...
+• 1. Type of event (war, political, natural disaster, etc.)
+• 2. Region (North America, Europe, Asia, etc.)
+• 3. Century (19th, 20th, 21st)
+• 4. Impact (economic, social, political, etc.)
+• 5. Scale (global, regional, local)
+
+Use chatGPT to build charts.
+----------------------------------
+1) Copy and paste the datatable and ask chatGPT to create a website to showcase below data in two different charts and list some key insights.
+2) Copy and paste in the html file and open in browser.
+
+
+ 
+ 
+ 
+ 
+ 
+8.75% (800)

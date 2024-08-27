@@ -1,0 +1,173 @@
+Stock Market 
+---------------------
+
+An investment in knowledge pays the best interest. — Benjamin Franklin
+
+All companies need money to run their business. Sometimes the profit acquired from selling goods or services is not sufficient to meet
+ the working capital requirements. And so, companies invite normal people like you and me
+ to put some money into their company so that they can run it efficiently and in return, investors get a share of whatever profit they make.
+
+Reliance Textile. (1977 by Dhirubani Ambani)
+Offer Proce: 10
+Shared Offered:  lakhs.
+Share price became 50 rs (in 1982)
+Reliance called an general meeting (AGM) in 1985. 12000 shareholders.
+
+1992 (Harshad Mehta Scam)
+1992 (SEBI)
+
+Jhunjhunwala (Bought titan share for 3-4 rupees in the year 2002, now it's cost around 2573Rs)
+Warren Buffet (94% of his wealth was earned after he turned 60)
+
+It is Based ON Market Cap
+--------------------------
+Penny Stock <1000 Cr 
+Micro Cap 1000 Cr - 5000 Cr
+Small Cap 5000 Cr - 30000 Cr (Zee, Voltas, Federal bank)
+Mid Cap 30000 Cr - 1 Lakh Cr (Tata Power, IRCTC, IDFC)
+Large Cap > 1 Lakh Cr (HDFC, TCS, ITC, ICICI, Bajaj Finance)
+
+Market Cap: Share Price * No. Of Shares
+
+
+MRF: 
+Mket Cap: 53,839
+Share Price: 126935
+
+HoneyWell: 
+Mket Cap: 46700
+Share Price: 52,929.90
+
+Market Capitalization (price): 
+
+
+stock market manipulation
+pump and dump 
+example: squid game (99% down in one day)
+Sai baba manipulation. (in 2019) 
+
+Sadhna Broadcasters
+https://timesofindia.indiatimes.com/business/india-business/explained-what-the-pump-and-dump-sadhna-scam-is-about-what-role-does-arshad-warsi-have-to-play/articleshow/98395061.cms#:~:text=The%20modus%20operandi%20involved%20buying,an%20unnatural%20rise%20in%20prices.
+
+
+
+Videocon was once market leader in the consumer electronics sector. Videocon was the first company to get a license to manufacture Color TV in india.
+If i have invested 10000 before 20-25 years. It would have become 400 rupees. The revenue and profit affected significant 
+post he company has tried in different departments like Telecom, oil and gas and retail etc.
+Then it's competitor like LG, Samsung, SOny gain the popularity.
+
+Penny Stocks price can be easi;y manipulated by scammers. they'll purchase some bulk order at lower price. and they'll (Operators) send some scam messages to 
+other investors sayimg some good news about that penny stock in which the price will go up in he future. since the demand is high now, the sahre price will get increased.
+and tgen the scammers sell the stocks they bought. with this tg=hey got the profit. and other got decieved.
+
+
+¶The Basic Filters are 
+1) Market Capitalization
+2) Free Cash flows last year
+3) ROE atleast 15% 
+
+ Valuation Analysis
+(Whether Comp is undervalued or Over Valued) 
+a) Price to Sales 
+b) PE 
+c) EV / EBitda
+
+
+
+
+Chart analysis
+How to find undervalued stocks.
+How to learn and know about the intrinsic value of a company.
+
+
+LTCG (>1 year investment, first 1 lakh net profit exemption)
+STCG (No exemption. 15% tax)
+
+
+P/E Ratio
+---------------
+Price is what you pay and Value is what is you get.
+
+p/e = market capitalization / Net Profit
+
+market price per share/ earning per share
+
+EPS = PAT (Profit After Tax) / No. of share
+(Earnings per share)
+
+p/s (price to sales ratio) = market capitalization / Revenue
+
+*Price-to-Earnings Growth (PEG) Ratio**: A PEG ratio below 1 can indicate that a stock is undervalued relative to its growth potential.
+
+*Discounted Cash Flow (DCF) Analysis**: Estimate the company’s future cash flows and discount them to present value to assess if the stock is undervalued.
+
+Fundamental Analysis
+------------------------
+Industry Analysis (grow percentage, pros and cons)
+Business Analysis
+
+
+
+If the number of buyers > the number of sellers ==> Price will go up
+
+If the number of sellers > the number of buyers ==> Price will go down
+
+If the number of buyers ~ the number of sellers ==> Price will remain in the same range.
+
+Learn + practice + skills+ experience = success. In trading , first we have to learn and practice 
+the learning to develop the skill and use the skill to stay in the business to get experience and use the experience to get success .
+
+
+
+
+
+To explore
+----------
+Sensex
+demat account purpose.
+NSE and BSE (NIFTY and Sensex)
+IPO vs Venture Capital.
+Top 5 share price company.
+CAGR and XIRR meaning
+Target Price meaning.
+DP Charges.
+Fundamental Analysis and Technical Analysis
+
+
+How to identify trends.
+Chart Pattern and candle stick pattern.
+Explore more money control, and tradingView.
+Stock selection process.
+Global market impact on indian market.
+Stock price analysis.
+
+
+To-Do
+-------------
+1) Stock
+Fundamental analysis.
+
+Chart analysis
+How to find undervalued stocks.
+How to learn and know about the intrinsic value of a company.
+Tips in stock market analysis from quora.
+Screener and tradingView app overview.
+
+To explore:
+
+Sensex
+demat account purpose.
+NSE and BSE (NIFTY and Sensex)
+IPO vs Venture Capital.
+Top 5 share price company.
+CAGR and XIRR meaning
+Target Price meaning.
+DP Charges.
+Fundamental Analysis and Technical Analysis
+Berkshire Hathaway and Tiger Global.
+when to enter and exit the stock market.
+Types of stocks
+Difference between trading and investing
+discounted cash flow method of stock valuation
+upper circuit and lower circuit.
+Fibonacci series in stock.

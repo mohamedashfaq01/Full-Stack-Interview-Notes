@@ -1,0 +1,145 @@
+CMS
+---------
+A content management system, often abbreviated as CMS, is software that helps users create, manage, 
+and modify content on a website without the need for specialized technical knowledge.
+
+In simpler language, a content management system is a tool that helps you build a website without 
+needing to write all the code from scratch (or even know how to code at all).
+
+Let’s take a look at the best CMS platforms to choose from.
+
+WordPress
+Joomla
+Drupal
+Wix
+Shopify
+Blogger
+
+A Content Management System (CMS) is a computer software application that allows an organization to easily update
+ and manage their website (or multiple websites) through a user-friendly interface. Just like Microsoft Word.
+ 
+ What is a headless CMS?
+A headless CMS is a back-end only content management system (CMS) built from the ground up as a content repository 
+that makes content accessible via a RESTful API or GraphQL API for display on any device.
+
+The term “headless” comes from the concept of chopping the “head” (the front end, i.e. the website) off the “body” 
+(the back end, i.e. the content repository).
+
+SQLite is the default database for Strapi.
+
+Check this Video for more info: https://www.youtube.com/watch?v=agotkp5kJas&ab_channel=DuoStack
+Strapi provides the basic RESTful operation by default. like GET, POST, PUT, Delete.
+If I create category collection. then it'll provide all those basic operation.
+it creates the springboot like controller-service pattern in javascript lanaguage.
+It also return created-at, updated_at by deafult in the json response.
+
+What is Penetration Testing or Pentesting
+---------------------------------
+In order to find the vulnerabilities and loopholes in a website. 
+Legal name for hacking. The intention is not to damage something it is just to test the vulnerability and fixed it.
+
+Command Injection: will use the OS command to acquire the server details.
+
+Code Injection: 
+------------------
+Code injection attacks can lead to loss of data integrity in nearly all cases as the control-plane data injected is always incidental to 
+data recall or writing. Additionally,
+ code injection can often result in the execution of arbitrary code.
+
+https://cwe.mitre.org/data/definitions/94.html
+
+Example: 
+<?PHP eval("echo "/$REQUEST["user_name"].";) ?>
+
+http://www.domain.com/index.php?user_name=admin
+http://www.domain.com/index.php?user_name=admin;phpinfo();
+
+The programmer thought they were just including the contents of a regular data file, but PHP parsed it and executed the code.
+ Now, this code is executed any time people view messages.
+
+Notice that XSS (CWE-79) is also possible in this situation.
+
+Mitigation:
+1) Validate and sanitize inputs.
+2) Avoid vulnerable method like eval().
+
+Cross-site scripting
+----------------------------
+Cross-site scripting (XSS) is a code injection attack that allows an attacker to execute malicious JavaScript in another user's browser.
+
+Generally, cross-site scripting is found by vulnerability scanners so that you don’t have to do all the manual job by putting a JavaScript on it like
+
+<script>  
+   alert('XSS') 
+</script>
+Burp Suite and acunetix are considered as the best vulnerability scanners.
+
+https://www.youtube.com/watch?v=cbmBDiR6WaY&ab_channel=VirtualForgeanOnapsisCompany (Awesomely explained about XSS attack)
+Once the malicious script is injected, the attacker can perform a variety of malicious activities.
+ The attacker could transfer private information, such as cookies that may include session information, from the victim's machine to the attacker. 
+ The attacker could send malicious requests to a web site on behalf of the victim, which could be especially dangerous to the site 
+ if the victim has administrator privileges to manage that site. 
+ 
+ http://www.webpage.org/task/Rule1?query=try
+ http://www.webpage.org/task/Rule1?query=<h3>Hello from XSS"</h3>
+ 
+ 
+ https://www.youtube.com/watch?v=pD6C1-zSxIM&ab_channel=HusseinNasser
+ 
+ res.setHeader("Content-Security-Policy", "script-src 'none'"); // don't execute any script code
+ res.setHeader("Content-Security-Policy", "script-src http://localhost:8080"); // or we can specify our url
+ 
+High CWE-209 Improper Error Handling
+----------------------------------------------
+Generation of Error Message Containing Sensitive Information
+try {
+/.../
+}
+catch (Exception e) {
+System.out.println(e);
+} 
+
+Example 2:
+try {
+openDbConnection();
+}
+//print exception message that includes exception message and configuration file location
+catch (Exception $e) {
+echo 'Caught exception: ', $e->getMessage(), '\n';
+echo 'Check credentials in config file at: ', $Mysql_config_location, '\n';
+}
+
+If an exception occurs, the printed message exposes the location of the configuration file the script is using.
+ An attacker can use this information to target the configuration file (perhaps exploiting a Path Traversal weakness).
+ If the file can be read, the attacker could gain credentials for accessing the database.
+ The attacker may also be able to replace the file with a malicious one, causing the application to use an arbitrary database.
+ 
+IDOR (insecure direct object reference)
+------------------ 
+An insecure direct object reference (IDOR) is an access control vulnerability where unvalidated user input can be used for 
+unauthorized access to resources or operations.  
+
+https://insecure-website.com/customer_account?customer_number=132355 // problem arise if i use differnt customer id and gets the sesnitive information about him.
+
+Exposing files, user data etc to unauthorized user.
+
+IDOR vulnerability with direct reference to static files
+-------------------------------------------------------------
+IDOR vulnerabilities often arise when sensitive resources are located in static files on the server-side filesystem. 
+For example, a website might save chat message transcripts to disk using an incrementing filename, and allow users to
+ retrieve these by visiting a URL like the following:
+
+https://insecure-website.com/static/12144.txt
+In this situation, an attacker can simply modify the filename to retrieve a transcript created by another user 
+and potentially obtain user credentials and other sensitive data.
+
+Impact :
+  unauthorized information disclosure
+  modification or destruction of data.
+  performing a function outside of the limits of the user.
+  
+How to prevent
+----------------
+1) use hash function and use hash values instead of normal number or string.
+/user_id=12
+/user_id=e13214dt546dcfrt3 ( can change like this)

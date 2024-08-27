@@ -1,0 +1,572 @@
+Spring Security
+-------------------
+In case if we go to Hotel -> we'll first intercept receptionist -> who checks the customer.
+
+customer checks with receptionist about his booking -> receptionist ask his id or some otp to verify that as authenticated user. 
+Once customer provides OTP or id then receptionist checks in the system and then provides the room key based on the type of room.
+
+The user can't use Banquet hall or some rooms. (since he is not authorized user)
+
+Here receptionist will act as a spring security. (Authenticate and authorize the user).
+
+Authentication(process of identifying the person trying to access the application)
+Authorization (process of identifying if the person is allowed to do this operation)
+
+Types of authentication
+----------------------------
+1) Knowledge based authentication (password, PIN, Answer to personal question)
+2) Possession based authentication (OTP, Badges, RFID Card,  Access Token)
+3) Knowledge and Possession based authentication (MFA, AWS System)
+
+
+COre concepts of spring security
+------------------------------------
+Authentication
+Authorization 
+Principal (Authenticated User)
+Granted Authority (Group of permission allowed for a user)
+
+Roles (Group of authorities that are assigned to a user)
+example for Roles
+(Role_User) => (login and search authority)
+(Role_Admin) => (login, search, CRUD of employees authority)
+
+How to implement spring security
+----------------------------------------
+(Before) If we hit api without security we can see the response.
+
+Add this dependency in pom.xml (spring-boot-starter-security). on running the server, we'll see one generated security password. (copy it)
+
+(After)If we hit api with security we'll see the login page  (here username default is user and use the generated password)
+Spring boot automatically shows the login page along with validation just by adding that dependency.
+
+if we want to give our own username  and password then we can specify these configuration in application.properties/
+
+spring.security.user.name = test 
+spring.security.user.password = test
+(we'll not get genarted password if restart the server)
+
+Custom Security Configuration:
+
+we can create a security package and add a class by extending webSecurityConfigurerAdapter.
+@EnableWebSecurity 
+
+@EnableWebSecurity annotation is a powerful tool that enables developers to configure Spring Security for a web application.
+
+
+public class CustomSecurityConfig extends webSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+      auth.inMemoryAuthentication()
+	    .withUser("user")
+		.password(passwordEncoder().encode("password"))
+		.roles("USER")
+		.and()
+		.withUser("admin")
+		.password(passwordEncoder().encode("admin"))
+		.roles("ADMIN")
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/api/admin").hasRole("ADMIN")
+				.antMatchers("/api/user").hasRole("USER")
+				.antMatchers("/").permitAll()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
+    }
+
+}
+
+OAuth
+-----------
+
+What Is OAuth All about?
+It’s an open standard Or A Protocol for authorization .
+Security - 
+Authentication - Who u are?
+Authorization - What do u want ?
+
+OAuth 2 is an authorization framework that enables applications — such as Facebook, Twitter— to obtain limited access to user accounts on an HTTP service.
+
+It works by delegating user authentication to the service that hosts a user account and authorizing third-party applications to access that user account. 
+
+OAuth 2 provides authorization flows and not the authentication.
+
+There are two versions of OAuth: OAuth 1.0a and OAuth 2.0. These specifications are completely different from one another, and cannot be used together: 
+there is no backwards compatibility between them. OAuth 2.0 is the most widely used form of OAuth
+
+How Oauth 2.0 works?
+************************
+The application requests authorization to access service resources from the user
+
+If the user authorized the request, the application receives an authorization grant
+
+The application requests an access token from the authorization server (API) by presenting authentication of its own identity, and the authorization grant
+
+If the application identity is authenticated and the authorization grant is valid, the authorization server (API) issues an access token to the application.
+ Authorization is complete.
+
+The application requests the resource from the resource server (API) and presents the access token for authentication
+
+If the access token is valid, the resource server (API) serves the resource to the application
+
+It is designed primarily as a means of granting access to a set of resources, for example, remote APIs or user data.
+
+CLient (Twitter) -> Resource owner(You) (Owns the data in resource server) 
+request: Authorization request
+response: Authorization Grant
+
+CLient (Twitter) -> Authorization Server (Okta/auth0) 
+request: Authorization Grant
+response: Acess Token
+
+CLient (Twitter) -> Resource Server (Google/FB)  (The API which stores data the application wants to access. Your backend APP)
+request: Acess Token
+response: Protected Data/ Resource (e.g: name, email, profile pic etc)
+
+Client(The applicatuon that wants to access your data)
+
+
+Okta: Its' an organization, Okta is a cloud-based identity and access management
+ platform that provides secure and convenient access to applications and services for organizations of all sizes.
+ (They provide Access Token, AUthorization Token)
+ 
+ 
+What are Scopes and Tokens?
+Scopes and tokens are how OAuth implements granular access controls. 
+
+Together they represent a “permission to do something.” The token is the “permission” part and the scope defines what the “do something” is.
+
+Think of a movie ticket: the scope is the name of the movie you are authorized to watch and the ticket itself is the token, which only a theater
+ employee can validate as authenticate. Also tokens have expiration date. Similar to movie time written on movies ticket.
+
+Access token also have scope information
+There are four types of scopes:
+
+Read Access
+Write Access
+Read and Write Access
+No Access
+
+
+What are grants?
+Application grant types (or flows) are methods through which applications can gain Access Tokens and by which you grant limited access to your resources
+ to another entity without exposing credentials. 
+
+Taking an example of movie ticket booking. You can get access to movie tickets by 2 ways
+
+Walkin to theater and purchase from window
+book online
+
+These are 2 grants or flows. The method you’ve chosen dictates what you will do to obtain the ticket. 
+
+Similar is Grant types - ways to obtain access token 
+
+Oauth2 provides following Grants -
+
+Client Credentials  -  Used for non-interactive applications e.g., automated processes, microservices, etc. In this case, the application is authenticated 
+per se by using its client id and secret
+
+Authorization Code -  The Authorization Code flow might be used by Single Page Apps (SPA) like Angular applications. 
+In such SPA,  the client secret cannot be stored securely, and so authentication, during the exchange, is limited to the use of client id alone
+
+Access Token will have expiration date. 
+
+JWT
+----------
+JSON Web Token is an open industry standard used to share information between two entities (clinet and server)
+Each JWT is signed using cryptography(hashing) to ensure JSON contents cannot be altered by the client or malicious party.
+
+JWT are often used in authentication and ay=uthorization scenarios.
+
+example:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyZWFzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjIwOTk1MjIyfQ.rpsv5a1u7O7YRMW6JegXV4EY-RavciIMMKVtR5JH8oE
+
+JWT into its three parts:
+
+1. Header:
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+2. payload (Claims)
+{
+  "username": "areas",
+  "role": "admin",
+  "iat": 1620995222
+}
+
+Claims are nothing but key value pairs. it has some meta data apart from user data (like sub (subject), exp (expiration time), iss (issuer), aud(audience) etc)
+
+when using JWT as bearer access token (iss, sub, aud and exp must be present)
+
+3. Signature (SHA256(bas64UrlEncode(header) + bas64UrlEncode(payload) + 256-bit-secret key)))
+rpsv5a1u7O7YRMW6JegXV4EY-RavciIMMKVtR5JH8oE
+
+The signature is a cryptographic hash of the header and payload, which is used to verify the integrity of the token.
+
+When the server sends this JWT back to the client, the client can include it in subsequent requests to authenticate the user. 
+The server can then validate the JWT's signature to ensure that it hasn't been tampered with and extract the user's information from the payload. 
+This allows the server to trust that the user is 
+who they claim to be without needing to look up their information in a database for every request.
+ 
+
+We don't need to send auth server (Okta) each time a token comes.
+Basically we need to check 
+Token Signature verification
+Token Expiration check
+Additional Checks. 
+
+Access tokens: Access tokens are credentials used to access protected resources.
+
+Bearer Token: (Give access to bearer of this token)
+
+Access Tokens: Short-lived tokens used to authenticate API requests. Short-Lived: Access tokens are generally short-lived (e.g., 5 minutes to 1 hour).
+Refresh Tokens: Longer-lived tokens used to obtain new access tokens without re-authenticating.
+Refresh tokens have a longer lifespan (e.g., 7 days to several months). They are used to obtain new access tokens without requiring the user to log in again.
+
+Access tokens are used as bearer tokens. A bearer token means that the bearer (who holds the access token) 
+can access authorized resources without further identification. Because of this, it is important that bearer tokens be protected.
+
+It generated by the server in response to a login request.
+
+JWT Can be kept securely in HTTP-Only or secure Cookies. and Avoid Local Storage and Session Storage
+
+Okta Implementation
+------------------------
+
+Just Add  "okta-spring-boot-starter" dependency.
+Now all the api will be secured.
+
+we're supposed to create the account in okta website. and add the authroization server details. we'll get clientId, and clientSecret (copy it)
+ https://developer.okta.com/signup/ 
+
+we have to first get the access token. using issuer URI:
+Issuer URL is a unique identifier and a point to provide important metadata about the server, including a request for a token by adding the /v1/token path. 
+
+In POstman:
+
+https://ISSUER_URL/oauth2/default/v1/token
+In Authorization header: use basic authentication (with userName and password)
+In Body: select x-www-form-uriencoded 
+ give grant_type: client_credentials and scope: customScopeName(create this in auth server)
+ 
+Response:
+ {
+  "token_type": "Bearer",
+  "expires_in": 3600,
+ "access_token": eyJ1c2VybmFtZSI6ImFyZWFzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjIwOTk1MjIyfQsdfdsfdsfdsfg,
+ "scope": customScopeName
+} 
+ 
+then use that bearer token in all the API calls, otherwise we'll get 401 unauthorized  
+ 
+CSRF
+--------- 
+
+CSRF: CSRF stands for Cross-Site Request Forgery
+CORS stands for Cross-Origin Resource Sharing.
+
+Cookies contains login session with username and password.
+
+What is CSRF?
+CSRF stands for Cross-Site Request Forgery. It's a type of security attack where a bad guy tricks you into performing actions on a website that you are logged into, 
+without your knowledge. Imagine if you’re logged into your bank account and then visit a malicious website. 
+That malicious site could try to transfer money from your account without you knowing!
+
+Example of CSRF Attack
+You’re logged into your bank account.
+You visit another website (which is malicious).
+The malicious website sends a hidden request to your bank to transfer money.
+Because you’re logged into your bank, the request gets processed as if you made it.
+
+ Attackers create CSRF attacks by either storing IFRAME or IMG tags in HTML fields or by launching cross-site scripting (XSS) attacks
+ 
+In Angular
+Include CSRF Token in Requests: When Angular makes an HTTP request, it should include the CSRF token.
+Angular HTTP Interceptor: Use an interceptor to automatically include the CSRF token in all HTTP requests.
+Here’s a simple example:
+
+// Angular HTTP Interceptor to add CSRF token
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class CsrfInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const csrfToken = 'your-csrf-token'; // You would get this token from the server or a meta tag
+    const clonedRequest = req.clone({
+      headers: req.headers.set('X-CSRF-Token', csrfToken)
+    });
+    return next.handle(clonedRequest);
+  }
+}
+
+In Spring Boot
+1) Enable CSRF Protection: Spring Security has built-in support for CSRF protection. You need to enable it in your configuration.
+2) Send CSRF Token to Client: When a user logs in or accesses the site, send the CSRF token to the client (Angular app).
+
+Putting It All Together
+Spring Boot: When you log in, Spring Boot sends a CSRF token to Angular.
+Angular: Angular includes this CSRF token in every request it makes to the server.
+Spring Boot: The server checks the token with each request. If the token is valid, it processes the request. If not, it rejects it.
+
+1. Gmail (2007)
+In 2007, a vulnerability in Gmail allowed attackers to exploit CSRF. An attacker could craft a malicious email with an embedded image.
+ When the user opened the email, the image would load, 
+triggering a request to Gmail that forwarded all of the user’s emails to the attacker’s email address.
+
+2. YouTube (2008)
+In 2008, a CSRF vulnerability in YouTube was discovered. Attackers could embed a specially crafted link on a webpage.
+ When a logged-in YouTube user visited the page and clicked the link, their account settings could be modified, such as 
+ adding videos to their favorites or subscribing to channels without their consent.
+ 
+ It allowed attackers to perform nearly all actions on behalf of any user—including adding videos to favorites.The vulnerability was immediately fixed.
+ 
+
+Cross-Site Request Forgery Attacks Code Example:
+---------------------------------------------------------
+To illustrate a CSRF attack, take an eCommerce website, examplebuy.com, that uses GET requests to accept purchases from customers.
+ We’ll show how attackers can use CSRF to purchase products using other user’s accounts.
+ 
+ Attacker observes URL request format.
+The attacker observes that purchase requests on the website are in this format. 
+
+GET
+https://examplebuy.com/shop/purchase?productid=3441&amount=200&address=33&20Park%20Drive%20NY%20NY HTTP/1.1
+
+The request assumes that the user has an open session with the website. It uses an address ID to reference an address defined by the legitimate user.
+
+2. Attacker crafts a forged request URL
+
+The attacker now creates a forged URL that will purchase a product with a high purchase price, using another user’s account.
+
+GET
+https://examplebuy.com/shop/purchase?productid=5776&amount=2000&address=45%20Main%20Street%20NJ%20NY HTTP/1.1
+
+The attacker manipulates three parameters in the request—changing the product to a product they want to buy, changing the amount, and using their own address. 
+
+
+HTTP To https
+------------------
+Why Secure HTTP to HTTPS?
+Encryption: HTTPS encrypts the data exchanged between the client and the server, making it hard for anyone to read the information if they intercept it.
+Trust: HTTPS helps verify that the client is communicating with the legitimate server, preventing "man-in-the-middle" attacks.
+Data Integrity: HTTPS ensures that the data has not been altered during transmission.
+
+Originally, data on the Web was transmitted in plaintext that anyone could read if they intercepted the message. For example, if a consumer visited a shopping website,
+ placed an order, and entered their credit card number on the website, that credit card number would travel across the Internet unconcealed.
+
+SSL was created to correct this problem and protect user privacy. By encrypting any data that goes between a user and a web server,
+ SSL ensures that anyone who intercepts the data can only see a scrambled mess of characters. The consumer's credit card number is now safe, 
+ only visible to the shopping website where they entered it.
+
+SSL, or Secure Sockets Layer, is an encryption-based Internet security protocol.
+A website that implements SSL/TLS has "HTTPS" in its URL instead of "HTTP."
+
+Generate a SSL Certification for tha application and configure it in SpringBoot and Angular application.
+
+
+Place the keystore.jks file in the src/main/resources directory of your Spring Boot project.
+
+application.properties:
+server.port=8443
+server.ssl.key-store=classpath:keystore.jks
+server.ssl.key-store-password=changeit
+server.ssl.key-password=changeit
+
+Redirect HTTP to HTTPS
+To ensure all traffic uses HTTPS, configure Spring Security to redirect HTTP traffic to HTTPS.
+
+SecurityConfiguration.java:
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.requiresChannel()
+            .anyRequest()
+            .requiresSecure(); // Redirect HTTP to HTTPS
+    }
+}
+
+CORS
+----------
+CORS is a security feature that allows servers to specify which domains can access their resources.
+In Spring Boot, configure CORS globally or at the controller level to allow specific origins.
+In Angular, use a proxy configuration during development to bypass CORS issues.
+
+What is CORS?
+CORS stands for Cross-Origin Resource Sharing. It's a mechanism that allows web servers to control how resources on a web page are requested from another domain.
+ This is important for security reasons, as it prevents malicious websites from accessing sensitive data on another site.
+ 
+ CORS helps in controlling who can access the resources (like data or APIs) on your web server from different origins (other websites).
+
+Why Handle CORS?
+Imagine you have a website (Website A) that makes requests to another website's API (Website B). If Website B has sensitive information, 
+it doesn't want just any website to access its data. CORS policies let Website B control which websites (origins) are allowed to make requests to it.
+
+Handling CORS in Spring Boot
+In Spring Boot, you can configure CORS globally or at the controller level.
+
+Global Configuration
+Here's how to configure CORS globally for all endpoints in Spring Boot:
+
+Create a CORS Configuration Class:
+******************************************
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200") // Angular app URL
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+
+Controller Level Configuration
+If you want to configure CORS for specific controllers or endpoints:
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/data")
+    public String getData() {
+        return "Hello from Spring Boot!";
+    }
+}
+
+XSS
+------
+Cross-Site Scripting (XSS) is a type of security vulnerability typically found in web applications. It allows attackers 
+to inject malicious scripts into web pages viewed by other users. These scripts can steal information, manipulate content, or perform actions on behalf of the user.
+
+Scenario: A Comment Form
+Imagine you have a web application with a comment form where users can submit their comments. The form accepts text input from users and displays it on a webpage.
+
+Without Input Sanitization:
+*********************************
+
+User Input: An attacker submits a comment with malicious code:
+<script>alert('You have been hacked!');</script>
+
+Storage and Display: This comment is stored in your database and then displayed on the webpage. 
+Since there's no sanitization, the script tag is rendered as part of the page's HTML.
+
+Result: When other users visit the page, the malicious script executes and shows an alert box. 
+This could be a harmless example, but in a real attack, the script could steal data or perform other harmful actions.
+
+With Input Sanitization:
+************************************
+User Input: The same malicious comment is submitted.
+
+Sanitization Process: Before storing the comment, your application sanitizes it by removing or encoding dangerous characters:
+The sanitized comment would look like this:
+&lt;script&gt;alert('You have been hacked!');&lt;/script&gt;
+
+Storage and Display: This sanitized comment is stored and displayed as text, not as executable code. 
+Instead of running the script, it appears as plain text.
+
+  
+Preventing XSS in Angular:
+Use Angular's Built-in Sanitization:
+
+1) Use Angular's Built-in Sanitization:
+Angular provides built-in sanitization to protect against XSS. 
+It automatically sanitizes values used in bindings and template expressions. For example, Angular automatically sanitizes values in {{ }} interpolations and [src] bindings.
+
+
+2) DomSanitizer: Use Angular's DomSanitizer service to sanitize values. For instance, if you are binding HTML content, you can use bypassSecurityTrustHtml() method cautiously.
+
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+constructor(private sanitizer: DomSanitizer) {}
+
+getSafeHtml(html: string): SafeHtml {
+  return this.sanitizer.bypassSecurityTrustHtml(html);
+}
+
+3) Avoid innerHTML and dangerouslySetInnerHTML: Directly using innerHTML can expose your application to XSS attacks. 
+Use Angular's data binding rather than manipulating the DOM directly.
+
+
+
+Web Security
+--------------------
+
+Ensuring the security of your web application is critical to protect it from various types of attacks and vulnerabilities. 
+
+1. Validate and Sanitize User Input
+Sanitize User Input: Ensure all user inputs are properly sanitized to prevent injection attacks like SQL injection.
+Validate Input: Use validation to check that inputs meet expected formats and constraints.
+
+2. Authentication
+Strong Password Policies: Enforce strong password requirements (e.g., minimum length, complexity).
+Multi-Factor Authentication (MFA): Add an extra layer of security by requiring multiple forms of verification.
+Session Management: Use secure session management practices, such as short session timeouts and secure cookies.
+
+3. Authorization
+Role-Based Access Control (RBAC): Implement RBAC to restrict access based on user roles and permissions.
+Least Privilege Principle: Ensure users have the minimum level of access necessary for their tasks.
+
+4. Data Encryption
+HTTPS: Use HTTPS to encrypt data in transit between the client and server.
+Encryption at Rest: Encrypt sensitive data stored in databases and other storage solutions
+
+5. Cross-Site Scripting (XSS) Prevention
+Output Encoding: Encode all user-generated content before displaying it on web pages.
+Content Security Policy (CSP): Implement CSP to restrict the sources from which scripts can be loaded.
+
+6. Cross-Site Request Forgery (CSRF) Protection
+CSRF Tokens: Use CSRF tokens to verify the authenticity of state-changing requests.
+
+7. Use Secure Password Storage
+Why: Protects user passwords from being easily compromised.
+How: Use strong hashing algorithms (e.g., bcrypt) to store passwords securely.
+
+8. Implement Secure Session Management
+
+What it is: Managing user sessions securely to prevent hijacking and unauthorized access.
+Why it’s important: Ensures that only the rightful user can maintain an active session.
+How to implement:
+Use secure cookies (HttpOnly, Secure, SameSite attributes).
+Invalidate sessions after logout and set appropriate session timeouts.
+
+
+
+

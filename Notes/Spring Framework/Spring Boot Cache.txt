@@ -1,0 +1,251 @@
+Springboot Cache
+-------------------
+Cache Purpose: To reduce the round trip between the application and the database.
+It keeps frequently accessed objects, images and data. 
+speeding up the access and saving monetary cost.
+
+When to use:
+There is repetitive data return for same input
+To save monetary cost.
+To improve latency among layers.
+
+Can you explain the caching mechanisms available in Spring Boot?
+------------------------------------------------------------------------------------------
+Caching is like having a memory box where you can store things we use frequently, so we don't have to
+go through the whole process of getting them each time. It makes our application faster and more
+efficient. 
+
+To implement caching in a Spring Boot application, first add a caching dependency, like spring-boot-starter-cache.
+Then, enable caching in the application by adding @EnableCaching annotation to the main class.
+Define cacheable operations using @Cacheable on methods whose results we want to cache. Optionally,
+customize cache behavior with annotations like @CacheEvict and @CachePut.
+Choose a cache provider (like EhCache or Hazelcast) or use the default concurrent map-based cache
+provided by Spring
+
+In-Memory Cache
+Definition: An in-memory cache stores cached data within the memory of a single server or application instance. 
+It is typically used for local caching within a single JVM (Java Virtual Machine) or process. example: Ehcache
+
+Memory Constraints: The primary limitation is the amount of available memory in the server or JVM. 
+In-memory caches store data directly in the server’s RAM, so the maximum cache size is constrained by the amount of physical memory.
+
+Configuration Limits: Most in-memory cache systems allow you to configure a maximum size or number of entries. 
+If the cache exceeds this limit, it typically evicts older or less frequently accessed entries based on the eviction policy (e.g., LRU - Least Recently Used).
+
+Distributed Cache
+Definition: A distributed cache spans multiple servers or nodes, allowing cached data to be shared across different instances or locations.
+ It is designed for scalability and high availability. example:  Redis, Hazelcast, Ehcache with Terracotta
+ 
+Feature			In-Memory Cache						Distributed Cache
+Scope			Single server or JVM				Multiple servers or nodes
+Scalability		Limited to single node's memory		Scales horizontally with more nodes
+Fault Tolerance	None (data lost if server fails)	High availability with data replication
+Latency			Very low (local access)				Potential network latency
+Complexity		Simple to set up					More complex, requires configuration and management
+
+Distributed Caching with Terracotta: For distributed caching capabilities, Ehcache can be integrated with Terracotta. 
+Terracotta is a product that extends Ehcache to support distributed caching, clustering, and high availability.
+ This setup allows Ehcache to operate in a distributed manner across multiple nodes.
+ 
+If you need a distributed caching solution directly, other providers like Redis or Hazelcast are more commonly used in distributed cache scenarios. 
+ 
+we can use different cache like Redis, Hazelcast, EhCache.
+EhCache is used widely.
+
+Cache Hit:
+Cache Miss.
+
+How to ensure data consistency
+-----------------------------------------
+To ensure data consistency when using caching in a Spring Boot application:
+
+Invalidate or update cache entries on write operations.
+Use conditional caching to refresh data based on specific conditions.
+Apply TTL (Time-To-Live) to periodically refresh cache entries.
+Implement cache versioning to ensure data reflects the latest state.
+Perform consistency checks periodically if necessary.
+
+we can configure TTL (Time To Live) in configuration , to periodically refresh cache entries.
+like in ehCache.xml.
+<cache alias="usersCache">
+    <key-type>java.lang.Long</key-type>
+    <value-type>com.example.User</value-type>
+    <expiry>
+        <ttl unit="minutes">10</ttl> <!-- Cache entry expires after 10 minutes -->
+    </expiry>
+</cache>
+
+@Cacheable: Caches the result of a method.
+@CachePut: Updates the cache with the result of a method.
+@CacheEvict: Removes entries from the cache.
+@Caching: Combines multiple cache operations.
+@CacheConfig: Provides default caching settings for a class. for all methods of the class.
+@EnableCaching: To enable the cache mechanism.
+
+
+@CacheEvict: Removes entries from the cache. It can be used to clear a specific cache entry or all entries in a cache.
+
+value (or cacheNames): The name of the cache from which to remove entries.
+key: The key of the cache entry to remove.
+allEntries: If true, removes all entries from the cache.
+beforeInvocation: If true, performs the eviction before the method execution; otherwise, it happens after method execution.
+
+@CacheEvict(value = "cacheName", key = "#param")
+public void removeData(String param) {
+    // Method implementation
+}
+
+
+
+
+@Cacheable: Caches the result of a method. If the method is called with the same parameters, the cached result is returned instead of executing the method again.
+
+@CachePut: Updates the cache with the result of the method. Unlike @Cacheable, it always executes the method and updates the cache with the new result.
+
+value (or cacheNames): The name of the cache (or multiple caches) where the result will be stored.
+key: The key under which the result will be stored in the cache.
+condition: to conditionally cache the result.
+unless: to conditionally prevent caching.
+
+
+@Cacheable/@CachePut(value = "cacheName", key = "#param")
+public String updateData(String param) {
+    // Method implementation
+}
+
+
+
+
+
+@Caching:
+
+The @Caching annotation in Spring allows you to use multiple cache annotations in a single method. 
+It’s useful when you need to apply a combination of caching operations such as @Cacheable,
+ @CachePut, and @CacheEvict on the same method. This can provide fine-grained control over caching behavior.
+ 
+@Caching(cacheable = @Cacheable(value = "persons", key = "#id"),
+        evict = @CacheEvict(value = "persons", key = "#id", condition = "#result != null")
+    )
+    public Optional<Person> getPersonById(Long id) {
+        return personRepository.findById(id);
+    } 
+
+with conditional example: @Cacheable(key="#id", value="Product", unless="#result.price > 1000")
+only the product which is gretaerf than 1000 will be cached.
+
+@DeleteMapping("/id")
+@CacheEvict(key="#id", value="Product")
+public String removeProduct(@PathVariable int id) {
+  return dao.deleteProduct(id);
+}
+
+@Service
+public class PersonService {
+	@Autowired
+    private PersonRepository personRepository;
+
+    @Cacheable(value = "persons", key = "#id")
+    public Optional<Person> getPersonById(Long id) {
+        return personRepository.findById(id);
+    }
+
+    @Cacheable(value = "persons")
+    public List<Person> getAllPersons() {
+        return personRepository.findAll();
+    }
+
+    @CachePut(value = "persons", key = "#person.id")
+    public Person savePerson(Person person) {
+        return personRepository.save(person);
+    }
+
+    @CacheEvict(value = "persons", key = "#id")
+    public void deletePersonById(Long id) {
+        personRepository.deleteById(id);
+    }
+
+    @CacheEvict(value = "persons", allEntries = true)
+    public void deleteAllPersons() {
+        personRepository.deleteAll();
+    }
+}	
+
+
+
+EhCache
+-------------
+create ehCache.xml
+Create a configuration class for managing ehCacheManager.
+
+
+REDIS.
+--------------
+Redis stands for REmote DIctionary Server.
+It’s an open source and stores in-memory key-value data-structure.
+Can be used as a database, cache and message broker.
+
+
+Download redis server and run the application file.
+Add "Spring-data-redis (Access+Driver)" dependency.
+Add jedis dependency.
+
+Add Configuration file, Configure JedisConnectionFactory and RedisTemplate
+
+
+When implementing Redis caching in a Spring Boot application,
+ you don't need to include the spring-boot-starter-cache dependency explicitly if you are only using Redis as a caching provider. 
+
+Redis is very fast, because everything is stored at in-memory, also call as cache database. It’s written in C lang.
+
+Redis is in the family of databases called key-value stores.
+
+Often Redis it is called a data structure server because it has outer key-value shell, but each value can contain a complex data structure, 
+such as a string, a list, 
+a hashes, or ordered data structures called sorted sets as well as probabilistic data structures like hyperloglog.
+ 
+The Redis Configuration
+To define the connection settings between the application client and the Redis server instance, we need to use a Redis client.
+
+There is a number of Redis client implementations available for Java.
+ To define the connection settings between the application client and the Redis server instance,
+ we need to use a Redis client.
+
+ we'll use Jedis — a simple and powerful Redis client implementation. 
+ 
+ JEDIS: Should add the dependency in order to connet our backend stuff with the redis server.
+ 
+ Add dependency: spring-boot-starter-cache and then add @EnableCaching
+ 
+@Cacheable(value= "persons",key="#firstName",condition="#firstName.length() > 4",unless="#result.age>35")
+@RequestMapping("/get")
+@ResponseBody
+public Person getPerson(@RequestParam String firstName) {
+	System.out.println("Getting record");
+	return personService.getByFirstName(firstName);
+}
+
+condition: before the method execution
+unless = Takes the result value after the method execution.
+@Cacheable (value="person", key="#firstname")
+Used mainly in the get request and returns the result from the cache. used in a method for which u want to cache.
+
+@CachePut(value="persons", key="#firstName")
+used for adding data to the cache. mostly used in PUT and POST.
+
+@CacheEvict(value="persons", key="#firstNme")
+used for delete the value from the cache.
+
+@CacheEvict(value="persons", allEntries=true)
+used for deleting all the records from the cache.
+
+
+
+
+If no params are given, return SimpleKey.EMPTY.
+If only one param is given, return that instance.
+If more the one param is given, return a SimpleKey containing all parameters.
+
+
+
+
+

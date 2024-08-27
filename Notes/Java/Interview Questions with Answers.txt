@@ -1,0 +1,471 @@
+1) Why Java is not 100% Object oriented?
+   because of primitive datatype namely int,float,double etc.
+   To make them OO we have wrapper class.
+2) Why pointer are not used in java?
+     They are unsafe, It increases the complexity.
+     JVM is responsible for allocating and de-allocating the memory internally..(Its not in user hand)
+3) what is JIT?
+    JIT in Java is an integral part of the JVM. It accelerates execution performance many times over the previous level.
+4) what is method hiding?
+   For static method if u create a similar method with same return type and same method arguments in child class then it'll hide
+   the superclass method.. this is known as "Method Hiding".
+5) Does finally always executes?
+    not in few case like System.exit() function and when system crash.
+6) Methods of Object Class?
+   clone(), equals(Object ob), finalize(),hashcode(),getClass(), toString(), notify(),notifyAll(),wait().
+7) How Can You Make a Class Immutable?
+
+    The instance variable of the class is final i.e. we cannot change the value of it after creating an object.
+	The class is final so we cannot create the subclass.
+	There is no setter methods i.e. we have no option to change the value of the instance variable.
+
+	public final class Employee{  
+	final String pancardNumber;  
+	  
+	public Employee(String pancardNumber){  
+	this.pancardNumber=pancardNumber;  
+	}  
+	  
+	public String getPancardNumber(){  
+	return pancardNumber;  
+	}  
+
+8) Difference between NoClassDefFoundError and ClassNotFoundException?
+ 
+ClassNotFoundException and NoClassDefFoundError occur when a particular class is not found at runtime. However, they occur at different scenarios.
+
+ClassNotFoundException is an exception that occurs when you try to load a class at run time using Class.forName() or loadClass() methods and mentioned
+ classes are not found in the classpath.
+
+NoClassDefFoundError is an error that occurs when a particular class is present at compile time, but was missing at run time.
+
+9) Given an Employee list , sort employees based on their salaries in desc order?
+
+        List < Employee > employeesSortedList1 = employees.stream()
+            .sorted((o1, o2) -> (int)(o2.getSalary() - o1.getSalary())).limit(3).collect(Collectors.toList());
+        System.out.println(employeesSortedList1); // To fetch top 3 high salaried employee
+
+        List < Employee > employeesSortedList2 = employees.stream()
+            .sorted(Comparator.comparingLong(Employee::getSalary).reversed()).collect(Collectors.toList()); //ascending order
+        System.out.println(employeesSortedList2);
+		
+		Using Comparator interface:
+			List<Employee> employees  = getEmployeesFromDB();
+			  
+			//Sort all employees by first name
+			employees.sort(Comparator.comparing(e -> e.getFirstName()));
+			  
+			//OR you can use below
+			employees.sort(Comparator.comparing(Employee::getFirstName));
+			 
+			//Sort all employees by first name in reverse order
+			Comparator<Employee> comparator = Comparator.comparing(e -> e.getFirstName());
+			employees.sort(comparator.reversed());
+		
+10) Why is char[] preferred over String for passwords?
+
+In Java, Strings are immutable and are stored in the String pool. What this means is that, once a String is created, 
+it stays in the pool in memory until being garbage collected. Therefore, even after you’re done processing the string value 
+(e.g., the password), it remains available in memory for an indeterminate period of time thereafter (again, until being garbage collected) 
+which you have no real control over. 
+
+Therefore, anyone having access to a memory dump can potentially extract the sensitive data and exploit it.
+
+In contrast, if you use a mutable object like a character array, for example, to store the value, you can set it to blank once you are done with it with confidence that it will no longer be retained in memory.
+			
+11) what is the latest enhancements done in hashmap in java 8
+
+In Java 7 after calculating hash from hash function if more then one element has same hash than they are searched by linear search
+ so it's complexity is (n). In Java 8 that search is performed by binary search so the complexity will become log(n). 
+ So, this concept is wrong that hash map searches an object in constant complexity because it is not the case at all times.	
+
+12) diffrence between map and flatMap?
+ one to one mapping occurs in map. It is used only for transformation.
+ Map(Takes one element and produces one element)
+ (e.g)want to increase salary for each employee (map)
+ 
+ FlatMap(Takes one element and produces zero, one or more element)
+ one to many mapping occurs in flatMap. It is used both for transformation and mapping.
+ (e.g)want to increase salary for each employee (map)
+
+13) Does a java set have order?
+Set is an unordered collection, it doesn't maintain any order. There are few implementations of Set which maintains the order such as LinkedHashSet 
+(It maintains the elements in insertion order).   
+
+14) which Tree used by TreeSet aor TreeMap
+The TreeSet uses a self-balancing binary search tree, more specifically a Red-Black tree.
+
+15) Diff between Hashmap and Hash Table?
+HashMap(It is Not Synchronized, and it allows one null key and multiple null values)
+HashTable(It is Synchronized, and it neither allows null key or null values)
+
+16) Why map doesn't extend the Collection interface?
+Map is a key/value pair whereas Collection is a collection of a group of objects stored in a structured manner 
+and has a specified access mechanism. The reason why Map doesn't extend Collections interface is that add(E e);
+ doesn't cater the key value pair like Map's put(K, V).
+
+17) What is MultiTasking And Its types. In java interview question and Answers
+
+Performing  multiple tasks at one time . There are 2 types of multitasking :
+Process based multitasking
+Thread based multitasking
+
+18) What is Multi threading & how is it diff from multi tasking asked In java interview question and Answers
+
+ Multithreading is a specialized form of multitasking.
+
+Process-based multitasking is executing several tasks simultaneously where each task is a separate independent process is Process-based multitasking . 
+For example, process based multitasking enables you to run the Java IDE at the same time that you are using a text editor or visiting a web site using chrome.
+
+Thread-based multitasking is executing several tasks simultaneously where each task is a separate independent part of the same program (called Thread).
+For instance,JUnit uses threads to run test cases in parallel. As an application, you can have computer games. You see objects in games like cars, motor bikes etc. They are just threads that run in the game application.
+
+Thus, process-based multitasking deals with the “big picture,” and thread-based multitasking handles the details
+
+19) Which is better process based multitasking or thread based multitasking and why is one of the most asked java interview question and Answers?
+ 
+Thread based multitasking is better.
+
+Multitasking threads require less overhead than multitasking processes. 
+
+Processes are heavyweight tasks that require their own separate address spaces. 
+
+Threads, on the other hand, are lighter weight. They share the same address space and cooperatively share the same heavyweight process. 
+
+Interprocess communication is expensive and limited. Context switching from one process to another is also costly. In java interview
+
+Inter Thread communication is inexpensive, and context switching from one thread to the next is lower in cost. 
+
+While Java programs make use of process-based multitasking environments, process-based multitasking is not under Java’s direct control.
+ However, multithreaded multitasking is. 
+
+20) What is a Thread
+
+Threads are light-weight processes within a process.
+Java creates threads by using a "Thread Class".
+
+ All Java programs have at least one thread, known as the main thread, which is created by the Java Virtual Machine (JVM) at the program’s start,
+ when the main() method is invoked with the main thread.
+ 
+ System.out.println(Thread.currentThread().getName()); // prints main
+
+21) Types of Thread in java
+
+There are two types of thread – user thread and daemon thread.
+
+
+22) How to create a user thread in Java
+ Thread implementation in java can be achieved in two ways:
+
+Extending the java.lang.Thread class
+Implementing the java.lang.Runnable Interface
+
+When the JVM starts, it creates a thread called “Main”. Your program will run on this thread, unless you create additional threads yourself. 
+The first thing the “Main” thread does is to look for your static void main (String args[]) method and invoke it. That is the entry-point to your program. 
+If you create additional threads in the main method those threads would be the child threads of main thread.
+
+23)  Difference between t.start() and t.run()
+In the case of t.start() a new Thread will be created which is responsible for the execution of run() method.
+
+But in the case of t.run() no new Thread will be created and run() method will be executed just like a normal method by the main Thread.
+
+In the above program if we are replacing t.start() with t.run() the following is the  output. Entire output produced by only main Thread. So Its sequential output always. First child then main / parent 
+
+
+24) How to make a user thread to a Daemon thread
+
+DAemon thread is a low priority thread that runs in background to perform task such as garbage collection etc. 
+JVM doesn't care about whether daemon thread is running or not.
+
+ make a user thread to Daemon by using setDaemon() method of thread class.
+This method is used for making a user thread to Daemon thread or vice versa. For example if I have a user thread t then t.setDaemon(true) would make it Daemon thread. On the other hand if I have a Daemon thread td then by calling td.setDaemon(false) would make it normal thread(user thread/non-daemon thread).
+public boolean isDaemon(): This method is used for checking the status of a thread. It returns true if the thread is Daemon else it returns false.
+setDaemon() method can only be called before starting the thread.
+ This method would throw IllegalThreadStateException if you call this method after Thread.start() method. (refer the example)
+The main difference between Daemon thread and user threads is that the JVM does not wait for Daemon thread before exiting while it waits for user threads,
+ it does not exit until unless all the user threads finish their execution.
+
+25) What are the tasks of start method
+
+Register the Thread with thread scheduler. So you just tell what a child thread should do, when and how it will be scheduled will be handled by scheduler.
+
+Call run method.
+
+26) What if we don’t override Run method?
+Thread class Run method will be called and we won’t get any output.
+
+It’s basically useless as you are saying, please create a thread for me and that thread will do nothing for us. So why did u create it ?
+
+27) Can we overload run method during multi threading?
+How do we overload? 
+May be by passing parameters?
+Yes you can but start () will call no arg run () only. 
+
+Overloading of run() method is possible. But Thread class start() method can invoke no-argument method. 
+The other overloaded method we have to call explicitly like a normal method call.
+
+28) Can we override start method of thread in multi threaded environment?
+If you override start () in your custom class then no initializations will be done by thread class for you. 
+
+29) What is Multi threading & how is it diff from multi tasking asked In java interview question and Answers
+
+ Multithreading is a specialized form of multitasking.
+
+Process-based multitasking is executing several tasks simultaneously where each task is a separate independent process is Process-based multitasking . 
+For example, process based multitasking enables you to run the Java IDE at the same time that you are using a text editor or visiting a web site using chrome.
+
+Thread-based multitasking is executing several tasks simultaneously where each task is a separate independent part of the same program (called Thread).
+For instance,JUnit uses threads to run test cases in parallel. As an application, you can have computer games. 
+You see objects in games like cars, motor bikes etc. They are just threads that run in the game application.
+
+Thus, process-based multitasking deals with the “big picture,” and thread-based multitasking handles the details.
+
+30) Why we need comparable and comparator in java?
+In order to sort custom object we need those.
+Employee emp = new Employee[4];
+Arrays.sort(Employee) // will give ClassCastException, Employee cannot be casted to java comparable
+Employee implements Comparable
+	@Override
+	public int compareTo(Employee o) {
+	  return this.id - o.id;
+	}  
+
+31) how to use comparator interface?
+class Sortbyname implements Comparator<Student> {
+    // Used for sorting in ascending order of
+    // name
+    public int compare(Student a, Student b)
+    {
+        return a.name.compareTo(b.name);
+    }
+}
+Collections.sort(arList, new Sortbyname());	
+Arrays.sort(employees, new Sortbyname());
+
+32) How does Collections.Sort() work? 
+Internally the Sort method does call Compare method of the classes it is sorting. To compare two elements, it asks “Which is greater?” 
+Compare method returns -1, 0, or 1 to say if it is less than, equal, or greater to the other. It uses this result to then determine if 
+they should be swapped for their sort.
+
+33)Which sorting algorithm used by arrays.sort() and collections.sort() in java?
+
+ TimSort is a sorting algorithm based on Insertion Sort and Merge Sort.
+
+A stable sorting algorithm works in O(n Log n) time
+Used in Java’s Arrays.sort() as well as Python’s sorted() and sort().
+First sort small pieces using Insertion Sort, then merges the pieces using merge of merge sort.
+
+
+ comparison of TRUNCATE and DELETE in SQL:
+---------------------------------------------------
+TRUNCATE: Removes all rows from a table
+TRUNCATE TABLE table_name;
+DDL (Data Definition Language)
+Performance	Generally faster, 
+
+DELETE: Removes specified rows from a table
+DELETE FROM table_name WHERE condition;
+DML (Data Manipulation Language)
+Performance	Generally slower.
+
+Immutable class
+---------------------
+To create an immutable class:
+
+Declare the class final.
+Make all fields private and final.
+Initialize fields in the constructor.
+Avoid setter methods.
+
+Immutable collections
+--------------------------------
+In Java 8, you can create immutable collections using various methods, 
+including the 
+Collections.unmodifiableList(), 
+Collections.unmodifiableSet(), and 
+Collections.unmodifiableMap() utilities
+
+// Create a mutable list
+        List<String> mutableList = new ArrayList<>(Arrays.asList("A", "B", "C"));
+        
+        // Create an immutable list
+        List<String> immutableList = Collections.unmodifiableList(mutableList);
+        
+        // Attempt to modify the immutable list will throw UnsupportedOperationException
+        try {
+            immutableList.add("D"); // This will throw an exception
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Cannot modify immutable list.");
+        } 
+
+
+Java Frameworks
+--------------------
+1) what is @SpringBootAnnotation
+
+@SpringBootApplication is a convenience annotation that adds all of the following:
+
+@Configuration: Tags the class as a source of bean definitions for the application context.
+
+@EnableAutoConfiguration: Tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings. For example, if spring-web MVC is on the classpath, this annotation flags the application as a web application and activates key behaviors, such as setting up a DispatcherServlet.
+
+@ComponentScan: Tells Spring to look for other components, configurations, and services in the com/example package, letting it find the controllers.
+
+2) how to use property from application.properties
+By using @Value
+example: 
+@Value("${server.port}")
+private String port;
+
+3) Explain @RestController?
+@Controller returns View. @RestController returns ResponseBody
+@RestController is the combination of @Controller and @ResponseBody 
+
+So the following two controller definitions should do the same
+
+@Controller
+@ResponseBody
+public class MyController { }
+
+@RestController
+public class MyRestController { }
+
+4) How to create custom Endpoints in Springboot actuators -?
+This can be  achieved by adding the following annotations:
+@Endpoint and @Component to class
+@ReadOperation, @WriteOperation, or @DeleteOperation on method-level
+
+@ReadOperation maps to HTTP GET
+@WriteOperation maps to HTTP POST
+@DeleteOperation maps to HTTP DELETE
+
+5) Advantage of yml file instead of properties file?
+ More clarity and better readability
+ It's in a hierarchical structure.
+ 
+6) What is the need of Project Lombok ?
+To reduce Boilerplate code in Java like getters,setters, toString methods ,constructor etc.
+Languages like Kotlin and Scala which is also JVM based doesn't have this boilerplate code
+
+7) What is Project Lombok ?
+Project lombok is a Java library tool which is used to minimize/remove the boilerplate code and save the precious time of developer during development.
+We can achieve this thing by using some annotation provided by lombok
+It also increases the readability of the source code and saves some space 
+
+8) what is @Data?
+It is a combination of @Getter and @Setter @ToString
+@EqualsAndHashCode
+@RequiredArgsConstructors.(use for final and notnull fields)
+@NoArgsConstructor (use to generate default constructor)
+
+If we want all args constructors..we can add @AllArgsConstructors
+
+
+MicroServices.
+-------------------
+What are Monolith Application?
+In Monolith Architecture the application is build as a single unit. 
+Such Applications comprises of client side interface, server-side application and a database.
+Normally a monolith application have one large code base and it lack modularity
+
+Disadvantages of Monolith Application
+The code base get larger in size with time and hence it’s very difficult to manage.
+It is very difficult to introduce new technology as it affects the whole application.
+A single bug in any module can bring down the whole application
+It is very difficult to scale a single module. One has to scale the whole application
+Continuous deployment is extremely difficult. Large monolithic applications are actually an obstacle to frequent deployments. 
+In order to update one component, we have to redeploy the entire application.
+
+What are Microservices?
+While Monolith Application works a single component, a Microservice Architecture breaks it down to independent standalone small applications,
+ each serving one particular requirement. Eg, 1 Micro service for Handling all vaccination center operations , 1 for handling all the user base
+Within this microservice architecture, the entire functionality is split in independent deployable module which communicate with each other 
+through API’s(RESTful web services )
+
+Advantages of Microservices
+All the services are independent of each other. Therefore testing and deployment is easy as compare to Monolith application
+If there is bug in one microservice it has an impact only on a particular service and does not affect the entire application. 
+Even if ur Vaccination center service is down, u still have Ur users register to your application
+With microservice architecture, it's easy to build complex applications.
+It will give flexibility to choose technologies and framework for each microservices independently 
+
+How to start with Micro services?
+Steps
+If u have a monolith application, Identify all possible standalone functionalities.
+Once u have identify them, you need to create standalone projects, we are taking spring boot to create these microservices.
+You  need them to interact with each other through some ways , It can be Rest Api or Messaging. We are going to use restful architecture for the same
+But just doing this does not make sure the you have implemented microservices architecture.
+ These are till now just 2 Restful web services. You need load balancer , eureka for service discovery 
+ (useful during load balancing and cloud deployments), API gateways and many more stuff. 
+
+
+Vaccination Center Service (have netflix eureka discovery client, port 8082, application name='CITIZEN SERVICE') 
+below main method of it.
+
+@Bean
+@LoadBalanced
+public RestTemplate restTemplate() {
+  return new RestTemplate();
+}
+
+then autowired in controller.
+use it like
+List<Citizen>  listOfCitizen = restTemplate.getForObject("http://localhost:8081/citizen/id/"+id, List.class)  
+List<Citizen>  listOfCitizen = restTemplate.getForObject("http://CITIZEN_SERVICE/citizen/id/"+id, List.class) // When Rest Template is load balanced
+
+In order to continously modify that localhost or the URL. ( we can put it in properties file also but again we have to change)
+thats where eureka comes into picture and 
+@loadBalanced will replace the correct url with its application name.
+ 
+ 
+
+Citizen/User Service (have netflix eureka discovery client, port 8081, application name='CITIZEN SERVICE') 
+Eureka Server (should have only Eureka server dependency, always port should be 8761, and @EnableEurekaServer). 
+(both should register in eureka server)
+to call from one service to other service use RestTemplate. (and RestTemplate should have used @LoadBalance)
+
+Vaccination_Center_Table( {id: 1, centerName: 'center 1', centerAddress: 'center addr 1'})
+User_Table( {id: 1, name: 'Ashfaq', vacCenterId: 1}, {id: 2, name: 'Faizan', vacCenterId: 1}) 
+
+
+Expected Output : getAllUserBasedOnVacCenterId()
+
+Hysterix and Fault Tolerance
+-------------------------------
+What is fault Tolerance?
+Fault tolerance is the property that enables a system to continue operating properly in the event of the failure of some of its components.
+
+We’ll use the library and implement the Circuit Breaker design pattern.
+These services are prone to failure or delayed responses. If a service fails it may impact on other services affecting performance and possibly 
+making other parts of application inaccessible or in the worst case bring down the whole application.
+
+Of course, there are solutions available that help make applications resilient and fault tolerant – one such framework is Hystrix circuit breaker.
+
+Hystrix circuit Breaker will tolerate failures up to a threshold. Beyond that, it leaves the circuit open. Which means, it will forward all subsequent
+ calls to the fallback method, to prevent future failures. 
+
+Circuit Breaker Design Pattern
+Idea behind circuit breaker is : 
+Wrap your rest api call in circuit breaker object which monitors for failure
+Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error,
+Here comes our task: If it fails and circuit is open, configure a fallback method which will be executed as soon as circuit breaks or opens.
+In this way, your vaccination center service Rest controller is wrapped with a proxy class and monitor its calls. Everything is done internally handles
+ everything for you in hystrix.
+
+Steps.
+
+1) Add dependency spring cloud starter netflix hysterix
+2) @EnableCircuitBreaker
+3) @HysterixCommand to method that needs breaking of circuit and configure it.
+     Then add fallBackMethod to handle circuitr breaks. (it takes method name, which one to execute in case any issue).
+	 
+https://www.knowledgehut.com/interview-questions/microservices	 
+
+Stackoverflow error
+------------------
+A StackOverflowError is a runtime error in java. It is thrown when the amount of call stack memory allocated by JVM is exceeded.
+ A common case of a StackOverflowError being thrown, is when call stack exceeds due to excessive deep or infinite recursion.
+
+Incorrectly implemented recursion (i.e. with no termination condition)
+Cyclic dependency between classes
+Instantiating a class within the same class as an instance variable of that class

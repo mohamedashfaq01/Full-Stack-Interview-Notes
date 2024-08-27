@@ -1,0 +1,491 @@
+AWS
+---------
+
+https://theeducationalblog.quora.com/The-Internet-what-is-the-Cloud-really
+
+AWS(pay for your need)
+Think of it as a big collection of computer servers and services that are connected to the internet and hosted by amazon.
+
+ Imagine you have a business and you need a place to store all your files and data. Instead of buying your own servers and setting them up in a room,
+ you can use AWS. It's like renting space in a huge warehouse where you can store all your information.
+- AWS provides different types of services. For example, if you need a place to store your files, you can use Amazon S3,
+ which is like a big virtual storage room. If you want to build a website or an application, you can use Amazon EC2, 
+ which is like renting a computer in the cloud that runs your software.
+
+CLoud: It represents a vast network of servers, data storage, and services that are accessible over the internet rather than being localized on a physical device 
+or network.
+
+
+Cloud computing is like a bus. You didn’t have to buy, maintain, or operate the vehicle, yet somehow you can still use it to get around and pay only for your trip.
+
+The cloud is like that: you don’t have to buy, maintain, or operate servers, 
+you just pay for running your website or web service on them, and leave the maintenance and operations to someone else to deal with.
+
+Problems solved by the Cloud
+• Flexibility: change resource types when needed
+• Cost-Effectiveness: pay as you go, for what you use
+• Scalability: accommodate larger loads by making hardware stronger or
+adding additional nodes
+• Elasticity: ability to scale out and scale-in when needed
+• High-availability and fault-tolerance: build across data centers
+• Agility: rapidly develop, test and launch software applications
+
+Shared Responsibility Model Overview
+-------------------------------------
+Customer: Resposnsibility for security "IN" the cloud.
+AWS: Resposnsibility for security "OF" the cloud.
+
+Regions consist of one or more availability zones. A region is a cluster of data centers.
+
+What is an Availability Zone?
+Availability zones are highly available data centers within each AWS region.
+ A region represents a separate geographic area. Each availability zone has independent power, cooling and networking.
+ When an entire availability zone goes down, 
+AWS is able to failover workloads to one of the other zones in the same region, a capability known as “Multi-AZ” redundancy.
+
+• Each region has many availability zones
+(usually 3, min is 2, max is 6). Example:
+• ap-southeast-2a
+• ap-southeast-2b
+• ap-southeast-2c
+
+IT Terminology
+• Network: cables, routers and servers connected with each other
+• Router: A networking device that forwards data packets between computer networks. They know where to send your packets on the internet!
+• Switch: Takes a packet and send it to the correct server / client on your network.
+
+Problems with traditional IT approach
+• Pay for the rent for the data center
+• Pay for power supply, cooling, maintenance
+• Adding and replacing hardware takes time
+• Scaling is limited
+• Hire 24/7 team to monitor the infrastructure
+• How to deal with disasters? (earthquake, power shutdown, fire…)
+• Can we externalize all this?
+
+What is a client-server model?
+-------------------------------------
+In computing, a client can be a web browser or desktop application that a person interacts with to make requests to computer servers. 
+A server can be services such as Amazon Elastic Compute Cloud (Amazon EC2), a type of virtual server.
+
+For example, suppose that a client makes a request for a news article, the score in an online game, or a funny video.
+ The server evaluates the details of this request and fulfills it by returning the information to the client.
+ 
+What is cloud computing?
+------------------------------
+Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. This is known as cloud computing.
+
+Instead of buying, owning, and maintaining physical
+data centers and servers, you can access technology services, such as computing power, storage, and databases, on an as-needed basis
+ from a cloud provider like Amazon Web Services (AWS). 
+ 
+ Traditionally, a developer looking to build an application had to procure, set up, 
+ and maintain physical infrastructure and the application. This is where cloud computing comes in.
+ 
+  You can access as many resources as you need, almost instantly, and only pay for what you use.
+  On-demand, pay-as-you-go access to services is fundamental to the cloud computing model.
+  
+technology services:  includes compute, storage, databases, analytics, networking, mobile, developer tools,
+ management tools, IoT, security, and enterprise applications etc  
+ 
+ Example: Netflix, Dropbox which is built on AWS. gmail, etc
+  
+Who is using cloud computing?
+------------------------------------
+Organizations of every type, size, and industry are using the cloud for a wide variety of use cases, such as data backup, disaster recovery, email, 
+virtual desktops,
+ software development and testing, big data analytics, and customer-facing web applications. 
+ For example, 
+ healthcare companies are using the cloud to develop more personalized treatments for patients.
+ Financial services companies are using the cloud to power real-time fraud detection and prevention.
+ And video game makers are using the cloud to deliver online games to millions of players around the world.
+ 
+Advantages of cloud computing
+The cloud provides developers with greater flexibility, scalability, and faster time to innovation. With cloud computing, you can
+1)Pay as you go - Pay only when you use computing resources, and only for how much you use.
+2) Stop guessing capacity - When you make a capacity decision prior to deploying an application, you often end up either sitting on expensive idle resources or dealing with limited capacity.
+ With cloud computing, you can access as much or as little capacity as you need, and scale up and down as required with only a few minutes notice. 
+3)Increase speed and agility - IT resources are only a click away, which means that you reduce the time to make resources available to your developers 4
+from weeks to minutes. This dramatically increases agility for the organization, because the cost and time it takes to experiment and develop is significantly lower.
+4) Realize cost savings - Companies can focus on projects that differentiate their business instead of maintaining data centers.
+ With cloud computing, you can focus on your customers, rather than on the heavy lifting of racking, stacking, and powering physical infrastructure.
+5) Go global in minutes - Applications can be deployed in multiple Regions around the world with a few clicks. 
+This means that you can provide lower latency and a better experience for your customers at a minimal cost.
+6)global infrastructure: AWS is steadily expanding global infrastructure to help our customers achieve lower latency and higher throughput, 
+and to ensure that their data resides only in the AWS Region they specify
+
+On-premises vs cloud computing
+------------------------------
+Before the cloud, companies and organizations hosted and maintained hardware in their own data centers, often allocating entire infrastructure departments to take
+ care of their data centers. This resulted in costly operations that made some workloads and experimentation impossible.
+ 
+The demand for compute, storage, and networking equipment increased as internet use became more widespread. For some companies and organizations,
+ the cost of maintaining a large physical presence was unsustainable. Cloud computing emerged to solve this problem.
+ 
+To help differentiate between running workloads on premises compared to in the cloud, consider a scenario in which a team of developers wants to deploy
+ a few new features in their app. Before they deploy, the team wants to test the features in a separate quality assurance (QA) environment that has the 
+ same configurations as production.
+ 
+In an on-premises solution, an additional environment requires you to buy and install hardware, connect the necessary cabling, provision power, 
+ install operating systems, and more. These tasks can be time consuming and expensive. Meanwhile, the team needs to delay the release of the new features
+ while they wait for the QA environment. In contrast, if you run your application in the cloud, you can replicate an entire production environment,
+ as often as needed, in a matter of minutes or even seconds. Instead of physically installing hardware and connecting cabling,
+ the solution is managed over the internet.
+ 
+https://aws.amazon.com/what-is/compute/#:~:text=In%20cloud%20computing%2C%20the%20term,computational%20success%20of%20any%20program.
+
+Types of Cloud Computing
+--------------------------------
+• Infrastructure as a Service (IaaS)
+• Provide building blocks for cloud IT
+• Provides networking, computers, data storage space
+• Highest level of flexibility
+• Easy parallel with traditional on-premises IT
+
+• Platform as a Service (PaaS)
+• Removes the need for your organization to manage the underlying infrastructure
+• Focus on the deployment and management of your applications
+
+• Software as a Service (SaaS)
+• Completed product that is run and managed by the service provider
+
+Example of Cloud Computing Types 
+ Infrastructure as a Service: 
+ • Amazon EC2 (on AWS)
+ • GCP, Azure, Rackspace, Digital Ocean, Linode •
+ Platform as a Service: 
+ • Elastic Beanstalk (on AWS) 
+ • Heroku, Google App Engine (GCP), Windows Azure (Microsoft) 
+ Software as a Service:
+ • Many AWS services (ex: Rekognition for Machine Learning) 
+ • Google Apps (Gmail), Dropbox, Zoom
+ 
+ 
+ • Amazon EC2 (Infrastructure as a Service)
+• Elastic Beanstalk (Platform as a Service)
+• Lambda (Function as a Service)
+• Rekognition (Software as a Service)
+
+
+
+MFA in AWS
+-----------------
+MFA(Multi Factor Authentication): password you know + security device you own.
+
+Main benefit: Even if a password is stolen or hacked, the account is not compromised.
+e.g: Google Authenticator, Duo Mobile, Microsoft Authenticator, Authy and other 3rd party devices.'
+
+How can user access AWS
+1) AWS Management Console (password + MFA)
+2) AWS CLI: (protected by access keys)
+3) AWS SDK: for code (protcetd by access keys)
+
+Access key id: like username
+Secret Access key: like a password
+
+
+
+*Q) What are the key components of AWS? **
+
+
+- *Amazon EC2* (Elastic Compute Cloud): This is a web service that provides virtual servers, known as instances, in the cloud. 
+It allows you to easily create and manage virtual machines to run your applications or host your websites.
+
+- **Amazon S3 **(Simple Storage Service): S3 is a scalable storage service that enables you to store and retrieve data, such as files,
+ images, and videos, over the internet. It provides high durability, availability, and security for your stored objects. we can have 9byte to 5 TB.
+ 
+- *Amazon RDS* (Relational Database Service): RDS is a managed database service that simplifies the setup, operation, and scaling of relational databases,
+ such as MySQL, PostgreSQL, Oracle, or SQL Server. It takes care of administrative tasks, such as backups and software patching, allowing you to focus on 
+ your applications.
+ 
+- **Amazon VPC **(Virtual Private Cloud): VPC allows you to create a private network within the AWS cloud. It provides isolation and security for
+ your resources and enables you to define subnets, configure routing, and control network access using security groups and network ACLs.
+ 
+- **Amazon IAM **(Identity and Access Management): IAM is a service that helps you manage access to AWS resources securely. 
+It allows you to create and manage users, groups, and roles, and assign fine-grained permissions to control who can access which resources.
+
+- **AWS Lambda**: Lambda is a serverless computing service that enables you to run your code without provisioning or managing servers.
+ You can upload your code, and Lambda automatically handles the infrastructure and scales it based on incoming requests.
+ 
+- **Amazon SNS **(Simple Notification Service): SNS is a messaging service that allows you to send notifications and messages 
+to subscribed endpoints or clients. It supports various delivery protocols, including email, SMS, mobile push notifications, and HTTP/HTTPS endpoints.
+
+- **Amazon CloudWatch**: CloudWatch is a monitoring and observability service that provides insights into your AWS resources and applications.
+ It collects and tracks metrics, monitors log files, sets alarms, and generates visualizations to help you monitor and troubleshoot your infrastructure.
+
+IAM Guidelines & Best Practices
+-------------------------------------
+• Don’t use the root account except for AWS account setup
+• One physical user = One AWS user
+• Assign users to groups and assign permissions to groups
+• Create a strong password policy
+• Use and enforce the use of Multi Factor Authentication (MFA)
+• Create and use Roles for giving permissions to AWS services
+• Use Access Keys for Programmatic Access (CLI / SDK)
+• Audit permissions of your account with the IAM Credentials Report
+
+
+ You only want to use the root account to create your first IAM user, 
+ and for a few account and service management tasks. For every day and administration tasks, use an IAM user with permissions.
+
+AWS Lambda
+---------------
+AWS Lambda is a compute service that lets you run code without provisioning or managing servers.
+AWS Lambda executes your code only when needed and scales automatically.
+You pay only for the compute time you consume - there is no charge when your code is not running.
+With AWS Lambda, you can run code for virtually any type of application or backend service - all with zero administration. 
+AWS Lambda supports currently Node.js, Java, C#, Go and Python.
+
+Every lambda services is act like a Nano services.
+
+Usecase: 
+1) data processing.
+2) Chatbots and Alexa. (It calls the lambda function when we speak to amazon alexa) 
+AWS Lambda is the brain behind the Alexa.
+3) Scheduled Tasks and Cron Jobs:
+Lambda can be used to execute scheduled tasks or cron jobs without needing to manage servers. 
+For example, you can use Lambda to perform regular data backups, cleanup tasks, or send scheduled reports at specific intervals.
+
+Lambda Function
+Sync: Which return the reponse immediately. (API gateway, Alexa, CloudFront)
+Async: Return type would be VOID. (S3, SNS)
+Polling: (SQS
+
+We can check the billing amount with its usage.
+We can see the free tier services usage, like number of request we hitted. and free request etc
+We can allocate the budget amount also. and we can configure the email if the budget amount reach its x% and its threshold as a ALERT.
+
+Serverless computing and AWS Lambda
+-----------------------------------------
+In Traditional Server based computing (Client-> Server-> database)
+Challenges:
+1) Create/Setup servers.
+2) Manage Hardware/software.
+3) Ensure application is available 24*7
+4) Paying for server's idle capacity (morning one time, afternoon one time request even though just 2 request we need to pay for 24*7)
+
+Whereas, In Serverless Computing  (Client -> Cloud [on demand execution of code] -> Database).
+Serveless Computing is a cloud-computing execution model in which the cloud provider acts as the server.
+Client-> AWS Lambda(C#, Java, Python etc) -> db
+(morning one time, afternoon one time request, pay only for these two execution alone)
+
+Benefits:
+ 1) CLoud Provider takes care of creating the servers,managing hardware and software,
+2)  24*7 Availability and scalability.
+3) We have to ONLY focus on the product development and business logic.
+4) (No Idle Capacity) Pay only for what you use.
+Low infrastructure cost
+Scalibility and Reliability
+Usage Based cost
+
+
+The term ‘serverless’ is somewhat misleading, as there are still servers providing these backend services, but all of the server space and infrastructure 
+concerns are handled by the vendor. 
+Serverless means that the developers can do their work without having to worry about servers at all.
+
+
+Amazon EC2
+---------------------
+• EC2 is one of the most popular of AWS’ offering
+• EC2 = Elastic Compute Cloud = Infrastructure as a Service
+• It mainly consists in the capability of :
+• Renting virtual machines (EC2)
+• Storing data on virtual drives (EBS, Elastic Block Storage )
+• Distributing load across machines (ELB, Elastic Load Balancer)
+• Scaling the services using an auto-scaling group (ASG)
+• Knowing EC2 is fundamental to understand how the Cloud works
+
+EC2 sizing & configuration options
+ • Operating System (OS): Linux, Windows or Mac OS 
+ • How much compute power & cores (CPU) 
+ • How much random-access memory (RAM) 
+ • How much storage space:
+	 • Network-attached (EBS & EFS [Elastic File System ]) 
+	 • hardware (EC2 Instance Store)
+ • Network card: speed of the card, Public IP address 
+ • Firewall rules: security group 
+ • Bootstrap script (configure at first launch): EC2 User Data
+ 
+EC2 User Data
+• It is possible to bootstrap our instances using an EC2 User data script.
+• bootstrapping means launching commands when a machine starts
+• That script is only run once at the instance first start
+• EC2 user data is used to automate boot tasks such as:
+• Installing updates
+• Installing software
+• Downloading common files from the internet
+• Anything you can think of
+• The EC2 User Data Script runs with the root user 
+
+EC2 Pricing Model
+---------------------
+1) On-Demand Instance: (pay only when we need and used)
+2) Reserved Instances: (Renting Dedicated server for 1-3 year with bug discounts)
+3) Spot Instances: (It's like bidding system for extra computers, You bid for unused computers if bid is highest than current price, 
+you get those computers with big discounts)
+4) Dedicated Hosts: (It's like a priviate space in the cloud, and having your own personal computer in the computer, It's expensive) 
+
+Amazon EC2 Instance Types
+-------------------------------
+1) General Purpose
+2) Compute Optimized
+3) Memory Optimized
+4) Storage Optimized
+
+Stopping and terminating instance:
+
+Stopping an instance means only shutting down the instance. (but it's corresponding EBS Volume is still atached to EC2 instance, we can restart it)
+Terminating an instance means removing it from the AWS account, also it's EBS Volume also gets removed, hence u can't restart it.)
+
+AMI
+---------
+An Amazon Machine Image (AMI) is a template that contains software configuration, like an operating system, application server, and applications.
+You use AMI to create and launch new instances (virtual servers)in the cloud with the same setup as the original snapshot.
+It's convenient way to replicate and  share pre-configured environment.
+
+Introduction to Security Groups
+----------------------------------
+Security Groups are the fundamental of network security in AWS
+• They control how traffic is allowed into or out of our EC2 Instances.
+• Security groups only contain rules
+
+Security groups are acting as a “firewall” on EC2 instances
+They regulate:
+ • Access to Ports 
+ • Authorised IP ranges – IPv4 and IPv6
+ • Control of inbound network (from other to the instance) 
+ • Control of outbound network (from the instance to other)
+ 
+Can be attached to multiple instances 
+It’s good to maintain one separate security group for SSH access
+If your application is not accessible (time out), then it’s a security group issue (if we remove 80 port from the security group in-bound rule) then this will keep on loading and eventually gets timed out
+If your application gives a “connection refused“ error, then it’s an application
+error or it’s not launched
+
+Classic Ports to know
+• 22 = SSH (Secure Shell) - log into a Linux instance
+• 21 = FTP (File Transfer Protocol) – upload files into a file share
+• 22 = SFTP (Secure File Transfer Protocol) – upload files using SSH
+• 80 = HTTP – access unsecured websites
+• 443 = HTTPS – access secured websites
+• 3389 = RDP (Remote Desktop Protocol) – log into a Windows instance
+
+SSH (Secure Shell)
+---------------------
+SSH, or Secure Shell, is a protocol used to securely log onto remote systems. It is the most common way to access remote Linux and Unix-like servers.
+
+can be access from SSH, Putty (windows), and AWS Ec2 Instance Connect (for all platform)
+
+SSH is one of the most important function. It allows you to control a
+remote machine, all using the command line.
+
+how do you connect inside of your servers to perform some maintenance or action.
+So for this, for Linux servers, we can use SSH to do a secure shell into our servers.
+
+So the SSH is a command line interface utility that can be used on Mac or Linux as well as Windows over version 10.
+Then if you have Windows less than version 10, you can use something called putty.
+
+Putty will exceed the exact same thing as SSH. putty is valid for any version of Windows.
+
+They do the exact same thing, they allow you to use the SSH protocol to connect into your EC2 instances.
+And then finally, there's something new called the EC2 Instance Connect, which is going to use your web browser. it is valid for Mac, Linux, Windows, all versions.
+
+The cool thing about EC2 Instance Connect is that it works, but it only works for now with Amazon NX2
+
+Sample command to connect to Ec2 Instance from SSH: 
+ssh -i TestEc2.pem ec2-user@3.92.65.210
+
+EC2 Instance Connect
+• Connect to your EC2 instance within your browser
+• No need to use your key file that was downloaded
+• The “magic” is that a temporary key is uploaded onto EC2 by AWS
+• Works only out-of-the-box with Amazon Linux 2
+• Need to make sure the port 22 is still opened!
+
+Use IAM Role for EC2 Instances. Never ever ever configure it through the 'aws configure' in the "EC2 Instance Connect"
+
+EC2 Instances Purchasing Options
+--------------------------------------
+• On-Demand Instances – short workload, predictable pricing, pay by second
+• Reserved (1 & 3 years)
+• Reserved Instances – long workloads
+• Convertible Reserved Instances – long workloads with flexible instances
+• Savings Plans (1 & 3 years) –commitment to an amount of usage, long workload
+• Spot Instances – short workloads, cheap, can lose instances (less reliable)
+• Dedicated Hosts – book an entire physical server, control instance placement
+• Dedicated Instances – no other customers will share your hardware
+• Capacity Reservations – reserve capacity in a specific AZ for any duration
+
+Which purchasing option is right for me? (Analogy with Resort)
+• On demand: coming and staying in resort whenever we like, we pay the full price
+• Reserved: like planning ahead and if we plan to stay for a long time, we may get a good discount.
+• Savings Plans: pay a certain amount per hour for certain period and stay in any room type (e.g.,
+King, Suite, Sea View, …)
+• Spot instances: the hotel allows people to bid for the empty rooms and the highest bidder keeps the
+rooms. You can get kicked out at any time
+• Dedicated Hosts: We book an entire building of the resort
+• Capacity Reservations: you book a room for a period with full price even you don’t stay in it.
+
+EC2 Section – Summary
+• EC2 Instance: AMI (OS) + Instance Size (CPU + RAM) + Storage +
+security groups + EC2 User Data
+• Security Groups: Firewall attached to the EC2 instance
+• EC2 User Data: Script launched at the first start of an instance
+• SSH: start a terminal into our EC2 Instances (port 22)
+• EC2 Instance Role: link to IAM roles
+• Purchasing Options: On-Demand, Spot, Reserved (Standard +
+Convertible + Scheduled), Dedicated Host, Dedicated Instance
+
+EC2 Instance Storage Section
+--------------------------------
+What’s an EBS Volume?
+   An EBS (Elastic Block Store) Volume is a network drive you can attach to your instances while they run.
+   It allows your instances to persist data, even after their termination
+• They can only be mounted to one instance at a time (at the CCP level)
+• They are bound to a specific availability zone
+• Analogy: Think of them as a “network USB stick”
+
+EBS Volume:
+	• It’s a network drive (i.e. not a physical drive)
+	• It uses the network to communicate the instance, which means there might be a bit of
+	latency
+	• It can be detached from an EC2 instance and attached to another one quickly
+	• It’s locked to an Availability Zone (AZ)
+	• An EBS Volume in us-east-1a cannot be attached to us-east-1b
+	• To move a volume across, you first need to snapshot it
+
+EBS – Delete on Termination attribute:	
+Controls the EBS behaviour when an EC2 instance terminates
+• By default, the root EBS volume is deleted (attribute enabled)
+• By default, any other attached EBS volume is not deleted (attribute disabled)
+• This can be controlled by the AWS console / AWS CLI
+• Use case: preserve root volume when instance is terminated	
+
+EBS Snapshots
+	• Make a backup (snapshot) of your EBS volume at a point in time
+	• Not necessary to detach volume to do snapshot, but recommended
+	• Can copy snapshots across AZ or Region
+Recycle Bin for EBS Snapshots
+	• Setup rules to retain deleted snapshots so
+	you can recover them after an accidental
+	deletion
+	• Specify retention (from 1 day to 1 year)
+
+
+	
+
+
+
+
+Explore
+---------
+why most cloud runs on linux?
+How to connect laptop to laptop and access other laptop data using ssh or putty with its ip address?
+
+EC2:
+EBS:
+S3 Bucket
+
+(EC2, EBS, S3) => lambda => dynamodb
+
+

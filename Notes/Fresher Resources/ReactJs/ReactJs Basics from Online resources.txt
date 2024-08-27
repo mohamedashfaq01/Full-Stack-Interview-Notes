@@ -1,0 +1,206 @@
+
+Explore
+-----------
+1) what is storybook and styleguide in reactjs? how to implement?
+2) Analyzing the Bundle Size after installing source-map-explorer?
+3) what is heroku, netlify, Firebase and Vercel.
+4) what is the use of live-server.
+5) About Framer Motion Library.
+6) To improve performance fo the application
+(useMemo, CDN, Lazy Loading, chrome profiler extension. etc)
+7) React Error Boundaries.
+8) what is fallback method.
+
+
+Firebase
+-----------------
+Competitor: backendless.com and parseplatform
+
+React is a JavaScript library for building user interfaces.
+React is used to build single-page applications.
+
+instead of single conditional operator (? : null_) we can use &&
+{isFlagSet && ('Hello')}
+
+React is very decalative.
+Building blocks for any front end framework.
+1) COmponents
+2) Props
+3) Events.
+4) State.
+
+
+In ReactJS, we have mainly two types of components. They are
+
+Functional Components
+Class Components
+
+Functional Components
+In React, function components are a way to write components that only contain a render method and don't have their own state.
+It is also known as a stateless component because they do not hold or manage state.
+
+Class Components
+Class components are more complex than functional components. It requires you to extend from React.
+ Component and create a render function which returns a React element.
+ 
+constructors:
+ 
+In React, constructors are mainly used for two purposes:
+
+It used for initializing the local state of the component by assigning an object to this.state.
+It used for binding event handler methods that occur in your component.
+
+
+login Page Refer: https://codepen.io/rares-lungescu/pen/KLbMvo
+https://codepen.io/osbulbul/pen/qBxpqjj
+
+
+Book Explorer Application using Google Book API. (Must Do This)
+
+
+
+How To Create A Strong Linkedin Profile
+
+
+
+
+
+
+React Component API
+------------------------
+
+Components in React refer to reusable, independent pieces of the user interface that either control structuring or achieve a specific utility or function.
+
+State in React refers to the data pertinent to a component.
+
+Props in React is similar to state, but refers to inherited state within child components from parent components.
+
+This.setState() updates the state within a component by passing objects with relevant keys to the state.
+
+the three most important methods available in the React component API.
+
+1) setState()
+2) forceUpdate()
+3) findDOMNode()
+
+
+what is a Hook?
+
+Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
+Hooks don’t work inside classes — they let you use React without classes.
+
+ Hooks are functions that let you “hook into” React features from function components.
+ Their names always start with use.
+
+Rules of Hooks
+
+Hooks are JavaScript functions, but they impose two additional rules:
+
+Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions.
+Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions. 
+
+const [count, setCount] = useState(0);
+const [fruit, setFruit] = useState('banana');
+const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+
+This JavaScript syntax is called “array destructuring”. It means that we’re making two new variables fruit and setFruit,
+ where fruit is set to the first value returned by useState, and setFruit is the second. It is equivalent to this code:
+
+State Hook
+-----------------
+It lets us add local state to React function components — which we did for the first time ever!
+
+  var fruitStateVariable = useState('banana'); // Returns a pair
+  var fruit = fruitStateVariable[0]; // First item in a pair
+  var setFruit = fruitStateVariable[1]; // Second item in a pair
+
+function handleOrangeClick() {
+    // Similar to this.setState({ age: 12 })
+    setAge(12);
+  }
+  
+Props
+--------------  
+ParentComp.defaultProps = {
+  cars = ['BMW', 'Audi', 'Ford'];
+}
+
+Now parent to child we have to pass like
+<ChildComp coolCars={this.props.cars}/>  
+
+propTypes. ( we can define the different types of each props) 
+
+useNavigate(hook to redirect to another route. it's from v6.)
+<Navigate to="/notFound'>
+
+
+Redirect (we use it v5)
+
+
+
+
+ https://www.npmjs.com/package/json-server
+ In order to run both client and server application we can use "concurrently" package.
+ https://www.npmjs.com/package/concurrently (we cna run json server stuff and client application both)
+ like "dev": "concurrently \"npm run server\"  \"npm start\"" (when we run "npm run dev") it'll run both apps.
+ 
+ 
+ https://github.com/hasankemaldemirci/react-crud-app
+ 
+ https://www.youtube.com/watch?v=qH4pJISKeoI&list=PLN3n1USn4xllZIJyrGvCu5ihs2GoMtk1Q&index=2&ab_channel=BenAwad
+ 
+ https://www.youtube.com/watch?v=CwbswVV22jw&list=PLfD4W8QfMd5DbFccLzRFeG0QjWWHGTT3-&index=15&ab_channel=MaanavaNLearnCode
+ 
+
+https://codesandbox.io/embed/fervent-thunder-egyk1?fontsize=14&hidenavigation=1&theme=dark
+
+
+https://github.com/trutoro/react-material-sidebar
+
+https://www.youtube.com/watch?v=QkPJV9DonZ0&ab_channel=Shrideepghag
+
+https://github.com/aditya-sridhar/simple-reactjs-app
+
+https://github.com/GeekyAnts/react-native-easy-grid
+
+(react antd layout)
+https://github.com/Shrideep/react-antd-layout
+
+(Ant Design UI library)
+https://www.youtube.com/watch?v=03rzGKtEZmw&list=PL-JTnqZPF5z2qTGwNkYln3m0pA0qfgHFR&ab_channel=CodeWithAamir
+
+(CRUD react projects) with jsonplaceholder
+https://www.youtube.com/watch?v=R_sbuXBCviQ&ab_channel=CodeforInterview
+
+How to Design a Perfect React Material UI Form
+https://www.youtube.com/watch?v=-XKaSCU0ZLM&ab_channel=CodAffection
+
+React Material UI Table with Paging Sorting and Filtering
+https://www.youtube.com/watch?v=jnQ1-XW7KNY&list=PLjC4UKOOcfDQtvkTBfjqeWP8EJKi_WaUn&index=6&ab_channel=CodAffection
+
+
+(Java and clone projects)
+https://www.youtube.com/channel/UCo9P-eIdR00Fn1gA_ylaHdQ/playlists
+
+what is call(), bind(), and apply() method in javascript?
+what is content projection
+what is async pipe
+what is pure and impure pipe.
+what is pre-loading and lazy loading
+what is closure in javascript?
+inner function with setTimeout (let and var variable).
+what is tree shaking in angular
+what are the 5 bundle files for angular project.
+what is the use of angular.json?
+what is Ivy engine.
+
+
+
+https://github.com/CodAffection/React-Material-UI-Table-Paging-Sorting-and-Filtering..git
+
+Email Notification, The base64 image is not rendered properly in the Outlook Client App whereas it shows correctly in the browser's outlook.
+
+npm install @material-ui/pickers --save
+npm i @date-io/date-fns@1.3.13 --save
+npm install @material-ui/icons --save
+npm install @material-ui/lab --save

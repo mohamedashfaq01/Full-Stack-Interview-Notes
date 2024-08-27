@@ -1,0 +1,214 @@
+ES6
+----------
+JavaScript was invented by Brendan Eich in 1995, and became an ECMA standard in 1997.
+
+ECMAScript is the official name of the language.
+
+Since 2016 new versions are named by year (ECMAScript 2016 / 2017 / 2018).
+
+The Original JavaScript ES1 ES2 ES3 (1997-1999)
+The First Main Revision ES5 (2009)
+The Second Revision ES6 (2015)
+Yearly Additions (2016, 2017, 2018)
+
+
+Babel: It's a transpiler
+
+
+New Features in ES6
+-------------------------
+The let keyword 
+The const keyword
+Template Literals `Hello, ${x}`
+Block Scope
+
+For/of
+Map Objects
+Set Objects
+Classes
+Promises
+Modules(Import and Export)
+
+String.includes()
+String.startsWith()
+String.endsWith()
+String.repeat() (example => "HelloWorld".repeat(50) // will print it 50 times.)
+New Math Methods
+Object entries
+Default Parameter Values
+JavaScript Template Literals (console.log(`Hello ${first_name} ${last_name}`);
+
+JavaScript import and export
+Function Rest Parameter(Dot/Spread Operator ...) let a=[1,2], let b=[...a, 3, 4], (b prints 1,2,3,4)
+
+JavaScript Destructuring (  
+1) let { name, age, gender } = person;
+2) let z= [1,2,3]; let [a,b] = z; (now a prints 1 and b prints 2)
+)
+
+Arrow Functions:
+let cheer = () => {
+  console.log("woohoo!!")
+}
+cheer();
+value.map((n) => n*2); (return keyword is needed if we use block scope)
+values.filter((n)=> n> 13); (return keyword is needed if we use block scope)
+
+No need to give function keyword for writing a function inside a class.
+just methodName() {} is fine.
+
+
+Code Hoisting (Declare the variable first and then use it)
+---------------------------------------------------------------
+you have to understand the term "hoisting".
+
+Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope 
+(to the top of the current script or the current function).
+
+If a developer doesn't understand hoisting, programs may contain bugs (errors).
+
+Simple RULE: To avoid bugs, always declare all variables at the beginning of every scope.
+
+Since this is how JavaScript interprets the code, it is always a good rule.
+
+
+let and const
+------------------
+The let keyword allows you to declare a variable with block scope.
+The const keyword allows you to declare a constant 
+
+Arrow Functions
+--------------------
+Arrow functions allows a short syntax for writing function expressions.
+You don't need the function keyword, the return keyword, and the curly brackets.
+
+// ES5
+var x = function(x, y) {
+   return x * y;
+}
+// ES6
+const x = (x, y) => x * y;
+
+You can only omit the return keyword and the curly brackets if the function is a single statement.
+ Because of this, it might be a good habit to always keep them:
+const x = (x, y) => { return x * y };
+
+import and export (default and named exports)
+--------------------
+export default user
+we can have only one default export. and we can import it like.
+import user from '/myFile.js'
+
+and others we can import like
+import {obj} from './myFile.js'.
+
+import user, {obj} from './myFile.js'.
+
+example
+************
+In this case it doesn’t matter what name you assign to it when importing: Because it will always resolve to whatever is the default export of A.
+
+Scenario 1: for default export
+// A.js
+export default 42
+
+// B.js
+import A from './A'
+import MyA from './A'
+import Something from './A'
+
+Scenario 2: for named import like
+export const A = 42
+
+// B.js
+import { A } from './A'
+import { myA } from './A' // Doesn't work!
+import { Something } from './A' // Doesn't work!
+
+
+
+Class and Prototype
+-------------------
+Classes and prototypes are two different approaches to achieving object-oriented programming in JavaScript
+
+Prototypes:
+
+Prototype-based: JavaScript is often described as a prototype-based language 
+because it relies on prototypes to achieve inheritance and object sharing.
+No Class Keyword: JavaScript didn't have a class keyword until ES6 (ECMAScript 2015).
+ Before ES6, developers used constructor functions and prototypes for defining objects.
+
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name}`);
+}
+
+Classes:
+
+Class-based: ES6 introduced the class keyword, allowing developers to write code using a more traditional class-based syntax.
+
+Class Definition: With classes, you define a blueprint for creating objects. The class itself can have properties and methods defined within it.
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+
+  static sayHello() {
+    console.log('Hello from the Person class!');
+  }
+}
+
+ES6 generators
+-----------------
+Generators can pause and resume with yield() and next()
+It provides a controlled flow.
+
+function* generator { … } 
+
+
+Synchronous and Asynchronous Programming
+-------------------------------------------
+Synchronous Programming: Runs the program in sequence without blocking
+
+Asynchronous Programming: Divert blocking to event handlers.
+Promises handle async function.
+Promises exist in three state. Pending, Fulfilled, and Rejected.
+
+
+
+
+Data Structure 
+--------------------
+
+Set (let a = new Set(); a.has(5), a.values();)
+Map (let a= new Map(); a.set(1, 'helloWorld'))
+
+CLosures
+--------------
+A closure in JavaScript, in simple terms, is a function that "remembers" the variables and data from the environment
+ in which it was created, even after that environment is no longer in scope.
+ 
+Function with Memory: A closure is like a function with a built-in memory. It can "remember" the variables, data, and context where it was created.
+
+Closures are commonly used for a variety of tasks in JavaScript, such as creating private variables, implementing data hiding, and managing state in functions 
+
+ 
+Arrow Functions
+--------------------
+The Arrow function is the new feature of the ES6 standard. If you need to use arrow functions, it is not necessary to bind any event to 'this.'
+
+ constructor() {
+     super();
+     this.state = {showData: false, msg: ''};
+     console.log('ReactStateDemo component ', this);
+    // this.handleClick =  this.handleClick.bind(this);
+    }
+
+    handleClick = () => {
+        this.setState({showData: !this.state.showData, msg: ''});
+    }
+(no need to bind an event if we're using arrow function).

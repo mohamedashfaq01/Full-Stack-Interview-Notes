@@ -1,0 +1,122 @@
+Simple Design, Refactoring, TDD
+-------------------------------------
+
+Use
+Ctrl + SHIFT + L which will open a list of all major shortcuts for eclipse.
+
+For single line java code comment and uncomment : Ctrl + / (Forward Slash)
+For multiple line java code comment : Ctrl + Shift + / (Forward Slash) and
+Multiline uncomment : Ctrl + Shift + \ (Backslash)
+For single line xhtml code comment/uncomment : Ctrl + Shift + c
+For multiple line xhtml code comment : Ctrl + Shift + / (Forward Slash)
+For multiple uncomment : Ctrl + Shift + \ (Backward Slash)
+
+
+KATA : It is nothing but practices u do to better at something.
+In software development, a "kata" is a term used to describe a programming exercise or challenge that is designed to improve a developer's skills 
+in a particular programming language or discipline.
+
+GildedRose Problem. 
+  To Understand clarity of code,
+  give importance to unit testing.  
+  
+  
+Four Principle of simple design
+1) Runs all test cases.
+2) Minimize duplication.
+3) Maximize clarity
+4) Keep it small.
+(effort involved in making something perfect is high)
+Effort to improve desigm: 99 to 99 GREATER Than 60 to 90
+
+(Does that effort give you significant return). 
+
+Design evolves (NOT created in a day)
+
+Without proper junit test cases developers are reluctant to make changes.
+TDD leads to better test and better design.  
+
+
+Most difficult challenge in Programming is Naming.
+
+
+10 Tips - Good Programmer
+-------------------------
+Pair Programming
+Boy Scout Rule
+Continuous Learning
+Learn Touch Typing
+Use Key Board
+Ask Why?
+Work with smart people
+Understand All Tools - IDE, JShell, Maven, Gradle etc
+Play with other languages and frameworks
+Understand different programming approaches
+Object Oriented, Functional Programming, Structured etc
+
+Comments
+---------------
+Type 1: API comments.
+Type 2: Comments to help programmer to understand your code.
+Type 3: TODO, FIXME.( incase of any bugs you identified, later u want to fix).
+
+Use Type 1 and Type 2 Liberally.
+Type 2 should focus on why but not what. (e.g) sorting, performance)
+
+
+	
+Junit ( we can use infinite test tool in IDE to run the junit automaically in background whenever we change the code or do refactor)
+------------
+While writing junit test cases,
+follow these three approach.
+1) setup
+2) invoke the function
+3) verify.
+
+Unit Testing Organization/Attitude.
+---------------------------------------
+
+1) More important than Code.
+2) Lead to Better Design (due to Continuous Refactoring)
+3) Best written before Code (TDD ).
+4) TDD improves Design and Code Quality
+5) Separated from Production Code
+6) Find Defects Early using Continuous Integration
+
+Principles of unit test
+-------------------------------
+1) Easy to understand (Test should take no longer than 15 seconds to read).
+2) Test should fail only when there is a problem with production code
+3) Tests should find all problems with production code
+4) Tests should have as minimum duplication as possible
+5) Should run quickly
+6) DOn't write test for coverage. (use string assertions) remember the purpose of writing test is to find the all possible defect for a scenario.
+Why else we write test. 
+
+
+refactoring
+----------------
+Means: Altering Structure of Code without affecting "Behavior".
+Toughest part of Refactoring is the order or sequencing of steps.
+
+Continuous Refactoring aided by Tests - Leads to "Clean Code".
+
+Refactoring - Best Practices:
+Have Unit Tests
+Take small steps
+Run tests at each step
+
+Favorite maxim from JUnit FAQ
+-------------------------------------
+
+"Test until fear turns to boredom" is a common saying in the software development industry, especially among proponents of Test Driven Development (TDD). 
+The idea is that you should write tests for your code until you are no longer afraid of making changes to it. 
+When you have comprehensive tests that cover all of the edge cases and potential failure scenarios,
+ you can make changes with confidence, knowing that your tests will catch any issues.
+
+Once you have written enough tests and you are confident that your code is working as expected, testing can become a routine and even a bit boring. 
+However, this is a good thing, as it means that you have achieved a high level of quality in your code and can focus on other aspects of development, 
+such as adding new features or optimizing performance.
+
+Overall, the idea of testing until fear turns to boredom is about creating a culture of quality in software development, where testing is seen 
+as an essential part of the development process and where developers take pride in their ability to write robust, bug-free code.

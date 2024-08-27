@@ -1,0 +1,220 @@
+The SOLID principles are a set of five design principles
+ in software development that help developers create more maintainable, 
+ understandable, and flexible software. Here's an explanation of each principle in simple terms with Java examples:
+
+### S: Single Responsibility Principle (SRP)
+**Principle**: A class should have only one reason to change, meaning it should have only one job or responsibility.
+
+**In Layman Terms**: Imagine a chef in a kitchen. 
+If the chef has to cook, clean, manage inventory, and take orders, it's too much for one person. Similarly, a class should do only one thing.
+
+**Example**:
+
+```java
+// Bad Example: One class doing multiple things
+public class UserService {
+    public void createUser(String name) {
+        // logic to create user
+    }
+    
+    public void sendEmail(String email) {
+        // logic to send email
+    }
+}
+
+// Good Example: Separate responsibilities
+public class UserService {
+    public void createUser(String name) {
+        // logic to create user
+    }
+}
+
+public class EmailService {
+    public void sendEmail(String email) {
+        // logic to send email
+    }
+}
+```
+
+### O: Open/Closed Principle (OCP)
+**Principle**: Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+
+**In Layman Terms**: Imagine a toy with a battery compartment. You can add new batteries (extend functionality) without changing the toy's design.
+
+**Example**:
+
+```java
+// Bad Example: Modifying the existing code to add new functionality
+public class Rectangle {
+    public double width;
+    public double height;
+}
+
+public class AreaCalculator {
+    public double calculateRectangleArea(Rectangle rectangle) {
+        return rectangle.width * rectangle.height;
+    }
+}
+
+// Good Example: Extending functionality without modifying existing code
+public abstract class Shape {
+    public abstract double calculateArea();
+}
+
+public class Rectangle extends Shape {
+    public double width;
+    public double height;
+
+    @Override
+    public double calculateArea() {
+        return width * height;
+    }
+}
+
+public class AreaCalculator {
+    public double calculateArea(Shape shape) {
+        return shape.calculateArea();
+    }
+}
+```
+
+### L: Liskov Substitution Principle (LSP)
+**Principle**: Subtypes should be substitutable for their base types without altering the correctness of the program.
+
+**In Layman Terms**: If you have a pet dog, you should be able to treat it as an animal without worrying if it's actually a cat or a bird. 
+The dog should behave like an animal.
+
+**Example**:
+
+```java
+// Bad Example: Violating LSP
+public class Bird {
+    public void fly() {
+        // Fly implementation
+    }
+}
+
+public class Ostrich extends Bird {
+    @Override
+    public void fly() {
+        throw new UnsupportedOperationException("Ostriches can't fly");
+    }
+}
+
+// Good Example: Correcting LSP
+public abstract class Bird {
+    public abstract void move();
+}
+
+public class FlyingBird extends Bird {
+    @Override
+    public void move() {
+        // Fly implementation
+    }
+}
+
+public class Ostrich extends Bird {
+    @Override
+    public void move() {
+        // Walk implementation
+    }
+}
+```
+
+### I: Interface Segregation Principle (ISP)
+**Principle**: A client should not be forced to depend on interfaces it does not use.
+
+**In Layman Terms**: Imagine a restaurant menu. If you only want a dessert, you shouldn't be forced to order a main course.
+ Similarly, interfaces should be small and specific.
+
+**Example**:
+
+```java
+// Bad Example: One big interface with too many methods
+public interface Worker {
+    void work();
+    void eat();
+}
+
+// Good Example: Segregating interfaces
+public interface Workable {
+    void work();
+}
+
+public interface Eatable {
+    void eat();
+}
+
+public class Employee implements Workable, Eatable {
+    @Override
+    public void work() {
+        // Work implementation
+    }
+
+    @Override
+    public void eat() {
+        // Eat implementation
+    }
+}
+```
+
+### D: Dependency Inversion Principle (DIP)
+**Principle**: High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions.
+
+**In Layman Terms**: If you have a remote control and a TV,
+ the remote control should work with any TV, not just a specific model. 
+ 
+ The remote control (high-level) should rely on an abstraction (interface), not on the TV details (low-level).
+
+**Example**:
+
+```java
+// Bad Example: High-level module depends on low-level module
+public class LightBulb {
+    public void turnOn() {
+        // Turn on the light
+    }
+}
+
+public class Switch {
+    private LightBulb lightBulb = new LightBulb();
+
+    public void operate() {
+        lightBulb.turnOn();
+    }
+}
+
+// Good Example: High-level module depends on abstraction
+public interface Switchable {
+    void turnOn();
+}
+
+public class LightBulb implements Switchable {
+    @Override
+    public void turnOn() {
+        // Turn on the light
+    }
+}
+
+public class Switch {
+    private Switchable device;
+
+    public Switch(Switchable device) {
+        this.device = device;
+    }
+
+    public void operate() {
+        device.turnOn();
+    }
+}
+```
+
+### Summary
+
+- **Single Responsibility Principle (SRP)**: A class should do one thing.
+- **Open/Closed Principle (OCP)**: Classes should be extendable without modifying the existing code.
+- **Liskov Substitution Principle (LSP)**: Subclasses should be replaceable with their base classes.
+- **Interface Segregation Principle (ISP)**: Prefer small, specific interfaces over large, general ones.
+- **Dependency Inversion Principle (DIP)**: Depend on abstractions, not on concrete implementations.
+
+Following these principles helps create code that is easier to maintain, extend, and understand.

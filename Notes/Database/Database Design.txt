@@ -1,0 +1,35 @@
+
+
+3 levels of database design
+---------------------
+1)Conceptual design - just entities
+2) Logical design - entities and attributes
+3) Physical design - tables, column with datatype
+
+
+database modelling (tools)
+---------------------
+1) dbdesigner.net
+2) LucidChart.com.
+
+desktop tools (can be use as reverse and forward engineering)
+----------------------------------------------------------
+1) Mysql workbench.
+2) erwin(paid)
+
+The overall design of a database is called schema.It represents the logical view of the entire database.
+A schema contains schema objects like table, foreign key, primary key, views, columns, data types, stored procedure, etc.
+
+Normalization: 
+  It is a database design technique which organizes tables in a manner that reduces redundancy and dependency of data.
+  redundant Data= Useless Data= Same data stored in more than one place 
+
+1NF rules:
+ 1) Each table cell should contain a single("atomic") value.
+ 2) Each records needs to be unique.
+
+2NF
+ 1) Tables without composite primary key are in 2NF by default. 
+
+
+Today's refinement time is conflicting with my fast breaking time. Hence I may join late or may not join the refinement. I'll get the update from my pair - Divakar.

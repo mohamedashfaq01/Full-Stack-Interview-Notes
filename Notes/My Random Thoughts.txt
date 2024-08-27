@@ -1,0 +1,74 @@
+Random Thoughts
+-------------------------
+1) Should write a complete employee details spring boot project along with exception handling.
+2) Create a blog and upload all necessary books and documents so that other can use it. and similarly the useful websites. try to start working on that.
+3) naming convention in rest api for employee details
+4) Explore more on the chatGPT.
+5) start youtube channel with the stuffs you're learning , for instance chatGPT.
+6) TO store the random thoughts in the app.
+7) To explore all the google products such as Google shopping, earth, classroon, finance, Lens etc.
+7.1) To explore all the microsoft products such as Onenote, Onedrive, sharepoint, Yammer etc.
+7.2) To explore all options available in youtube, facebook, amazon, flipkart. (filter, sort, best seller, marketing and job through fb) 
+7.3) Explore on where to keep my ideas and notes stored so that i can access it easily in the future. (even my confidential notes safely)
+8) Integrate ChatGPT with WhatsApp or Telegram to automate time-consuming, manual operations like writing emails, 
+getting rapid responses to questions, speeding up research, and more.
+
+9) Download an app to capture my random thoughts.
+10) Write a blog based on the liked data from linkedin which is very useful for others like front end resources and perople to follow for it.
+11) what is Reddit platform? more usage of it.
+
+12) explore more on google blogger vs wordpress. blogs vs website.
+13) undersnad about the fiverr and otehr freelancing websites.
+14) How the years has been calculated. why now 2023? how are we seggregating. when did adam born? how are we writing that?
+
+15) can a sql table should be singular or plural. how will u justify it?
+16) Explore on OpenAPI file, for example using Stoplight’s Visual API Designer.
+17) what is profiler tool to help identify the cause of the problem.
+Some popular profiler tools include JProfiler, VisualVM, and YourKit. Explore more on that.
+18) when should we use these.
+(create, create-drop, update)
+spring.jpa.hibernate.ddl-auto=create-drop
+19) Spring ResponseEntity best practice.
+20) what is the diff between persist and save in jpa?
+21)To understand more about the outlook app, tips and tricks. efetctive orgainzing the emails.
+22) Explore about the codePilot. The Search Tool for Software Developers
+23) Food and exercise for maintaining better face glow. things to avaoid.
+
+24) explore about the medium blogs, categories, articles associated to it.
+25) Explore on adding Rules of outlook. forwarding, automatic replies, etc.
+26) How to use interface with class? what's the benefit of it.
+public interface Amount {
+	BigDecimal getValue();
+	Currency getCurrency();
+}
+
+27) explore more on the blog.google and blog.youtube (official blog channels of it).
+28) explore more on infinite test tool in IDE? (we can use infinite test tool in IDE to run the junit automaically in background whenever we change the code or do refactor)
+29) Learn and explore more on the Touch Typing.
+30) Explore on the boy scout rule. (youtube ad google more on that).
+31) explore on  https://experiments.withgoogle.com/collection/ai and google books (Talk to book)
+32) Explore more on the Linkedin aaplication and all the feature of it. especially Group.
+33) Explore more on the facebook and instagram, whatsapp features.
+
+34) Why should we setup environment variables for JAVA_HOME and M2_HOME for MAVEN and why we should exactly same variable name?
+ basically we should give System PATH value as %M2_HOME%\bin;%JAVA_HOME%\bin;
+ 
+ first add System variable:
+  we setup Java_HOME and with its jdk path. and then we add those in the 
+  and then then assign the path using that variable\bin.
+  
+35) Explore on the POSTMAN application and enroll to its course to quickly undersand about it.
+36) what is loosely coupled and tightly coupled data? 
+37) whagt is the meaning of "Hibernate is one of the implementation of JPA."
+38) explore the object oriented design for Zoo (using chatGPT)  
+39) explore about AOP in chatGPT.
+40) what is captcha? what's teh purpose of it.
+
+
+
+Habits to inclulcate
+-----------------------
+1) Maintain a note of best youtube channel and give little bit description of it as a category wise. like islamic lectures. popular islamic lecturer, abdul malik farid channel. 
+best vlogger channels. etc
+
+2) maintain best site about learning java and why. explore more on the site. top 5 according to u. 
