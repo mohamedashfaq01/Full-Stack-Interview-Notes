@@ -1,0 +1,262 @@
+Angular Security
+----------------------
+What are the security principles in angular? '
+
+You should avoid direct use of the DOM APIs.
+ii. You should enable Content Security Policy (CSP) and configure 
+your web server to return appropriate CSP HTTP headers.
+iii. You should Use the offline template compiler.
+iv. You should Use Server Side XSS protection.
+v. You should Use DOM Sanitizer.
+vi. You should Preventing CSRF or XSRF attacks.
+
+
+What are the best practices for security in angular? 
+
+Below are the best practices of security in angular,
+
+i. Use the latest Angular library releases
+ii. Don't modify your copy of Angular
+iii. Avoid Angular APIs marked in the documentation as “Security 
+Risk.”
+
+
+XSS
+------
+Cross-Site Scripting (XSS) is a type of security vulnerability typically found in web applications. It allows attackers 
+to inject malicious scripts into web pages viewed by other users. These scripts can steal information, manipulate content, or perform actions on behalf of the user.
+
+Scenario: A Comment Form
+Imagine you have a web application with a comment form where users can submit their comments. The form accepts text input from users and displays it on a webpage.
+
+Without Input Sanitization:
+*********************************
+
+User Input: An attacker submits a comment with malicious code:
+<script>alert('You have been hacked!');</script>
+
+Storage and Display: This comment is stored in your database and then displayed on the webpage. 
+Since there's no sanitization, the script tag is rendered as part of the page's HTML.
+
+Result: When other users visit the page, the malicious script executes and shows an alert box. 
+This could be a harmless example, but in a real attack, the script could steal data or perform other harmful actions.
+
+With Input Sanitization:
+************************************
+User Input: The same malicious comment is submitted.
+
+Sanitization Process: Before storing the comment, your application sanitizes it by removing or encoding dangerous characters:
+The sanitized comment would look like this:
+&lt;script&gt;alert('You have been hacked!');&lt;/script&gt;
+
+Storage and Display: This sanitized comment is stored and displayed as text, not as executable code. 
+Instead of running the script, it appears as plain text.
+
+  
+Preventing XSS in Angular:
+Use Angular's Built-in Sanitization:
+
+1) Use Angular's Built-in Sanitization:
+Angular provides built-in sanitization to protect against XSS. 
+It automatically sanitizes values used in bindings and template expressions. For example, Angular automatically sanitizes values in {{ }} interpolations and [src] bindings.
+
+
+2) DomSanitizer: Use Angular's DomSanitizer service to sanitize values. For instance, if you are binding HTML content, you can use bypassSecurityTrustHtml() method cautiously.
+
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+constructor(private sanitizer: DomSanitizer) {}
+
+getSafeHtml(html: string): SafeHtml {
+  return this.sanitizer.bypassSecurityTrustHtml(html);
+}
+
+3) Avoid innerHTML and dangerouslySetInnerHTML: Directly using innerHTML can expose your application to XSS attacks. 
+Use Angular's data binding rather than manipulating the DOM directly.
+
+
+
+Web Security
+--------------------
+
+Ensuring the security of your web application is critical to protect it from various types of attacks and vulnerabilities. 
+
+1. Validate and Sanitize User Input
+Sanitize User Input: Ensure all user inputs are properly sanitized to prevent injection attacks like SQL injection.
+Validate Input: Use validation to check that inputs meet expected formats and constraints.
+
+2. Authentication
+Strong Password Policies: Enforce strong password requirements (e.g., minimum length, complexity).
+Multi-Factor Authentication (MFA): Add an extra layer of security by requiring multiple forms of verification.
+Session Management: Use secure session management practices, such as short session timeouts and secure cookies.
+
+3. Authorization
+Role-Based Access Control (RBAC): Implement RBAC to restrict access based on user roles and permissions.
+Least Privilege Principle: Ensure users have the minimum level of access necessary for their tasks.
+
+4. Data Encryption
+HTTPS: Use HTTPS to encrypt data in transit between the client and server.
+Encryption at Rest: Encrypt sensitive data stored in databases and other storage solutions
+
+5. Cross-Site Scripting (XSS) Prevention
+Output Encoding: Encode all user-generated content before displaying it on web pages.
+Content Security Policy (CSP): Implement CSP to restrict the sources from which scripts can be loaded.
+
+6. Cross-Site Request Forgery (CSRF) Protection
+CSRF Tokens: Use CSRF tokens to verify the authenticity of state-changing requests.
+
+7. Use Secure Password Storage
+Why: Protects user passwords from being easily compromised.
+How: Use strong hashing algorithms (e.g., bcrypt) to store passwords securely.
+
+8. Implement Secure Session Management
+
+What it is: Managing user sessions securely to prevent hijacking and unauthorized access.
+Why it’s important: Ensures that only the rightful user can maintain an active session.
+How to implement:
+Use secure cookies (HttpOnly, Secure, SameSite attributes).
+Invalidate sessions after logout and set appropriate session timeouts.
+
+
+Auth Guard is a crucial feature in Angular that helps manage and protect routes based on user authentication status. 
+Types of Auth Guards
+CanActivate: Determines if a route can be activated. This is the most common guard for protecting routes.
+CanLoad: Prevents the loading of entire modules unless the user is authorized, improving performance by not loading unnecessary code.
+CanDeactivate: Prevents users from leaving a route until certain conditions are met (e.g., unsaved changes).
+Resolve: Pre-fetches data before a route is activated, ensuring that the required data is available.
+
+What is the difference between CanActivate and CanLoad?
+CanActivate determines if a specific route can be activated, while CanLoad prevents loading an entire module unless conditions are met.
+
+how to use msal in authGuard for sso integration?
+----------------------------------------------------
+Using the Microsoft Authentication Library (MSAL) for Single Sign-On (SSO) 
+integration in an Angular application requires implementing an AuthGuard to protect your routes and manage authentication. 
+
+1: Install MSAL for Angular
+2: Configure MSAL in Your Angular Application
+Create an MSAL Configuration File: You should create a configuration file to define the MSAL settings.
+
+// src/app/msal-config.ts
+import { PublicClientApplication } from '@azure/msal-browser';
+
+const msalConfig = {
+    auth: {
+        clientId: 'YOUR_CLIENT_ID', // Your Azure app registration client ID
+        authority: 'https://login.microsoftonline.com/YOUR_TENANT_ID', // Your tenant ID or common for multi-tenant
+        redirectUri: 'http://localhost:4200', // Your app redirect URI
+    },
+    cache: {
+        cacheLocation: 'localStorage', // This configures where your cache will be stored
+        storeAuthStateInCookie: true, // Set to true for IE 11 or Edge
+    },
+};
+
+export const MSAL_INSTANCE = new PublicClientApplication(msalConfig);
+
+3. Craeet CustomAuthGuard.
+Method 1: 
+export class CustomAuthGuard implements CanActivate {
+  constructor(private msalGuard: MsalGuard, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    // Your custom logic here
+    const isAuthenticateduser = localStorage.getItem('Jwt');
+    const isExternalPanelist = localStorage.getItem('isExternalPanelist');
+    if (isAuthenticateduser && isExternalPanelist != 'true') {
+      // Use the MsalGuard and handle the Observable
+      return this.msalGuard.canActivate(route, state).pipe(
+        switchMap((result) => {
+          if (typeof result === 'boolean') {
+            // Handle the result from MsalGuard, which is a boolean
+            return of(result);
+          } else {
+            // Handle the UrlTree or other result from MsalGuard
+            this.router.navigate(['/login']); // Redirect to a login route or other action
+            return of(false);
+          }
+        })
+      );
+    } else {
+      // Handle custom logic, e.g., redirect to another route
+      this.router.navigate(['/login']);
+      return of(false);
+    }
+  }
+}
+
+Method 2:
+import { MsalService } from '@azure/msal-angular';
+export class AuthGuard implements CanActivate {
+    constructor(private authService: MsalService, private router: Router) {}
+
+    canActivate(
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): boolean {
+        if (this.authService.instance.getAllAccounts().length > 0) {
+            return true; // User is authenticated
+        }
+
+        // If not authenticated, redirect to login
+        this.authService.loginRedirect();
+        return false;
+    }
+}
+
+4. Protect Routes
+const routes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] }
+];
+
+
+How to secure angular application? 
+------------------------------------------
+1) Implement Authentication and Authorization
+
+Authentication: Use a robust authentication mechanism (e.g., OAuth2, JWT) to verify user identities.
+Example: Use libraries like @auth0/angular-jwt to handle JWT.
+
+Authorization: Ensure that users can access only the resources they are authorized to access.
+Implement route guards to protect routes based on user roles or permissions.
+
+2) Use Route Guards
+Protect Routes: Implement route guards (CanActivate, CanLoad) to restrict access to routes based on user authentication or roles.
+
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    if (this.authService.isLoggedIn()) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+
+3)  Use Environment Variables
+Environment Configuration: Use environment variables to manage sensitive information (e.g., API keys) and avoid hardcoding them in your codebase.
+
+4) Error Handling: Implement proper error handling to avoid exposing sensitive information in error messages.
+
+5) Minimal Data Exposure: Ensure that your APIs return only the data necessary for the client. Avoid sending sensitive information.
+
+6) Protect Against Cross-Site Scripting (XSS)
+Sanitization: Always sanitize user inputs using Angular's DomSanitizer.
+Avoid using innerHTML: Prefer binding properties like textContent or using Angular’s built-in sanitization when displaying user-provided HTML.
+
+7) Secure API Communication
+HTTPS: Use HTTPS to encrypt data in transit, preventing interception by attackers.
+CORS Policy: Configure Cross-Origin Resource Sharing (CORS) on your API to allow requests only from trusted origins.
+
+8) Use tools like SonarQube or Snyk to analyze code for security vulnerabilities.

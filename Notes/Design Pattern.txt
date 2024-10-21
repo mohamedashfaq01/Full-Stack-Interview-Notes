@@ -1,5 +1,17 @@
 Java Design Patterns
 ----------------------------
+Pattern: Something which occurs commonly.
+Design Pattern: Well established solutions  to the most commonly occurring problems in software designs.
+
+Properties of good code.
+
+1) Maintainable. 
+2) Extensible. (easy to add new feature. like amaozn started code before 25 years still they're adding new feature.)
+3) Readable.
+4) Modular. (divide the codebase in different mode=ules modules)
+
+we should use design patterns to met above stuffs.
+
 1)  Why do we need Design pattern?
 
 Design patterns are solutions to general problems that software developers faced during software development. 
@@ -228,6 +240,8 @@ This pattern involves a single class which is responsible to create an object wh
 This class provides a way to access its only object which can be accessed directly without need to instantiate the object of the class. 
 
 Java.lang.Runtime classes uses singleton pattern in JDK.
+
+example: Database Connection, Logger, Cache Manager
 
 
 There are two forms of singleton design pattern

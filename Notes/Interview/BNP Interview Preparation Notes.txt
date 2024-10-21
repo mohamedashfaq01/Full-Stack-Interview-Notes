@@ -1,0 +1,354 @@
+To--Do
+----------
+
+BNP (Still to start)
+----------------------------
+
+Containerazation and Virtualization.
+Is EhCache used in distributed transaction.
+diff between factory and builder.
+what is the use of kubernetes.
+whyta is gRPC, hazelNut.
+If 2 interface has  same default method and that uses in a class. how that will work.
+@OneToMany mapping.
+How to craete mutable class.
+How to resolve merge conflict.
+
+
+
+1) Springboot interceptors and filter.
+2) Spring bean life cycle.
+ 
+3) Microservice - Fault tolerance
+4) How performing the authentication and authorization in your springboot application. 
+5) how to deploy an application using pcf (use of manifest file)
+6) how to deploy an application using AWS ? 
+
+Garbage collection, how it works.
+what is Observable pattern
+
+
+
+1) Notes from Linekdin Angular inetrview.
+----------------------------------------
+2) Angular Cache.
+3) State Management overview.
+Compoenent communocation.
+
+
+Best Practices for API Integration with Error Handling in Angular Application? (Basic Error Handling)
+
+how to handle environment profile in angular
+
+Can we use NgFor and ngIf in same block. if not then how to use it.
+If i change input, what are all liufe cycle executes.
+difference between ng-container vs ng-template 
+@ContentChild vs @ViewChild
+
+If i have to inject servoces globally how to do it. 
+use of flex.
+use of position absolute vs relative.
+
+Is react also SPA?
+
+Why we need DTO Layer? what ahppens if i don't use.
+
+
+what is ngInx, pcf, kubernetes, aws
+
+what is strapi, why we need taht
+
+@ViewChild
+@ContentChild
+
+
+Why we should use DTO files.
+
+bean life cuc=ycle.
+
+
+Done
+--------
+
+Difference between observable and promise
+pure pipe, impure pipe, custom pipe--with respect to change detection
+JIT and AOT with practical use case
+Optimization Techniques in Angular
+Explain Subject and Behavior Subject in Angular.
+what is templateRef.
+ Explain Angular pipes.
+ Explain Injectable and Singleton Services in Angular.
+ 13. Explain Observable and Promises in Angular.
+
+****************************************************************************************************************************************** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To deep dive later:
+
+
+
+garbage collector? internal working?
+what algorithm garbage collector uses.
+
+Java Mamemory management in details. (https://www.youtube.com/watch?v=ckYwv4_Qtmo&list=PLUKAM6kozVYKDOshoGa5Mfq4yddfEAsNa&ab_channel=VirtualPairProgrammers)
+Java String memory space,
+
+Spring beans, scope and its internal workimg
+
+
+
+Java 
+-------------
+wait, notify, notifyall exists in Object class But we use only in multithread right. 
+then those method we keep it inside the thread class right why it's exist in Object 
+class?
+why nullpointerexception is unchecked exception
+what algorithm garbage collector uses.
+Name few sorting algorithms and search algorithms
+Memory utilization of String
+mark and sweep algoritm.
+Difference between map and flatmap
+Java beans vs spring beans
+
+How java memory work in terms of object creation
+hashmap internal working
+
+Serialization and Deserialization in java
+
+
+Observable pattern.
+try wsith resources.
+
+find max salary
+find sum of slaary group by depno 
+
+Junit and Mockito Overview
+
+
+
+Microservices
+------------------
+How to create microservice and deploy.
+ What is important component in Microservices? 
+How to handle exceptions in microservices
+what is the use of container platform like docker and kubernetes.
+How to manage common properies for differnet microservices.
+why in transaction failure we say compensating transaction rather than roll back of it?
+Microservices design pattern.
+Transaction Management in Microservices?
+How communication in APIs through RestTemplate and managing the case of failure  requests or delayed response/timeout.
+what is 2 phase commit.
+Amazon prime monolith application.
+Microservices Basics. (How to depley it and fall back mecganism)
+Microservice for e-commerce website
+pub-sub pattern
+
+
+How to handle fault tolerance in microservices?
+
+what is teh use of Feign CLient
+
+@FeignClient(name = "user-service", url = "http://localhost:8080/users")
+public interface UserServiceClient {
+    @GetMapping("/{id}")
+    User getUser(@PathVariable Long id);
+}
+
+
+
+
+
+
+Springboot
+-----------------
+@Component vs @bean @configuration.
+Flyway – Springboot database migration
+Difference between @Configuration and @Autoconfiguration
+@Primary vs @Qualifier
+how @autowired works internally
+how springboot works internally 
+DTO
+Java beans vs Spring beans
+Which auto wire tyoe happens un @autowired.
+What in case we don't want to use @Autowired .What are the other options we can make use of.
+use of @Modifying.>
+Spring @Transactional uses Proxy concept .? means?
+what is idemopotency in transaction management.,
+Spring boot Cache
+
+
+Authentication and Authorization (In rest API I want only limited users are able to hit particular URL )
+
+
+Spring batch.
+REST API Versioning
+SQL Overview.
+
+Springboot interceptors and filters.
+
+
+Hibernate and JPA overview. (HQL , simpl;e joins)
+
+Spring bean life cycle.
+What is JPA? Duplicate key in JPA ? Primary Key in JPA
+
+How performing the authorization in your application.
+
+
+To delete data in Spring Boot with JPA:
+1) Use built-in Delete APIs of Spring Data JPA repositories, should be used only when there is no entity relationship otherwise 
+SQLIntegrityConstraintViolationException  will be thrown. (e.g) delete(entity) and deleteById(entityId)
+
+2) Use CascadeType.ALL or CascadeType.REMOVE attributes to delete the child entities when the parent entity is deleted.
+3) Use orphanRemoval attribute on @OneToMany or @OneToOne annotation to delete the child entities when they are removed from the relationship with the parent entity
+4) for soft delete, we can use the annotation such as @SQLDelete. in order top retreive the undeleted records we should use.@Where(clause = “deleted = false”)
+in case if we want to retrive all the deleted and undeleted records based on parameter. we can use @FilterDef, @Filter.
+
+
+Imagine you are designing a Spring Boot application that
+interfaces with multiple external APIs. How would you handle
+API rate limits and failures?
+
+REST
+------
+what is idempotent.
+Technically speaking, you can use POST for update operation and PUT for create operation, but this would be against the recommended convention for RESTful APIs.
+However, it is important to note that these are just conventions and not strict rules. why
+
+why we don't pefer to use Put mapping for insert operation
+Status code of HTTP.
+
+How to name rest api in microservices.
+
+How to protect and secure the REST API form front end and back end.
+
+How will u design a comments box in database schema.
+
+what is gRPC
+
+Others
+-----------------
+Secure coding principles.
+Knowledge on Fortify, NexusIQ reports.
+How the security vulnerabilities are handled (black duck scan)
+ What is doker? and why we use that? 
+
+
+Performance improvement task.
+ Jprofiler, HeapAnalyzer.
+ ThreadPool size, heapsize jvm args.
+ 
+Oracle DB:
+  indexes, Views, clustering, query optimization.
+  
+what is maven clean install
+maven clean package.'  
+  
+
+Jenkins Pipeline overview.
+how to deploy an application using pcf (use of manifest file)
+how to deploy an application using AWS ?
+Sonarqube issue nug fixes (critical bugs)
+basic postman queries and steps.
+
+use of splunk.
+what is the ise of kubernetes? 
+
+What are the SOLID principles?
+what is the use of redis cache
+
+Angular
+------------
+css styles.
+create reusable angular compo.
+
+Share global and local variables.
+cache.
+Component declartion and creation 
+performance optimization technique.
+react vs angular,
+If we use cache value, how do we know whether the updated from actual api or not.
+diff between cookies , localStoirage, sessionStorage.
+Genral intervie Q&A
+session management technique
+
+
+ 
+pipe, flapMap, map, Subject , etc, for http calls.
+
+life cycle hooks. 
+ Explain component communication in Angular.
+ use of @ViewChild.
+ 
+ 
+ 
+ 
+ Explain dist and bundle in Angular.
+ Best Practices for API Integration with Error Handling in Angular Application?
+ 
+Have you implemented Authentication and authorization in Angular ? What is your approach towards implementing it
+
+What is CORS issue and how did you resolve it
+
+What you know about RxJS ? Explain whatever you know about it
+Explain the rendering process in Angular (change detection )
+What do you understand by state management ? Say 1-2 scenario where you have used this in your project
+What do you understand by TDD and BDD approaches in Software development
+Ab=ngular cachae
+what is web worker and use of it
+
+
+
+custom directive, host listener, host binding
+send headers through http request, manual way, interceptor way
+JIT and AOT with practical use case
+Angular lifecycle hooks
+
+How signal will help us to remove zone js dependency
+Rendering process in angular (DOM in angular )
+What is content projection in angular
+
+How to implement Inheritance in angular'
+is it possible for multipole interceptors.
+different event listeners in NAgular vs Javascript
+difference between package.json vs package-lock.json (how do they affect)
+
+
+ How Would You Write Unit Tests for This Scenario in Angular?
+For Example, Clicking on a Button to Call an API and Retrieve Data.
+
+Explain Change Detection and OnPush in Angular.
+You are getting list of strings in random order from an API, How would you display it alphabetically in Angular UI
+What Have You Done to Improve the Performance of Your Angular Application?
+What is semantic HTML and what happens if I dont use semantic element properly ?
+What is your approach towards handling large data set in frontend 
+what is shadownDOm and View ENcapsulation.
+Change detection strategies 
+
+
+
+
+About my project
+Agile process, day to day activities.
+Managerial Round interview questions.
+Self Introduction and about the projects worked
+⚫ Other questions are related to the recent project which I worked in cit
+How you've configured the application configurations for different environments?
+What are roles and responsibilities
+smart and strategic , meaningful quetsions about the role and company.
+About BNP Paribas.

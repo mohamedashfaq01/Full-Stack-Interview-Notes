@@ -1,8 +1,177 @@
+Java 7 Features
+------------------
+1) Switch With String (case sensitive)
 
+2) Java 7 Multi Catch. (It helps to optimize code, using use vertical bar (|) to separate multiple exceptions in catch block.
+     catch(ArithmeticException | ArrayIndexOutOfBoundsException e){  
+            System.out.println(e.getMessage());  
+        }    
+		
+3) Binary Literals (I allows you to express integral types (byte, short, int, and long) in binary number system. To specify a binary literal, add the prefix 0b or 0B to the integral value.)
+ int i1 = -0b101;   		// prints -5
+ long l1 = 0b0000011111100001; // prints 2017
+ 
+4)  Type Inference for Generic Instance Creation
+
+The following approach is used in Java 6 and prior version.
+
+Ex. List<Integer> list  = new List<Integer>();  
+Now, you can use the following new approach introduced in Java 7.
+
+Ex. List<Integer> list = new List<>(); // Here, we just used diamond 
+
+5) Java Numeric Literals with Underscore (Ot improves the readability of source code).
+
+    int a = 10_00000;  
+	System.out.println("a = "+a);  
+	// Underscore in floating literal  
+	float b = 10.5_000f;  
+	System.out.println("b = "+b);  
+
+Try with Resources
+-----------------------
+try-with-resources in Java is a feature introduced in Java 7 that simplifies resource management and ensures that resources 
+(like files, database connections, etc.) are closed automatically after the operations are done. 
+
+Automatically closes resources (such as streams, connections) that implement the AutoCloseable 
+or Closeable interfaces after the try block is executed, even if an exception is thrown.
+
+Ensures that resources are closed safely and efficiently without needing a finally block.	
+
+Java ensures that they are closed at the end of the block (regardless of whether the block exits normally or due to an exception).
+
+try block class should have AutoCloseable interface impolenmented in it.
+	
+// Automatically handles closing the resource
+	try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+		String line;
+		while ((line = br.readLine()) != null) {
+			System.out.println(line);
+		}
+	} catch (IOException e) {
+		e.printStackTrace();  // Handle the exception
+	}
+	
+	
+		
+Covariant return type:
+-----------------------------
+Covariant return type means return type may vary during overriding.
+
+Before Java 5, It was not allowed to override any method if the return type is changed in child class.
+But now it's possible only if return type is sub class type.
+
+class Animal {
+    Animal getAnimal() {
+        return this;
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    Dog getAnimal() {  // Covariant return type
+        return this;
+    }
+}
+
+In the Dog class, the getAnimal() method is overridden and returns a Dog object instead of just an Animal.
+
+https://www.youtube.com/watch?v=wFvvCG0foxw&ab_channel=CodeDecode
+Covariant return types in Java [ MOST TRICKY CORE JAVA INTERVIEW QUESTION ] | Code Decode
+
+Java 5 Features
+--------------
+1) Assertion
+2) Autoboxing and unboxing
+The automatic conversion of primitive data types into its equivalent Wrapper type is known as boxing and opposite operation is known as unboxing.
+int -> Integer (Boxing)
+Integer -> int (Unboxing)
+	 int a=30;
+	 Integer a3=a;//Boxing  
+	 
+3) Java Enums
+The Enum in Java is a data type which contains a fixed set of constants.
+
+It can be used for days of the week (SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, and SATURDAY) , directions (NORTH, SOUTH, EAST, and WEST), season (SPRING, SUMMER, WINTER, and AUTUMN or FALL)
+	 class EnumExample1{  
+		//defining the enum inside the class  
+		public enum Season { WINTER, SPRING, SUMMER, FALL }  
+		//main method  
+		public static void main(String[] args) {  
+		//traversing the enum  
+		for (Season s : Season.values())  
+		System.out.println(s);  
+	}}  
+
+4) Java Annotation ( represents the metadata, to indicate some additional information which can be used by java compiler and JVM.)
+
+5) Generics in Java : It makes the code stable by detecting the bugs at compile time.
+List<Integer> list = new ArrayList<Integer>();    
+
+6) For-Each loop
+It makes the code more readable.
+It eliminates the possibility of programming errors.
+int arr[]={12,13,14,44};  
+   //traversing the array with for-each loop  
+   for(int i:arr){  
+     System.out.println(i);  
+   }  
+   
+7) Java Static Import
+-----------------------------
+The static import feature of Java 5 facilitate the java programmer to access any static member of a class directly.
+ There is no need to qualify it by the class name.
+
+import static java.lang.System.*;    
+class StaticImportExample{  
+  public static void main(String args[]){  
+     
+   out.println("Hello");//Now no need of System.out  
+   out.println("Java");  
+  
+ }   
+}      
+   
+   
+8) Variable Argument (Varargs):
+The varrags allows the method to accept zero or muliple arguments. 
+If we don't know how many argument we will have to pass in the method, varargs is the better approach.
+
+Rules for varargs:
+	There can be only one variable argument in the method.
+	Variable argument (varargs) must be the last argument.
+
+	void method(String... a, int... b){}//Compile time error  
+	void method(int... a, String b){}//Compile time error     
+
+class VarargsExample3{  
+   
+ static void display(int num, String... values){  
+  System.out.println("number is "+num);  
+  for(String s:values){  
+   System.out.println(s);  
+  }  
+ }  
+  
+ public static void main(String args[]){  
+  
+ display(500,"hello");//one argument   
+ display(1000,"my","name","is","varargs");//four arguments  
+ }   
+} 
+
+--------------------------------------------------------------------------------------------------------------------------------------
 
 
 Functional Programming is a form of declarative programming. Each item can be run in any order to produce the same result.
 Imperative Programming is procedural. State and order is important.
+
+Why Functional Programming:
+
+We express what we need, rather than focusing on how to do it.
+Code is consise and more readable, which makes it maintainabe.
+Allow parallel processing of elements in collection.
+It supports lazy valuation. Stream won't evaluate unless needed.
 
 
 Java 8
@@ -47,8 +216,57 @@ Avouid return and braces.
 
 Functional Interfaces:
 ------------------------------
+ functional programming is supported in JAVA 8 with the help of Lambda expression. The Lambda expression supported the Functional interface. 
+ These interfaces also are known as the Single Abstract method(SAM). The Lambda expressions support only those interfaces which have only one abstract method. 
+ It provides a body to the abstract method and an assigned as the reference of the interface.
+ 
 if an interface contain only one abstract method, such type of interfaces are called functional 
 interfaces and the method is called functional method or single abstract method(SAM).
+
+Example:
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void execute(String message);
+}
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        // Using a lambda expression to implement the functional interface
+        MyFunctionalInterface myFunc = (message) -> System.out.println("Message: " + message);
+        
+        // Calling the execute method
+        myFunc.execute("Hello, Lambda!");
+    }
+}
+
+
+Why only one SAM:
+----------------------------
+ Important : The functional interface also known as Single Abstract Method Interface was introduced to facilitate Lambda functions. 
+Since a lambda function can only provide the implementation for 1 method it is mandatory for the functional interface to have ONLY one abstract method.
+
+The key is that it's designed to be used with lambda expressions.
+
+public interface Display 
+{
+    public void show();
+}
+
+public class ExampleWithLambda
+{
+    public static void main(String[] args) 
+    {
+        Display display = () -> {
+            System.out.println("In Show interface we have only Single abstract method");
+            System.out.println("This is the body of abstract method");
+        };
+        display.show();
+    }
+}
+
+If we have two abstract method, it doesn't know for which method the lambda logic has imlemented . To avoid it. we use one SAM.
+
+
 Ex:
 1) Runnable  It contains only run() method
 2) Comparable  It contains only compareTo() metho
@@ -61,7 +279,30 @@ Supplier => T get() => accepts no input but returns a result
 Predicate => test() It return boolean value. (stream.filter method)
 Function. => apply() It return one value of any type. (stream.map method)
 
+Tricky java 8 interview questions on Functional Interface | Can we Override a Object class method ?
+https://www.youtube.com/watch?v=khhn0abkX3g&ab_channel=SeleniumExpress
 
+BiConsumer and BiPredicate are functional interfaces that operate on two input arguments
+
+Consumer<String> consumer = s -> System.out.println("Hello, " + s);
+consumer.accept("Alice");  // Output: Hello, Alice
+
+BiConsumer<String, Integer> biConsumer = (name, age) -> 
+System.out.println(name + " is " + age + " years old.");
+biConsumer.accept("Alice", 30);  // Output: Alice is 30 years old.
+
+Predicate<Integer> isEven = n -> n % 2 == 0;
+System.out.println(isEven.test(4));
+
+BiPredicate<Integer, Integer> isSumEven = (a, b) -> (a + b) % 2 == 0;
+System.out.println(isSumEven.test(3, 5));  // Output: true
+
+A single method interface is also sometimes referred to as a functional interface. Matching a Java lambda expression against a functional interface is divided into these steps:
+
+Does the interface have only one abstract (unimplemented) method?
+Does the parameters of the lambda expression match the parameters of the single method?
+Does the return type of the lambda expression match the return type of the single method?
+If the answer is yes to these three questions, then the given lambda expression is matched successfully against the interface.
 
 
 Inside functional interface in addition to single Abstract method(SAM) we write any number of 
@@ -81,6 +322,59 @@ Ex:
 Interface Interf { this code compiles without any compilation errors.
  public void m1();
  }
+
+If 2 interface has  same default method and that uses in a class. how that will work.
+---------------------------------------------------------------------------------------- 
+interface InterfaceA {
+    default void defaultMethod() {
+        System.out.println("InterfaceA default method");
+    }
+}
+
+interface InterfaceB {
+    default void defaultMethod() {
+        System.out.println("InterfaceB default method");
+    }
+}
+
+class MyClass implements InterfaceA, InterfaceB {
+
+    // Explicitly overriding the default method to resolve the conflict
+    @Override
+    public void defaultMethod() {
+        // You can choose to call one of the interface methods
+        InterfaceA.super.defaultMethod(); // Calling InterfaceA's default method
+        // InterfaceB.super.defaultMethod(); // Or you can call InterfaceB's method instead
+     }
+}	
+
+Default Method:
+A default method allows you to add a method implementation to an interface without forcing all implementing classes to override it. 
+This helps avoid breaking existing code when new methods are added to an interface.
+Default methods are often used when enhancing libraries or APIs to introduce new methods while maintaining backward compatibility.
+
+
+Real-Time Use Case: Imagine you have an interface Vehicle with an existing set of methods.
+ You need to introduce a new method startEngine() without breaking all the classes that have already implemented this interface.
+
+
+2. Static Methods
+A static method in an interface is similar to a static method in a class. It belongs to the interface itself and can be called without needing an instance of the interface.
+It is used for utility or helper methods  such as validation, formatting related to the interface but doesn't depend on the instance of a class.
+
+public interface Vehicle {
+    void drive();
+
+	// Default method added without breaking existing implementations
+    default void startEngine() {
+        System.out.println("Engine started");
+    }
+    // Static method for utility purposes
+    static boolean isValidSpeed(int speed) {
+        return speed > 0 && speed <= 200;
+    }
+}
+
  
 Predicate:
 ---------------
@@ -96,7 +390,7 @@ As predicate is a functional interface and hence it can refers lambda expression
 It has  below default method.
 and()
 or()
-negate(
+negate()
  
  
 Write a predicate to check whether the given integer is greater than 10 or not.
@@ -179,11 +473,6 @@ To avoid abnormal termination, we use the Optional class.
 Optional.Of(str) // the argument should not allow null value otherwise it'll throw NullPointerException.
 optional.ofNullable(str) // the argument can allow null value. it'll not throw NullPointerException rather returns empty Optional object.
 
-id Name
-1  test
-2  test2
-3  Null
-4  Null
 
 String b = null;
 Optional<String> s = Optional.Empty(); // same as above stmt. s=null
@@ -211,6 +500,10 @@ if(e.isPresent()) {
 orElse(default) // opt.map(Customer::getName).orElse("Unknown")
 orElseGet(supplier) // opt.orElseGet(Data::new)
 orElseThrow(exceptionSupplier)// opt.orElseThrow(IllegalArumentException::new)
+
+Optional<User> user = findUser();
+System.out.println(user.map(User::getName).orElse("User not found"));
+
  
 Avoid using Optional in
 1) Fields
@@ -251,26 +544,6 @@ DIfferent ways to create streams
 2) Stream.of(arrayOfElement) Stream.of(new Integer[]{1,2,3})
 3) List.stream
 4) Arrays.stream(T[])
-
-
-
-Three ways to get the duplicate elements.
-
-1) Filter & Set.add()  [ Set.add() returns false if the element was already in the set.]
-list.stream().filter(n -> !items.add(n)).collect(Collectors.toSet());
-
-2) Map & Collectors.groupingBy
-
-return list.stream()
-                .collect(Collectors.groupingBy(Function.identity()
-                        , Collectors.counting()))    // create a map {1=1, 2=1, 3=2, 4=2, 5=1, 7=1, 9=2}
-                .entrySet().stream()                 // Map -> Stream
-                .filter(m -> m.getValue() > 1)       // if map value > 1, duplicate element
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
-				
-3) Collections.frequency
-list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toSet());
 
 
 map vs flatMap
@@ -429,6 +702,25 @@ If we want to sort using customized sorting order then use comparator.
 filteredStream.sorted((i1, i2) -> i1.compareTo(i2))  // ascending or natural sorting
 filteredStream.sorted((i1, i2) -> i2.compareTo(i1))  // descending
 
+ List<Integer> sortedList = arrList.stream()
+                                          .sorted(Comparator.comparing(Integer::intValue))
+                                          .collect(Collectors.toList());
+										  
+										  List<String> stringList = Arrays.asList("Banana", "Apple", "Orange", "Mango");
+
+// Sorting the list of strings in ascending order using streams and Comparator.comparing()
+List<String> sortedList = stringList.stream()
+									.sorted(Comparator.comparing(String::toString))
+									.collect(Collectors.toList());
+
+Since strings are Comparable by default, you can simply use the sorted() method without the need for Comparator.comparing():
+ // Sorting the list of strings in ascending order using natural ordering
+        List<String> sortedList = stringList.stream()
+                                            .sorted() // No need for Comparator.comparing()
+                                            .collect(Collectors.toList());
+ 
+To sort in reverse order, use Comparator.reverseOrder() with the sorted() method in a stream.
+
 Min Max
 ------------
 If we want to sort using customized sorting order then use comparator.
@@ -439,6 +731,9 @@ Max(Comparator)  will return the maximum value based on the defined comparator
 
 arrList.stream().min((i1, i2) -> i1.compareTo(i2)).get();
 arrList.stream().max((i1, i2) -> i1.compareTo(i2)).get();
+
+arrList.stream().min(Comparator.comparing(Integer::intValue));
+
 
 toArray()
 -----------

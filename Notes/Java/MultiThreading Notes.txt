@@ -1,0 +1,393 @@
+Multi- Threading
+----------------------
+
+what is the meaning of thread safe with exmaple
+When a class or method is thread-safe, it ensures that its state remains consistent and correct, even when accessed by multiple threads concurrently.
+ This is crucial in multithreaded applications to prevent issues like data corruption or unexpected behavior.
+ 
+Example of Thread Safety:
+----------------------------------
+public class BankAccount {
+    private int balance;
+
+    public BankAccount(int initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    public void deposit(int amount) {
+        balance += amount; // Not thread-safe
+    }
+
+    public void withdraw(int amount) {
+        balance -= amount; // Not thread-safe
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+}
+
+// Test class
+public class NonThreadSafeExample {
+    public static void main(String[] args) throws InterruptedException {
+        BankAccount account = new BankAccount(100);
+
+        // Two threads trying to deposit money at the same time
+        Thread thread1 = new Thread(() -> account.deposit(50));
+        Thread thread2 = new Thread(() -> account.deposit(100));
+
+        thread1.start();
+        thread2.start();
+        thread1.join();
+        thread2.join();
+
+        // Expected balance is 250, but due to race conditions, it may vary
+        System.out.println("Final Balance: " + account.getBalance());
+    }
+}
+
+Thread-Safe Example
+Now, let's make the BankAccount class thread-safe using synchronization: (just use synchronized )
+
+// Synchronized methods to ensure thread safety
+    public synchronized void deposit(int amount) {
+        balance += amount; // Now thread-safe
+    }
+By using synchronization techniques, you can protect shared resources and ensure that they function correctly even when accessed by multiple threads simultaneously.
+ 
+
+
+Q30. Explain volatile and Synchronized keyword in Java.
+----------------------------------------------------------
+The volatile keyword in Java is used to indicate that a variable's value will be modified by different
+threads. Declaring a variable volatile ensures that its value is read from the main memory and not
+from the thread's cache memory.
+
+(Processor will always fetch latest value from RAM for volatile variable, It won;t use cavched values.
+
+Race Condition:	 When two thread try to execute critical code simultaneously that is called Race Condition.
+To solve tat we use synchronized keyword. (only one thread can execute ut)
+	
+
+Create two thread one should start odd number and other should print even num
+-------------------------------------------------------------------------------------
+
+class OddEven {
+    private int count = 1; // Start with 1 for odd numbers
+
+    // Method to print odd numbers
+    public synchronized void printOdd() {
+        while (count <= 20) { // Limit to 20 for this example
+            if (count % 2 == 1) {
+                System.out.println("Odd: " + count);
+                count++;
+                notify(); // Notify the other thread
+            } else {
+                try {
+                    wait(); // Wait for the other thread
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Method to print even numbers
+    public synchronized void printEven() {
+        while (count <= 20) { // Limit to 20 for this example
+            if (count % 2 == 0) {
+                System.out.println("Even: " + count);
+                count++;
+                notify(); // Notify the other thread
+            } else {
+                try {
+                    wait(); // Wait for the other thread
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+public class OddEvenThreadExample {
+    public static void main(String[] args) {
+        OddEven oddEven = new OddEven();
+
+        // Thread for printing odd numbers
+        Thread oddThread = new Thread(() -> oddEven.printOdd());
+
+        // Thread for printing even numbers
+        Thread evenThread = new Thread(() -> oddEven.printEven());
+
+        // Start both threads
+        oddThread.start();
+        evenThread.start();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+When to Use Callable vs. Runnable
+------------------------------------
+The Callable interface provides more functionality compared to Runnable by allowing tasks to return results and throw checked exceptions. 
+This makes Callable more suitable for tasks where you need a result or need to handle exceptions, while Runnable is appropriate for simpler,
+ fire-and-forget tasks.
+
+Use Callable when you need:
+A task that returns a result.
+A task that can throw checked exceptions.
+
+Use Runnable when you:
+Do not need to return a result.
+Do not need to throw checked exceptions. 
+
+
+there are several ways to create and manage threads.
+1) . Extending the Thread Class
+2. Implementing the Runnable Interface
+3. Implementing the Callable Interface
+4. Using the ExecutorService Framework
+5.Using the ForkJoinPool Framework
+Suitable for parallel processing and recursive task division.
+(The ForkJoinPool framework is designed for work that can be broken into smaller tasks and is suitable for divide-and-conquer algorithms.)
+
+
+Implementing the Callable Interface
+--------------------------------------
+Callable is similar to Runnable but can return a result and throw a checked exception.
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class MyCallable implements Callable<Integer> {
+    @Override
+    public Integer call() throws Exception {
+        return 123;
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        MyCallable myCallable = new MyCallable();
+        Future<Integer> future = executor.submit(myCallable);
+        
+        try {
+            Integer result = future.get(); // Get the result of the Callable
+            System.out.println("Result: " + result);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        } finally {
+            executor.shutdown();
+        }
+    }
+}
+
+4. Using the ExecutorService Framework
+-------------------------------------------
+The ExecutorService framework provides a higher-level replacement for working with threads directly. 
+It manages a pool of threads and provides various methods for executing tasks asynchronously.
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecutorServiceExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread is running");
+            }
+        };
+
+        for (int i = 0; i < 10; i++) {
+            executor.execute(task); // Submit tasks to the executor
+        }
+
+        executor.shutdown(); // Initiates an orderly shutdown
+    }
+}
+
+Java Thread Pool
+--------------------
+Java Thread pool represents a group of worker threads that are waiting for the job and reused many times.
+
+In the case of a thread pool, a group of fixed-size threads is created. A thread from the thread pool is pulled out 
+and assigned a job by the service provider. After completion of the job, the thread is contained in the thread pool again.
+
+Callable and Future
+------------------------
+Callable: 
+
+Definition: Callable is a functional interface that represents a task that can be executed asynchronously and returns a result. It can throw checked exceptions.
+Return Type: Returns a result of type V when the task is completed.
+Usage: Use Callable when you need a task that computes a result and may throw checked exceptions.
+Example:
+
+import java.util.concurrent.Callable;
+
+public class CallableExample {
+    public static void main(String[] args) throws Exception {
+        Callable<Integer> task = () -> {
+            // Simulate some computation
+            return 123;
+        };
+        Integer result = task.call();
+        System.out.println("Result: " + result);
+    }
+}
+
+Future:
+
+Definition: Future is an interface that represents the result of an asynchronous computation. It provides methods to check if the computation is complete,
+ wait for its completion, and retrieve the result.
+ 
+Usage: Use Future to retrieve the result of a Callable task that was submitted to an executor service, check its status, or cancel it. 
+
+Example:
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
+
+public class FutureExample {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        
+        Callable<Integer> task = () -> {
+            // Simulate some computation
+            return 123;
+        };
+        
+        Future<Integer> future = executor.submit(task);
+        
+        // Get the result of the computation
+        Integer result = future.get(); // This will block until the result is available
+        
+        System.out.println("Result: " + result);
+        
+        executor.shutdown();
+    }
+}
+
+In summary, Callable is used to define tasks, while Future is used to manage and retrieve the results of those tasks.
+
+How To handle 1000 transactions using 100 threads efficiently,
+--------------------------------------------------------
+To handle 1000 transactions using 100 threads efficiently, we use Java’s ExecutorService. 
+First, we define a Runnable task that simulates transaction processing. 
+Then, we create a thread pool with Executors.newFixedThreadPool(100), which manages 100 threads. 
+We submit 1000 transaction tasks to this pool, which handles task execution concurrently. Finally,
+ we shut down the executor service with shutdown() and wait for task completion using awaitTermination().
+ 
+ This approach optimizes resource usage, ensures efficient task handling, and
+ prevents excessive thread creation, providing a scalable solution for processing multiple transactions.
+ 
+create Own executor service for pooling of threads which data structure to use
+------------------------------------------------------------------------------------
+Steps to Create a Custom ExecutorService
+Define the ExecutorService Interface: Create an interface similar to ExecutorService that outlines methods for submitting tasks and shutting down the service.
+
+Implement the Thread Pool: Develop a class that implements the custom executor service, managing a pool of worker threads.
+
+Use a Suitable Data Structure: Utilize a BlockingQueue to manage the tasks. Commonly used implementations include "LinkedBlockingQueue" and "ArrayBlockingQueue".
+
+Manage Threads: Create worker threads that continuously fetch and execute tasks from the queue. 
+ 
+
+Executor Framework Java
+----------------------------
+In order to manage worker threads efficiently 	we use Executor Framwork.
+The executor framework is an implementation of the Producer-Consumer pattern. 
+The java.util.concurrent.Executors class provides a set of methods for creating ThreadPools of worker threads.
+
+In order to use the executor framework, we have to create a thread pool for executing the task by submitting that task to that thread pool.
+
+Types Of executors.
+
+1) SingleThreadExecutor
+The SingleThreadExecutor is a special type of executor that has only a single thread. It is used when we need to execute tasks in sequential order.
+ExecutorService executor = Executors.newSingleThreadExecutor()  
+
+
+2) FixedThreadPool(n)
+FixedThreadPool is another special type of executor that is a thread pool having a fixed number of threads. By this executor, the submitted task is executed 
+by the n thread.
+ExecutorService executor = Executors.newFixedThreadPool(4);  
+
+3) CachedThreadPool
+The CachedThreadPool is a special type of thread pool that is used to execute short-lived parallel tasks. 
+The cached thread pool doesn't have a fixed number of threads. 
+ExecutorService executor = Executors.newCachedThreadPool();
+
+4) ScheduledExecutor
+The ScheduledExecutor is another special type of executor which we use to run a certain task at regular intervals. 
+It is also used when we need to delay a certain task.
+ScheduledExecutorService scheduledExecService = Executors.newScheduledThreadPool(1);  
+
+The scheduleAtFixedRate and scheduleWithFixedDelay are the two methods that are used to schedule the task in ScheduledExecutor
+
+The scheduleAtFixedRate method executes the task with a fixed interval when the previous task ended.
+The scheduleWithFixedDelay method starts the delay count after the current task complete.
+
+
+Thread pools offer significant advantages in terms of resource management, performance, task scheduling, concurrency handling, and ease of use. 
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class ThreadPoolExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(5); // Creating a pool of 5 threads
+        
+        for (int i = 0; i < 10; i++) {
+            Runnable worker = new WorkerThread("" + i);
+            executor.execute(worker); // Submitting tasks to the executor
+        }
+        
+        executor.shutdown(); // Initiates an orderly shutdown
+        try {
+            // Waits for all tasks to complete or the timeout to occur
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow(); // Forces shutdown if tasks are not completed
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
+    }
+}
+
+class WorkerThread implements Runnable {
+    private String command;
+    
+    public WorkerThread(String s) {
+        this.command = s;
+    }
+    
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName() + " Start. Command = " + command);
+        processCommand();
+        System.out.println(Thread.currentThread().getName() + " End.");
+    }
+    
+    private void processCommand() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+} 

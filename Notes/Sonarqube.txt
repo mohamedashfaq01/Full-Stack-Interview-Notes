@@ -1,0 +1,53 @@
+What is Sonarqube
+--------------------------
+SonarQube is a popular static code analysis tool used in software development projects, 
+including Spring Boot Java projects. It helps developers improve the quality of their code by identifying potential bugs,
+ security vulnerabilities, and code smells (code that is poorly written or structured). 
+ 
+ SonarQube provides detailed feedback and metrics to help developers understand the state of their codebase and make necessary improvements.
+
+Analyzes code quality: It checks your code against predefined rules to identify bugs, security vulnerabilities, and poor code structure.
+Improves code maintainability: It helps find code smells that make code harder to maintain, allowing you to write cleaner and more understandable code.
+Enhances security: It identifies common security risks like SQL injection and XSS attacks, making your application more secure.
+Supports CI/CD: It seamlessly integrates with your development pipeline to analyze code on each build, catching issues early on.
+Facilitates team collaboration: It provides a centralized platform for code analysis, enabling team members to share insights and make informed decisions.
+
+Install Sonar as docker container
+-------------------------------------
+
+Make sure docker is up and running 
+
+Run the below command 
+docker run -d -p 9000:9000 --name sonarqube sonarqube
+
+Wait for SonarQube to start: It may take a few minutes for SonarQube to start up fully. You can check the container logs with the following command to verify:
+docker logs -f sonarqube
+
+Access SonarQube web interface: Open your web browser and navigate to http://localhost:9000 to access the SonarQube web interface. You should see the SonarQube dashboard.
+
+Also add below exclusion in properties
+--------------------------------------------
+<sonar.exclusions>**/com/codeddecode/restaurantlisting/RestaurantListingApplication.java,
+**/com/codeddecode/restaurantlisting/repo/**,
+**/com/codeddecode/restaurantlisting/dto/** ,
+**/*/com/codeddecode/restaurantlisting/entity/**/*
+</sonar.exclusions>
+
+Sonar Coverage maven command
+--------------------------------------
+
+mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=squ_a44ef243148d9f75cb3248851df2d555d5342ee2
+
+clean: Cleans the project by deleting any build artifacts from previous builds.
+
+org.jacoco:jacoco-maven-plugin:prepare-agent: Configures the JaCoCo Maven plugin to prepare code coverage analysis.
+
+install: Compiles the source code, runs tests, and packages the application.
+
+sonar:sonar: Analyzes the project and sends the analysis report to a SonarQube server.
+
+The command also includes the following parameters:
+
+-Dsonar.host.url=http://localhost:9000/: Specifies the URL of the SonarQube server where the analysis report will be sent. In this case, it's set to http://localhost:9000/, assuming the SonarQube server is running locally on port 9000.
+
+-Dsonar.login=squ_a44ef243148d9f75cb3248851df2d555d5342ee2: Provides the SonarQube user token or authentication token to authorize the analysis request.

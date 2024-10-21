@@ -211,8 +211,6 @@ Instead, patterns like SAGA and compensating transactions are used.
  **Compensating transactions** undo the effects of a failed transaction to maintain data integrity. 
 These methods enable coordination and consistency across distributed services while accommodating failures and ensuring reliable system behavior.
 
-
-
 SAGA Design Pattern
 ------------------------ 
 

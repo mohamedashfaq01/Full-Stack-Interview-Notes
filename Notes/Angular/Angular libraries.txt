@@ -1,0 +1,96 @@
+SPA: loads all necessary resources on initial page load and dynamically updates the content as the user interacts with the application, without requiring a full page refresh.
+
+
+Ant Design of Angular
+NG-ZORRO
+https://ng.ant.design/docs/introduce/en
+
+
+explore on angular material, primeng, ng-zorro
+explore on reddit.
+
+
+1) ag-charts-angular
+https://ag-grid.com/charts/angular/quick-start/
+
+2) ag-grid-angular
+https://www.ag-grid.com/angular-data-grid/getting-started/
+
+3) date-fns
+
+date-fns provides the most comprehensive, yet simple and consistent toolset for manipulating JavaScript dates in a browser & Node.js.
+It's like Lodash for dates
+
+4)  lodash-es
+lodash-es is a modern, modular version of the popular Lodash utility library, optimized for use with ES6 modules.
+ In an Angular application, lodash-es provides a set of utility functions for common programming tasks such as manipulating arrays, objects, numbers, strings, and more. 
+Its modularity allows developers to import only the specific functions they need, which can help keep the application's bundle size small and improve performance.
+
+check more on lodash.
+
+5) what is json-functions
+json-functions is a utility library designed to simplify working with JSON data in JavaScript and TypeScript applications, including Angular projects. 
+
+npm install json-functions
+
+
+import { filterJSON } from 'json-functions';
+
+const users = [
+  { name: 'John Doe', age: 30 },
+  { name: 'Jane Smith', age: 25 },
+  { name: 'Peter Parker', age: 21 }
+];
+
+const adults = filterJSON(users, (user) => user.age >= 21);
+
+console.log(adults); // [{ name: 'John Doe', age: 30 }, { name: 'Jane Smith', age: 25 }]
+
+explore more.
+
+
+
+AlaSQL 
+
+This library is perfect for:
+
+Fast in-memory SQL data processing for BI and ERP applications on fat clients
+Easy ETL and options for persistence by data import / manipulation / export of several formats
+All major browsers, Node.js, and mobile applications
+
+
+
+@ngneat/until-destroy
+-------------------------
+The @ngneat/until-destroy library is a utility in Angular that helps manage subscriptions in your components or services to avoid memory leaks.
+ Specifically, it simplifies the process of unsubscribing from observables when a component is destroyed.
+ 
+npm install @ngneat/until-destroy
+
+import { Component, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SomeService } from './some.service';
+
+@UntilDestroy()
+@Component({
+  selector: 'app-example',
+  templateUrl: './example.component.html',
+})
+export class ExampleComponent implements OnInit {
+
+  constructor(private someService: SomeService) {}
+
+  ngOnInit() {
+    this.someService.getData()
+      .pipe(untilDestroyed(this))
+      .subscribe(data => {
+        // Handle data
+      });
+  }
+}
+
+In this example, the untilDestroyed operator ensures that the subscription to getData() is automatically unsubscribed when the ExampleComponent is destroyed, 
+avoiding potential memory leaks.
+
+Summary
+@ngneat/until-destroy is a handy utility for managing observables in Angular, reducing the need for manual unsubscription and keeping your codebase clean and efficient. 

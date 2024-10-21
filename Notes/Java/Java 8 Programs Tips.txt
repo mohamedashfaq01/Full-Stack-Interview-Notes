@@ -1,4 +1,113 @@
-        
+
+
+orElse(callMethod()) It is eager loaded => whether the wrapped value is present or not. It will call the method even if the if conditon met. 
+for normal string the JVM will take care of that to call, but if we call any databse or web service call then obviously there will be an impact.
+
+Usage: use this  when u have constant or variable
+ 
+orElseGet(() => callMethod() ) => It will call the method and the functional interace will not call. (It increases the performace)
+<Supplier> s
+
+orElseThrow(() -> new IllegalArgumentException("The id has no name"))
+(can take string or supplier as argument)
+Usage: use this  when u have to call method or contructor 
+
+
+parallelStream: in an example, if we need to filter an elements if the value is greater than 100. 
+don't use stream blindly, we can think about the performace impact.
+
+Short circuit terminal operation:
+findFirst() -> uses sequential processing
+findAny() -> uses parallel processing
+boolean anyMatch(Predicate) -> boolean isAvailable = repo.findAll().stream().anyMatch(s-> s.getName().contains("Test"))
+boolean matchAll(Predicate) -> boolean isAvailable = repo.findAll().stream().matchAll(s-> s.getName().contains("Test")) (should have all)
+boolean noneMatch(Predicate) -> boolean isAvailable = repo.findAll().stream().noneMatch(s-> s.getName().contains("Test")) (should not match any)
+
+collectors.groupingBy
+------------------------------------
+// To group only based on age.
+list.stream().colect(Collectors.groupingBy(emp -> emp.getAge())
+
+// To group only based on age and unique value based on name, (override hashCode and equals method for name attrubute alone)
+list.stream().colect(Collectors.groupingBy(emp -> emp.getAge(), Collectors.toSet())
+
+// To group only based on age and unique value based on name and sort it ascending order (override hashCode and equals method for name attrubute alone)
+list.stream().colect(Collectors.groupingBy(emp -> emp.getAge(), TreeMap::new, Collectors.toSet())
+
+
+To take all number starts with 1 form array.
+numsList.stream().map(n-> n + "").filter(s->s.startsWith("1")).collect(Collectors.toList());
+
+sort list in reverse order
+stringList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList())
+
+first 3 elements : list.stream().limit(3).collect(Collectors.toList())
+skip first 4 elements : list.stream().skip(4).collect(Collectors.toList())
+
+reduce: Optional<Integer> num = numberList.stream().reduce((a, b) -> a*b);
+
+max: Optional<Integer> maxVal = numberList.stream().max(Integer::compareTo); max((a, b) -> a.compareTo(b))
+min: Optional<Integer> minVal = numberList.stream().min(Integer::compareTo);
+
+list to array : String[] result = wordList.stream().toArray(String[]::new) ; wordList.stream().toArray(size -> new String[size])
+
+partitioningBy: It partition group into two based on specified predicate.
+It returns a map with key as boolean and its value.
+Map<Boolean, List<Integer>> result = Arrays.stream(nums).boxed().collect(Collectors.partitioningBy(n -> n%2 ==0));
+
+summarizingInt: I has all integer related statistics like count, sum, avg,  min, max;
+IntSummaryStatistics intSummary = numList.stream().collect(Collectors.summarizingInt(Integer::intValue);
+
+toMap: (or) toConcurrentMap
+-------------------------------
+Map<String, Integer> mapOfStringAndLength = Arrays.stream(str).collect(Collectors.toMap(Function.identity(), String::length));
+		System.out.println(mapOfStringAndLength);
+
+real Time sceanrio: To crate map with orderId and orderValue
+
+fetchSecondSmallestNumber(int[] nums)
+----------------------------------------
+Without Duplicate: int secondSmallest = Arrays.stream(nums).sorted().skip(1).findFirst().orElseThrow(() -> new IllegalArgumentException)
+
+With Duplicate Input: int secondSmallest = Arrays.stream(nums).sorted().distinct().skip(1).findFirst().orElseThrow(() -> new IllegalArgumentException)
+
+Diffrent ways to print map in java 8
+------------------------------------------
+1. Using forEach():
+You can iterate over the entries using the forEach() method.
+map.forEach((key, value) -> System.out.println(key + " = " + value));
+
+2. Using Stream API:
+Stream the entries and use forEach() to print.
+map.entrySet().stream()
+    .forEach(entry -> System.out.println(entry.getKey() + " = " + entry.getValue()));
+	
+3. Using Stream.sorted() (if sorting is needed):
+map.entrySet().stream()
+    .sorted(Map.Entry.comparingByKey())
+    .forEach(entry -> System.out.println(entry.getKey() + " = " + entry.getValue()));
+	
+
+
+Three ways to get the duplicate elements.
+------------------------------------------------
+
+1) Filter & Set.add()  [ Set.add() returns false if the element was already in the set.]
+list.stream().filter(n -> !items.add(n)).collect(Collectors.toSet());
+
+2) Map & Collectors.groupingBy
+
+return list.stream()
+                .collect(Collectors.groupingBy(Function.identity()
+                        , Collectors.counting()))    // create a map {1=1, 2=1, 3=2, 4=2, 5=1, 7=1, 9=2}
+                .entrySet().stream()                 // Map -> Stream
+                .filter(m -> m.getValue() > 1)       // if map value > 1, duplicate element
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+				
+3) Collections.frequency
+list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toSet());
+  
 FourthHighestSalary 
 --------------------------		
 List<Integer> salaries = Arrays.asList(50000, 60000, 75000, 90000, 120000, 80000, 100000, 110000);
@@ -13,29 +122,7 @@ Integer fourthHighestSalary = salaries.stream()
 
 System.out.println("4th Highest Salary: " + fourthHighestSalary);
 
-nth non-repeating character
---------------------------------
 
-
-final String str = "ssaavhhtb";
-Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
-
-for(int i=0;i<str.length.i++) {
-  Character ch = str.charAt(i);
-  map.put(ch, !map.containsKey(ch) ? 1 : map.get(ch)+1);
-} 
-
-final int skipCount = 2;
-Syso("nth non-repeating characters")
-int result = map.entrySet().stream().filter(mp -> mp.getValue() == 1).skip(skipCount).findFirst().get().getKey();
-Syso(result);
-
-for repeating characters: filter(mp -> mp.getValue() > 1).
-
-output
---------
-1st non repeating : v
-2nd non repeating : t
  
 Java 8 Sum of numbers.
 -------------------------
@@ -132,3 +219,69 @@ public class WordLengthFinder {
         System.out.println("Smallest word: " + smallestWord);
     }
 	  
+How to count the number of occurrences of a given word in a list of strings using Java 8?
+-------------------------------------------------------------------------------------------------
+ List<String> stringList = Arrays.asList("java scala ruby", "java react spring java");
+       String word = "java";
+       long count = stringList.stream()
+                           .flatMap(s -> Arrays.stream(s.split(" ")))
+                           .filter(w -> w.equals(word))
+                           .count();
+       System.out.println("Occurrences of \"" + word + "\": " + count);
+
+Output: Occurrences of "java": 3	   
+
+nth non-repeating character
+--------------------------------
+
+final String str = "ssaavhhtb";
+Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
+
+for(int i=0;i<str.length.i++) {
+  Character ch = str.charAt(i);
+  map.put(ch, !map.containsKey(ch) ? 1 : map.get(ch)+1);
+} 
+
+final int skipCount = 2;
+Syso("nth non-repeating characters")
+int result = map.entrySet().stream().filter(mp -> mp.getValue() == 1).skip(skipCount).findFirst().get().getKey();
+Syso(result);
+
+for repeating characters: filter(mp -> mp.getValue() > 1).
+
+output
+--------
+1st non repeating : v
+2nd non repeating : t
+
+
+
+9) Given an Employee list , sort employees based on their salaries in desc order?
+
+	List < Employee > employeesSortedList1 = employees.stream()
+		.sorted((o1, o2) -> (int)(o2.getSalary() - o1.getSalary())).limit(3).collect(Collectors.toList());
+	System.out.println(employeesSortedList1); // To fetch top 3 high salaried employee
+
+	List < Employee > employeesSortedList2 = employees.stream()
+		.sorted(Comparator.comparingLong(Employee::getSalary).reversed()).collect(Collectors.toList()); //ascending order
+	System.out.println(employeesSortedList2);
+
+	Using Comparator interface:
+		List<Employee> employees  = getEmployeesFromDB();
+		  
+		//Sort all employees by first name
+		employees.sort(Comparator.comparing(e -> e.getFirstName()));
+		  
+		//OR you can use below
+		employees.sort(Comparator.comparing(Employee::getFirstName));
+		 
+		//Sort all employees by first name in reverse order
+		Comparator<Employee> comparator = Comparator.comparing(e -> e.getFirstName());
+		employees.sort(comparator.reversed());
+
+join method
+-----------------
+List<String> list= Arrays.asList("a", "b", "c");
+String result = String.join("-", list)
+
+Output: a-b-c

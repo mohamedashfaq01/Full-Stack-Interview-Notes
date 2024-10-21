@@ -8,7 +8,7 @@ Java, Spring Boot, and MySQL, another team can work on another microservice usin
 
 Different microservices can use a different version of the same programming language.
 Different microservices can use different programming languages.
-Different microservices can use different architectures as well.
+Different microservices can use different architectures as well.				
 
 Think about how Amazon’s website works rather than being a single or a large unit, 
 it’s built with various separate sections such as gadgets, electronics, clothes, etc. Each of these sections is a “microservice“. 
@@ -277,20 +277,6 @@ Deploy the container to a cloud service or Kubernetes cluster.
 
 Container platforms like Docker and Kubernetes are used to manage and run applications in a more efficient and scalable way. 
 
-Docker
-What It Does:
-
-Containers: Docker allows you to package an application and its dependencies into a "container." 
-This container has everything the application needs to run, including the code, libraries, and system tools.
-
-Portability: Containers can run anywhere—on your laptop, on a server, or in the cloud—because they include everything needed to run the application.
-Isolation: Each container runs in its own environment, separate from other containers. 
-This isolation helps ensure that the application works the same way regardless of where it is deployed.
-Why It's Useful:
-
-Consistent Environments: Developers can be sure that the application will run the same way in different environments (development, testing, production).
-Easy Deployment: Containers can be quickly started, stopped, and moved around, making deployment faster and easier.
-Resource Efficiency: Containers use fewer resources than traditional virtual machines because they share the same operating system kernel.
 
 Aspect	Cloud Platform	Container Platform
 ------------------------------------------------
@@ -711,6 +697,10 @@ It’s a type of pattern which acts as an key concept in microservices architect
  For example: In a real world like online travel booking, the Flight Booking service initiates the transaction and starts communicating with other services
  through events where each service follows a specific workflow like if successful, 
  it sends to the next service; if it fails, it triggers a compensating transaction to maintain the data consistency.
+ 
+ Two types of SAGA implementation
+ 1) Choreography: Service comminicates through events
+ 2) Orchestration: A central co-ordinator manages the transaction flow.
 
 
 

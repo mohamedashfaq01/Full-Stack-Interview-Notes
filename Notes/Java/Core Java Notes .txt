@@ -1,113 +1,307 @@
-Java 7 Features
-------------------
-1) Switch With String (case sensitive)
-
-2) Java 7 Multi Catch. (It helps to optimize code, using use vertical bar (|) to separate multiple exceptions in catch block.
-     catch(ArithmeticException | ArrayIndexOutOfBoundsException e){  
-            System.out.println(e.getMessage());  
-        }    
-		
-3) Binary Literals (I allows you to express integral types (byte, short, int, and long) in binary number system. To specify a binary literal, add the prefix 0b or 0B to the integral value.)
- int i1 = -0b101;   		// prints -5
- long l1 = 0b0000011111100001; // prints 2017
+Java Memory Management
+---------------------------
+ Java uses a process called Garbage Collection to manage memory automatically,
+ freeing developers from having to manually manage memory like in other programming languages (e.g., C++).
  
-4)  Type Inference for Generic Instance Creation
+ Memory Types in Java:
 
-The following approach is used in Java 6 and prior version.
+Heap Memory: This is where Java stores objects (instances of classes). When you create an object using new, it is placed in the heap.
+Stack Memory: This stores method calls and local variables. Each time a method is called, its data is placed in the stack,
+ and when the method finishes, its data is removed from the stack.
 
-Ex. List<Integer> list  = new List<Integer>();  
-Now, you can use the following new approach introduced in Java 7.
 
-Ex. List<Integer> list = new List<>(); // Here, we just used diamond 
+Components of Java Memory:
+Heap Memory:
 
-5) Java Numeric Literals with Underscore (Ot improves the readability of source code).
+The heap is divided into Young Generation, Old Generation, and Permanent Generation (or Metaspace).
 
-    int a = 10_00000;  
-	System.out.println("a = "+a);  
-	// Underscore in floating literal  
-	float b = 10.5_000f;  
-	System.out.println("b = "+b);  
+Young Generation: This is where new objects are created. It is further divided into:
 
-Java 5 Features
---------------
-1) Assertion
-2) Autoboxing and unboxing
-The automatic conversion of primitive data types into its equivalent Wrapper type is known as boxing and opposite operation is known as unboxing.
-int -> Integer (Boxing)
-Integer -> int (Unboxing)
-	 int a=30;
-	 Integer a3=a;//Boxing  
-	 
-3) Java Enums
-The Enum in Java is a data type which contains a fixed set of constants.
+Eden Space: Where all new objects are initially created.
+Survivor Spaces: Objects that survive after a few rounds of garbage collection in Eden are moved here.
 
-It can be used for days of the week (SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, and SATURDAY) , directions (NORTH, SOUTH, EAST, and WEST), season (SPRING, SUMMER, WINTER, and AUTUMN or FALL)
-	 class EnumExample1{  
-		//defining the enum inside the class  
-		public enum Season { WINTER, SPRING, SUMMER, FALL }  
-		//main method  
-		public static void main(String[] args) {  
-		//traversing the enum  
-		for (Season s : Season.values())  
-		System.out.println(s);  
-	}}  
+Old Generation: Objects that have been around for a while and are still being used are moved to the Old Generation.
+ This space is larger than the Young Generation and is garbage collected less frequently.
 
-4) Java Annotation ( represents the metadata, to indicate some additional information which can be used by java compiler and JVM.)
+Permanent Generation (Metaspace): This holds metadata, class definitions, and static content. From Java 8 onward, the PermGen has been replaced with Metaspace.
 
-5) Generics in Java : It makes the code stable by detecting the bugs at compile time.
-List<Integer> list = new ArrayList<Integer>();    
+Stack Memory:
 
-6) For-Each loop
-It makes the code more readable.
-It eliminates the possibility of programming errors.
-int arr[]={12,13,14,44};  
-   //traversing the array with for-each loop  
-   for(int i:arr){  
-     System.out.println(i);  
-   }  
-   
-7) Java Static Import
------------------------------
-The static import feature of Java 5 facilitate the java programmer to access any static member of a class directly.
- There is no need to qualify it by the class name.
+Each thread has its own stack. The stack holds:
 
-import static java.lang.System.*;    
-class StaticImportExample{  
-  public static void main(String args[]){  
-     
-   out.println("Hello");//Now no need of System.out  
-   out.println("Java");  
-  
- }   
-}      
-   
-   
-8) Variable Argument (Varargs):
-The varrags allows the method to accept zero or muliple arguments. 
-If we don't know how many argument we will have to pass in the method, varargs is the better approach.
+Method calls: When a method is invoked, it’s added to the stack.
+Local variables: Variables inside methods are stored here.
 
-Rules for varargs:
-	There can be only one variable argument in the method.
-	Variable argument (varargs) must be the last argument.
+Once the method execution finishes, the associated memory is removed from the stack.
 
-	void method(String... a, int... b){}//Compile time error  
-	void method(int... a, String b){}//Compile time error     
+Garbage Collection Process:
 
-class VarargsExample3{  
-   
- static void display(int num, String... values){  
-  System.out.println("number is "+num);  
-  for(String s:values){  
-   System.out.println(s);  
-  }  
- }  
-  
- public static void main(String args[]){  
-  
- display(500,"hello");//one argument   
- display(1000,"my","name","is","varargs");//four arguments  
- }   
-} 
+Objects in the Young Generation are collected frequently (minor GC).
+Objects in the Old Generation are collected less often (major GC).
+Unused objects are automatically removed, freeing memory for new objects.
+
+comparison between Permanent Generation (PermGen) and Metaspace
+
+Feature		Permanent Generation (PermGen)					Metaspace
+Location	Located in the heap memory.						Located in native memory (outside the heap).
+Size Limit	Fixed size, can lead to OutOfMemoryError.		Dynamically resizes, limited by available system memory.
+Garbage Collection	Garbage collected only during Full GC.	Garbage collected during both Full GC and minor GC.
+Performance	May lead to performance issues due to fixed size.	Generally improves performance with dynamic resizing.
+Usage in Java Versions	Present in Java 7 and earlier versions.	Introduced in Java 8, replacing PermGen
+
+
+Internal Working of HashMap.
+----------------------------------
+What is Hashing
+It is the process of converting an object into an integer value. The integer value helps in indexing and faster searches.
+
+equals(): It checks the equality of two objects. It compares the Key, whether they are equal or not. 
+It is a method of the Object class. It can be overridden. If you override the equals() method, then it is mandatory to override the hashCode() method.
+
+hashCode(): This is the method of the object class. It returns the memory reference of the object in integer form.
+ The value received from the method is used as the bucket number. The bucket number is the address of the element inside the map. Hash code of null Key is 0.
+ 
+Buckets: Array of the node is called buckets. Each node has a data structure like a LinkedList. More than one node can share the same bucket. It may be different in capacity.
+
+Resize Operation: When the HashMap exceeds a certain load factor (default is 0.75), it resizes by doubling the bucket array size
+
+Collision Handling: If two keys produce the same index (collision), HashMap uses a Linked List (or Balanced Tree in Java 8+) to store multiple key-value pairs in the same bucket.
+
+In Java 8 and above, once the number of collisions in a bucket exceeds a certain threshold (typically 8), 
+the Linked List is converted into a Balanced Tree (Red-Black Tree) for better performance (O(log n)).
+
+Put: We use put() method to insert the Key and Value pair in the HashMap. The default size of HashMap is 16 (0 to 15).
+
+Working:
+First it will get the key and calculate the hashcode and then find the bucket index (hashcode & length -1).
+then it will put that value in that bucket.
+If there is any hash collision then it will check the equals method.
+
+If the value is already exist in the bucket it will create the node in the existing ode like a linkedList.
+In Java 8 and above, once the number of collisions in a bucket exceeds a certain threshold (typically 8), 
+the Linked List is converted into a Balanced Tree (Red-Black Tree) for better performance (O(log n)).
+
+Equals and Hashcode contract
+-------------------------------------
+1) If two objects are equal according to the equals() method, they must have the same hashCode() value.
+2) If two objects have the same hashCode(), they are not necessarily equal according to the equals() method.
+Two different objects can have the same hash code (this is called a collision), but the equals() method will further check if they are logically the same object.
+
+Violating the Contract:
+If you don't properly implement hashCode() and equals():
+
+Equal objects may end up in different buckets, causing lookup failures in collections like HashMap or HashSet.
+You may get unexpected results, such as objects that appear to be missing from collections or duplicate entries.
+
+To consider two objects as duplicates based on name and phone number:
+Steps:
+Override the equals() method to compare the name and phoneNumber fields.
+Override the hashCode() method to compute the hash based on name and phoneNumber
+
+class Person {
+    private String name;
+    private String phoneNumber;
+
+    // Constructor
+    public Person(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    // Getters, Setters (Optional, depending on your use case)
+
+    @Override
+    public boolean equals(Object obj) {
+        // Check if this is the same object
+        if (this == obj) return true;
+        // Check for null and ensure the objects are of the same class
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        // Cast to Person and compare name and phoneNumber
+        Person person = (Person) obj;
+        return name.equals(person.name) && phoneNumber.equals(person.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        // Generate a hash based on name and phoneNumber
+        return Objects.hash(name, phoneNumber);
+    }
+}
+
+Set<Person> personSet = new HashSet<>();
+personSet.add(p1);
+personSet.add(p2);
+
+System.out.println(personSet.size());  // Output: 1 (because p1 and p2 are duplicates)
+
+Can we use object as a key in hashmap in Java?
+------------------------------------------------
+You can use objects as keys in a HashMap in Java, but you must override equals() and hashCode() methods in the key class to ensure correct behavior.
+Using immutable objects as keys is recommended to avoid issues caused by modifying the state of the key after it has been added to the HashMap.
+
+What is WeakHashMap.
+----------------------------
+A WeakHashMap in Java is a special type of Map where the keys are stored as weak references. 
+This means that if a key is no longer in use (i.e., not referenced anywhere else in the application), 
+the garbage collector (GC) will automatically remove the key-value pair from the map.
+
+Use Case: Useful for implementing cache where you don’t want to prevent objects from being garbage collected when they are no longer needed.
+
+why we should use interface and class combination like Map<Integer> map = new HashMap();
+--------------------------------------------------------------------------------------------
+// Using interface reference and class implementation
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "One");
+        map.put(2, "Two");
+
+        System.out.println(map);
+
+        // Switching to another implementation (e.g., TreeMap)
+        map = new TreeMap<>();
+        map.put(3, "Three");
+        map.put(4, "Four");
+
+        System.out.println(map);
+
+In the above code:
+We declare map as Map<Integer, String>, which allows us to easily switch from HashMap to TreeMap without changing the rest of the code that interacts with map.	
+
+Declaring variables as interfaces (like Map) instead of concrete classes (like HashMap) provides flexibility, loose coupling, abstraction, and easier maintainability. 
+It allows you to change the implementation later without affecting the rest of your code and promotes better software design.	
+
+Diff between SynchronizedMap and ConcurrentHashMap
+---------------------------------------------------------
+Synchronized Map:
+When a method in a synchronized map (like Collections.synchronizedMap) is accessed, the entire map is locked for that thread. 
+This means that only one thread can access the map at any given time.
+
+
+ConcurrentHashMap:
+It allows multiple threads to read and write to the map concurrently without blocking each other. This is achieved through a technique called lock striping, 
+where the map is divided into segments (or buckets), and each segment can be locked independently. This greatly enhances performance in multi-threaded scenarios,
+ as it reduces contention.leading to a significant performance bottleneck in multi-threaded environments,
+ especially when many threads try to read and write to the map simultaneously.
+ 
+Feature					SynchronizedMap												ConcurrentHashMap
+Locking Mechanism		Entire map locked on every operation						Fine-grained locking (lock striping) (bucket-level)
+Concurrency				Only one thread can access the map at a time (full lock) 	Multiple threads can read and write concurrently
+Read Operations			Synchronized, blocking all threads							Non-blocking for reads (no lock required)
+Write Operations		Locks the entire map for each write							Locks only relevant segment, allowing partial concurrency
+Iteration				Requires manual synchronization								Iterators are weakly consistent, no explicit lock needed
+Atomic Operations		Not natively supported										Atomic operations like putIfAbsent(), replace() available
+Ideal Use Case			Suitable for small-scale or 								Suitable for high-concurrency environments
+						single-threaded applications	
+Summary:
+Synchronized Map is simpler but slower in concurrent environments.
+ConcurrentHashMap is optimized for better scalability and performance, especially under heavy multi-threading.	
+
+15) HashTable vs ConcurrentHashMap. 
+-----------------------------------------
+Hashtable is a legacy synchronized map that provides basic thread safety but can lead to performance issues.
+Iterators are not fail-safe; they throw ConcurrentModificationException if modified during iteration.
+
+ConcurrentHashMap is designed for high concurrency and better performance. It allows multiple threads to read and write concurrently without blocking the entire map,
+Iterators are fail-safe and provide a snapshot of the map at the time of iteration.
+					
+
+5) what kind of tree is used in treeset and treemap?
+Both TreeSet and TreeMap use a Red-Black Tree to maintain sorted order and ensure that operations like insertion,
+ deletion, and lookup can be performed in O(log n) time, making them efficient for handling large datasets with sorted elements or keys.
+
+How to create Custom annotation
+------------------------------------
+@Retention(RetentionPolicy.RUNTIME)  // Required to retain at runtime for reflection or AOP
+@Target(ElementType.METHOD)          // Specifies where the annotation can be applied
+public @interface LogExecutionTime {
+}
+
+Externalization
+---------------------
+Externalization in Java is a mechanism to control the serialization process by implementing the Externalizable interface.
+ It allows you to define custom serialization logic, which can be more efficient than the default serialization
+ 
+Two Methods: You must implement two methods:
+writeExternal(ObjectOutput out): To write the object's state.
+readExternal(ObjectInput in): To read the object's state.
+
+Performance: 
+May be less efficient due to default serialization of all fields.
+
+A public no-arg constructor is mandatory for Externalizable.	
+Can be more efficient as you can control the serialization process. (Externalization)
+Externalization offers fine-grained control over serialization and deserialization, 
+allowing developers to customize how objects are serialized, but it requires more effort to implement correctly.
+
+JVM and class loaders
+-------------------------
+JVM (Java Virtual Machine) is an abstract machine. 
+It is called a virtual machine because it doesn't physically exist. It is a specification that provides a runtime environment in which Java bytecode can be executed.
+
+The JVM performs the following main tasks:
+
+Loads code
+Verifies code
+Executes code
+Provides runtime environment
+
+JRE: The Java Runtime Environment is a set of software tools which are used for developing Java applications.
+It physically exists. It contains a set of libraries + other files that JVM uses at runtime.
+
+Class Loaders
+-------------------
+class loaders are responsible for loading classes into memory at runtime.
+
+1. Bootstrap Class Loader
+The top-level class loader that loads the core Java classes from the Java Runtime Environment (JRE), such as java.lang, java.util, and other essential classes.
+Parent: It does not have a parent class loader.
+
+2. Extension Class Loader
+Loads classes from the Java extension directories, which typically contain additional libraries. These directories are specified by the java.ext.dirs system property.
+Parent: Its parent is the Bootstrap Class Loader.
+
+3. System Class Loader
+This loader is used for loading user-defined classes and third-party libraries. 
+Parent: Its parent is the Extension Class Loader.
+
+Why String objects are immutable in Java?
+-----------------------------------------------
+As Java uses the concept of String literal. Suppose there are 5 reference variables, all refer to one object "Sachin".
+If one reference variable changes the value of the object, it will be affected by all the reference variables. That is why String objects are immutable in Java.
+
+And also, It uses less heap momory, Thread safe, Security (username and password can't modify by an intruder).
+
+Exception
+-----------------
+Compile Time Error and in Run Time exception will be thrown  
+
+example: ClassDefNotFoundError and ClassNotFoundException.
+
+Checked Exception Must be declared in the method signature or caught in a try-catch block.  IOException, SQLException, FileNotFoundException.
+Unchecked Exception Optional to handle; can be caught but not required. NullPointerException, ArrayIndexOutOfBoundsException, IllegalArgumentException.
+
+If we're overriding method in parent class, and parent class throws an exception.
+Then child class method can only throw 
+1) No Exception.
+2) Same Exceptoon.
+3) Child of the parent method exception."But cannot throw bigger exception")
+
+Custom Unchecked Eception
+-------------------------------
+public class CustomUncheckedException extends RuntimeException {
+    public CustomUncheckedException(String message) {
+        super(message);
+    }
+}
+public class Example {
+    public void validate(int value) {
+        if (value < 0) {
+            throw new CustomUncheckedException("Value must be non-negative.");
+        }
+        // Continue processing...
+    }
+}
+
 
 
 ClassCast Exception in TreeSet
@@ -326,259 +520,4 @@ Unchecked error.
 
 	
 
-When to Use Callable vs. Runnable
-------------------------------------
-The Callable interface provides more functionality compared to Runnable by allowing tasks to return results and throw checked exceptions. 
-This makes Callable more suitable for tasks where you need a result or need to handle exceptions, while Runnable is appropriate for simpler,
- fire-and-forget tasks.
 
-Use Callable when you need:
-A task that returns a result.
-A task that can throw checked exceptions.
-
-Use Runnable when you:
-Do not need to return a result.
-Do not need to throw checked exceptions. 
-
-
-there are several ways to create and manage threads.
-1) . Extending the Thread Class
-2. Implementing the Runnable Interface
-3. Implementing the Callable Interface
-4. Using the ExecutorService Framework
-5.Using the ForkJoinPool Framework
-Suitable for parallel processing and recursive task division.
-(The ForkJoinPool framework is designed for work that can be broken into smaller tasks and is suitable for divide-and-conquer algorithms.)
-
-
-Implementing the Callable Interface
---------------------------------------
-Callable is similar to Runnable but can return a result and throw a checked exception.
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-public class MyCallable implements Callable<Integer> {
-    @Override
-    public Integer call() throws Exception {
-        return 123;
-    }
-
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        MyCallable myCallable = new MyCallable();
-        Future<Integer> future = executor.submit(myCallable);
-        
-        try {
-            Integer result = future.get(); // Get the result of the Callable
-            System.out.println("Result: " + result);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        } finally {
-            executor.shutdown();
-        }
-    }
-}
-
-4. Using the ExecutorService Framework
--------------------------------------------
-The ExecutorService framework provides a higher-level replacement for working with threads directly. 
-It manages a pool of threads and provides various methods for executing tasks asynchronously.
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-public class ExecutorServiceExample {
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-
-        Runnable task = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Thread is running");
-            }
-        };
-
-        for (int i = 0; i < 10; i++) {
-            executor.execute(task); // Submit tasks to the executor
-        }
-
-        executor.shutdown(); // Initiates an orderly shutdown
-    }
-}
-
-Java Thread Pool
---------------------
-Java Thread pool represents a group of worker threads that are waiting for the job and reused many times.
-
-In the case of a thread pool, a group of fixed-size threads is created. A thread from the thread pool is pulled out 
-and assigned a job by the service provider. After completion of the job, the thread is contained in the thread pool again.
-
-Callable and Future
-------------------------
-Callable: 
-
-Definition: Callable is a functional interface that represents a task that can be executed asynchronously and returns a result. It can throw checked exceptions.
-Return Type: Returns a result of type V when the task is completed.
-Usage: Use Callable when you need a task that computes a result and may throw checked exceptions.
-Example:
-
-import java.util.concurrent.Callable;
-
-public class CallableExample {
-    public static void main(String[] args) throws Exception {
-        Callable<Integer> task = () -> {
-            // Simulate some computation
-            return 123;
-        };
-        Integer result = task.call();
-        System.out.println("Result: " + result);
-    }
-}
-
-Future:
-
-Definition: Future is an interface that represents the result of an asynchronous computation. It provides methods to check if the computation is complete,
- wait for its completion, and retrieve the result.
- 
-Usage: Use Future to retrieve the result of a Callable task that was submitted to an executor service, check its status, or cancel it. 
-
-Example:
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ExecutorService;
-
-public class FutureExample {
-    public static void main(String[] args) throws Exception {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        
-        Callable<Integer> task = () -> {
-            // Simulate some computation
-            return 123;
-        };
-        
-        Future<Integer> future = executor.submit(task);
-        
-        // Get the result of the computation
-        Integer result = future.get(); // This will block until the result is available
-        
-        System.out.println("Result: " + result);
-        
-        executor.shutdown();
-    }
-}
-
-In summary, Callable is used to define tasks, while Future is used to manage and retrieve the results of those tasks.
-
-How To handle 1000 transactions using 100 threads efficiently,
---------------------------------------------------------
-To handle 1000 transactions using 100 threads efficiently, we use Java’s ExecutorService. 
-First, we define a Runnable task that simulates transaction processing. 
-Then, we create a thread pool with Executors.newFixedThreadPool(100), which manages 100 threads. 
-We submit 1000 transaction tasks to this pool, which handles task execution concurrently. Finally,
- we shut down the executor service with shutdown() and wait for task completion using awaitTermination().
- 
- This approach optimizes resource usage, ensures efficient task handling, and
- prevents excessive thread creation, providing a scalable solution for processing multiple transactions.
- 
-create Own executor service for pooling of threads which data structure to use
-------------------------------------------------------------------------------------
-Steps to Create a Custom ExecutorService
-Define the ExecutorService Interface: Create an interface similar to ExecutorService that outlines methods for submitting tasks and shutting down the service.
-
-Implement the Thread Pool: Develop a class that implements the custom executor service, managing a pool of worker threads.
-
-Use a Suitable Data Structure: Utilize a BlockingQueue to manage the tasks. Commonly used implementations include "LinkedBlockingQueue" and "ArrayBlockingQueue".
-
-Manage Threads: Create worker threads that continuously fetch and execute tasks from the queue. 
- 
-
-Executor Framework Java
-----------------------------
-In order to manage worker threads efficiently 	we use Executor Framwork.
-The executor framework is an implementation of the Producer-Consumer pattern. 
-The java.util.concurrent.Executors class provides a set of methods for creating ThreadPools of worker threads.
-
-In order to use the executor framework, we have to create a thread pool for executing the task by submitting that task to that thread pool.
-
-Types Of executors.
-
-1) SingleThreadExecutor
-The SingleThreadExecutor is a special type of executor that has only a single thread. It is used when we need to execute tasks in sequential order.
-ExecutorService executor = Executors.newSingleThreadExecutor()  
-
-
-2) FixedThreadPool(n)
-FixedThreadPool is another special type of executor that is a thread pool having a fixed number of threads. By this executor, the submitted task is executed 
-by the n thread.
-ExecutorService executor = Executors.newFixedThreadPool(4);  
-
-3) CachedThreadPool
-The CachedThreadPool is a special type of thread pool that is used to execute short-lived parallel tasks. 
-The cached thread pool doesn't have a fixed number of threads. 
-ExecutorService executor = Executors.newCachedThreadPool();
-
-4) ScheduledExecutor
-The ScheduledExecutor is another special type of executor which we use to run a certain task at regular intervals. 
-It is also used when we need to delay a certain task.
-ScheduledExecutorService scheduledExecService = Executors.newScheduledThreadPool(1);  
-
-The scheduleAtFixedRate and scheduleWithFixedDelay are the two methods that are used to schedule the task in ScheduledExecutor
-
-The scheduleAtFixedRate method executes the task with a fixed interval when the previous task ended.
-The scheduleWithFixedDelay method starts the delay count after the current task complete.
-
-
-Thread pools offer significant advantages in terms of resource management, performance, task scheduling, concurrency handling, and ease of use. 
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-public class ThreadPoolExample {
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(5); // Creating a pool of 5 threads
-        
-        for (int i = 0; i < 10; i++) {
-            Runnable worker = new WorkerThread("" + i);
-            executor.execute(worker); // Submitting tasks to the executor
-        }
-        
-        executor.shutdown(); // Initiates an orderly shutdown
-        try {
-            // Waits for all tasks to complete or the timeout to occur
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                executor.shutdownNow(); // Forces shutdown if tasks are not completed
-            }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
-        }
-    }
-}
-
-class WorkerThread implements Runnable {
-    private String command;
-    
-    public WorkerThread(String s) {
-        this.command = s;
-    }
-    
-    @Override
-    public void run() {
-        System.out.println(Thread.currentThread().getName() + " Start. Command = " + command);
-        processCommand();
-        System.out.println(Thread.currentThread().getName() + " End.");
-    }
-    
-    private void processCommand() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}

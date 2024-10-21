@@ -248,7 +248,71 @@ Optional<Integer> secondLargest = numbers.stream()
 										 .skip(1)
 										 .findFirst();
 
+nullsFirst and nullsLast with examples.
+----------------------------------------------
 
+In Java 8, the Comparator interface provides methods to sort collections and arrays, including handling null values. 
+The methods nullsFirst and nullsLast are used to specify the order of null values when sorting.
+
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+public class NullsFirstExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", null, "Bob", "Charlie", null, "David");
+
+        // Sort using nullsFirst
+        names.sort(Comparator.nullsFirst(Comparator.naturalOrder()));
+
+        System.out.println("Sorted with nulls first: " + names);
+    }
+}
+
+Output: Sorted with nulls first: [null, null, Alice, Bob, Charlie, David]
+
+List<String> names = Arrays.asList("Alice", null, "Bob", "Charlie", null, "David");
+
+// Sort using nullsLast
+names.sort(Comparator.nullsLast(Comparator.naturalOrder()));
+
+System.out.println("Sorted with nulls last: " + names);
+
+Output:  Sorted with nulls last: [Alice, Bob, Charlie, David, null, null]
+
+
+// MoveZeroes to end
+---------------------------------
+import java.util.Arrays;
+
+public class MoveZeroes {
+
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 0, 3, 12}; // Example input array
+        moveZeroes(nums);
+        System.out.println(Arrays.toString(nums)); // Output the modified array
+    }
+
+    public static void moveZeroes(int[] nums) {
+        // Count non-zero elements and fill the array
+        int nonZeroCount = (int) Arrays.stream(nums)
+                                        .filter(num -> num != 0)
+                                        .count();
+
+        // Fill non-zero elements
+        for (int i = 0, j = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[j++] = nums[i];
+            }
+        }
+
+        // Fill remaining elements with zeroes
+        for (int i = nonZeroCount; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+    }
+}
 
 
 

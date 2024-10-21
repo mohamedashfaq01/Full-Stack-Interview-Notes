@@ -39,28 +39,9 @@ ClassNotFoundException is an exception that occurs when you try to load a class 
 
 NoClassDefFoundError is an error that occurs when a particular class is present at compile time, but was missing at run time.
 
-9) Given an Employee list , sort employees based on their salaries in desc order?
 
-        List < Employee > employeesSortedList1 = employees.stream()
-            .sorted((o1, o2) -> (int)(o2.getSalary() - o1.getSalary())).limit(3).collect(Collectors.toList());
-        System.out.println(employeesSortedList1); // To fetch top 3 high salaried employee
-
-        List < Employee > employeesSortedList2 = employees.stream()
-            .sorted(Comparator.comparingLong(Employee::getSalary).reversed()).collect(Collectors.toList()); //ascending order
-        System.out.println(employeesSortedList2);
-		
-		Using Comparator interface:
-			List<Employee> employees  = getEmployeesFromDB();
-			  
-			//Sort all employees by first name
-			employees.sort(Comparator.comparing(e -> e.getFirstName()));
-			  
-			//OR you can use below
-			employees.sort(Comparator.comparing(Employee::getFirstName));
-			 
-			//Sort all employees by first name in reverse order
-			Comparator<Employee> comparator = Comparator.comparing(e -> e.getFirstName());
-			employees.sort(comparator.reversed());
+			
+	
 		
 10) Why is char[] preferred over String for passwords?
 
@@ -255,6 +236,19 @@ A stable sorting algorithm works in O(n Log n) time
 Used in Java’s Arrays.sort() as well as Python’s sorted() and sort().
 First sort small pieces using Insertion Sort, then merges the pieces using merge of merge sort.
 
+How to create various collections using Factory Method of Java 9 ?
+--------------------------------------------------------------------------
+Java 9 introduced the new factory method to create immutable collections very concisely just a one-liner approach.
+ The method name is of(…) for all the three interfaces(List, Set, Map). 
+ 
+ They have provided static methods for List, Set, and Map interfaces which take the elements as arguments and return an instance of List, Set, and Map, 
+respectively. For example, as we can see in below code snippets, how simple, short, and concise are they!
+
+List<String> list = List.of("USA", "Canada", "Russia"); 
+
+Set<String> set = Set.of("USA", "Canada", "Russia");
+
+Map<String, String> map = Map.of("USA", "Washington, D.C.", "Canada", "Ottawa", "Russia", "Moscow");
 
  comparison of TRUNCATE and DELETE in SQL:
 ---------------------------------------------------
@@ -267,6 +261,7 @@ DELETE: Removes specified rows from a table
 DELETE FROM table_name WHERE condition;
 DML (Data Manipulation Language)
 Performance	Generally slower.
+
 
 Immutable class
 ---------------------
@@ -378,7 +373,8 @@ In order to update one component, we have to redeploy the entire application.
 
 What are Microservices?
 While Monolith Application works a single component, a Microservice Architecture breaks it down to independent standalone small applications,
- each serving one particular requirement. Eg, 1 Micro service for Handling all vaccination center operations , 1 for handling all the user base
+ each serving one particular requirement. Eg, 
+ 1 Micro service for Handling all vaccination center operations , 1 for handling all the user base
 Within this microservice architecture, the entire functionality is split in independent deployable module which communicate with each other 
 through API’s(RESTful web services )
 
@@ -469,3 +465,115 @@ A StackOverflowError is a runtime error in java. It is thrown when the amount of
 Incorrectly implemented recursion (i.e. with no termination condition)
 Cyclic dependency between classes
 Instantiating a class within the same class as an instance variable of that class
+
+How to do API Versioning
+---------------------------------------------
+API versioning is a method of managing changes in an API over time. 
+It allows developers to introduce new features, bug fixes, and improvements without breaking the existing functionality relied on by current users.
+ By using versioning, you ensure backward compatibility while allowing continuous API evolution.
+ 
+1. URI Path Versioning
+This is the most widely used and straightforward versioning strategy. The version number is included in the URL path, making it easy to identify which version of the API is being used. 
+
+GET /api/v1/users
+GET /api/v2/users
+
+2. Query Parameters Versioning
+n this method, the version number is passed as a query parameter in the API request.
+GET /api/users?version=1
+GET /api/users?version=2
+
+3. Header Versioning
+GET /api/users
+Headers: Accept-Version: v1
+
+
+git rebase and squash
+-----------------------------
+
+Git Squash
+Definition: Squashing combines multiple commits into a single commit. This is often done during a rebase to clean up the commit history.
+
+1) Interactive Rebase:
+git checkout feature-branch
+git rebase -i HEAD~n
+
+Replace n with the number of commits you want to squash (e.g., HEAD~3 to squash the last three commits).
+
+2) Edit the Interactive Rebase File:  
+In the text editor that opens, you’ll see a list of commits. Change the word pick to squash (or just s) for the commits you want to combine.
+pick 1234567 First commit message
+squash 2345678 Second commit message
+squash 3456789 Third commit message
+
+
+3) Save and Close the Editor:
+After saving, Git will combine those commits into one. You'll be prompted to edit the commit message for the squashed commit.
+
+rebase flow.
+
+Initial Setup:
+
+You have a main branch with two commits:
+A -- B (main)
+
+You create a feature branch and add two commit
+A -- B (main)
+     \
+      C -- D (feature-branch)
+
+Rebase Feature Branch:
+You update the main branch with a new commit:
+
+A -- B -- E (main)
+     \
+      C -- D (feature-branch)
+	  
+Now you run:
+git checkout feature-branch
+git rebase main
+
+Resulting history:
+A -- B -- E -- C' -- D' (feature-branch)
+
+
+put vs patch
+--------------------
+Put: Replaces the entire resource with the new data.
+Requires the full representation of the resource, even if only one field is changing.
+
+PUT /users/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "123-456-7890"
+}
+
+
+PATCH: Partially updates a resource with the provided data.
+equires only the fields that need to be updated; other fields remain unchanged.
+
+PATCH /users/1
+Content-Type: application/json
+
+{
+    "email": "john.new@example.com"
+}
+
+Idempotent APIs refer to operations in RESTful APIs that can be repeated multiple times without changing the outcome 
+
+Idempotent HTTP Methods
+The following HTTP methods are generally considered idempotent:
+
+GET: Retrieves data without modifying the resource. Calling it multiple times returns the same data.
+PUT: Updates a resource entirely. Sending the same PUT request multiple times results in the same resource state.
+DELETE: Removes a resource. If the resource has already been deleted, subsequent DELETE requests will still yield the same result (i.e., the resource remains deleted).
+
+Non-Idempotent HTTP Methods
+The following HTTP methods are not idempotent:
+
+POST: Typically used to create a new resource. Each POST request can create a new resource, leading to different outcomes with each request.
+

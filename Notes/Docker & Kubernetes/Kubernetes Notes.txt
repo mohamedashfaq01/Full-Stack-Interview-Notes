@@ -1,0 +1,226 @@
+Kubernetes
+----------------
+ Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
+ 
+ Kubernetes is a platform that helps you manage applications that are made up of lots of different parts
+ (like databases, front-end systems, etc.) by organizing them into something called "containers."
+ 
+ In tech terms, Kubernetes automates the deployment, scaling, and management of applications.
+ It helps ensure that your apps are always running efficiently, even if something goes wrong, by quickly fixing issues behind the scenes.
+
+Orchestration means: In Kubernetes, "orchestration" refers to the automated management and coordination of containerized applications.
+ 
+Orchestration involves managing the lifecycle of containers, including their deployment, scaling, networking, storage, and monitoring
+
+Think of it like a conductor leading an orchestra to ensure that all musicians play in harmony. Similarly,
+ Kubernetes orchestrates various components of your application to ensure they work together efficiently.
+ 
+ 
+Analogy:
+---------------
+Imagine you run a fast-food restaurant. Each meal order (burger, fries, soda) needs to be prepared in different stations, 
+like a grill, a fryer, and a drink machine. You want everything to be prepared quickly and at the same time so the customer gets a hot meal.
+
+In this analogy:
+
+Containers are like the individual cooking stations (grill, fryer, drink machine). 
+Each container focuses on doing one thing, like making fries or grilling burgers.
+
+Kubernetes is like the restaurant manager. It makes sure all stations are running smoothly,
+ food is prepared on time, and if a machine (container) breaks, Kubernetes can quickly replace it with a new one, so the restaurant keeps running without delays. 
+ 
+Why Kubernetes?
+--------------------
+Simplified Deployment
+
+Automated Scaling and Load Balancing
+
+Self-Healing and Fault Tolerance 
+
+Rollouts and Rollbacks
+
+High availability with technically no downtime
+
+Kubernetes makes it easier to develop, deploy, and manage applications, allowing developers and operations teams to
+ focus more on delivering value and less on infrastructure management.
+ 
+Summary of Challenges Before Kubernetes:
+-------------------------------------------
+Scaling was manual or semi-automated but far from seamless.
+Deployment consistency was hard to achieve across environments (development, testing, production).
+Resource utilization was inefficient, especially when using VMs.
+Application resilience (self-healing, failover) was complex to set up.
+Management overhead: Developers and sysadmins spent a lot of time configuring, managing, and monitoring infrastructure. 
+ 
+ 
+Components of Kubernetes?
+---------------------------
+1) Node (Machine in which our application has deployed)
+
+2) Pods (In Kubernetes (K8s), a pod is the smallest deployable unit and the basic building block of the platform. Each Pod has its own IP address, 
+Each POD can communicate using These IP addresses, It can crash. )
+
+3) Services (a service provides a consistent and reliable way to access and communicate with a group of pods)
+Types:
+ClusterIP: This is the default service type. It exposes the service on an internal IP within the cluster, and it is only accessible from within the cluster.
+
+NodePort: This type exposes the service on a specific port of each cluster node's IP address. It makes the service accessible from outside the cluster by using the node's IP address and the assigned NodePort.
+
+Load Balancer: This type provisions an external load balancer (e.g., from a cloud provider) that directs traffic to the service. It automatically assigns an external IP address, making the service accessible from outside the cluster.
+
+
+
+
+4) Ingress
+
+5) Config maps: (ConfigMap is used to store configuration data that can be consumed by containers running in pods. like databaseUrl, otehr links,
+It provides a way to decouple the configuration from the application code, allowing for easy configuration changes without modifying the container image.
+Else every time you have to  rebuild the application  then  push it to the repository and then pull that new image in your pod and restart the whole thing)
+(stores sensitive data)
+
+6) Secrets:  (secret is just like config map but the difference is that it's used to store secret data credentials for example and 
+it's stored not in a plain text format of course but in base64 encoded format. like API keys, tokens, or certificates)
+(stores sensitive data)
+
+7) Volumes:  (Volumes are a way to provide persistent storage to containers running in pods . It plays a crucial role in managing and persisting data in Kubernetes.
+They enable containers to work with shared and persistent storage, allowing for data integrity, data sharing between containers, and reliable data storage beyond the lifecycle of individual containers.
+Means even if your DB Pod crashes, your data is safe in volumes . 
+If you don’t use them, then your data will reside in PODs. Pods are designed to be crashable units and when they crash, all your data is gone !!)
+
+
+8) Deployments (Deployment in Kubernetes is like a blueprint or set of instructions for running and managing your application. 
+hink of a Deployment as a manager for your application. It ensures that the desired number of copies of your application are always running, even if a pod or node fails. 
+If you want to scale your application, you can simply tell the Deployment to add more replicas, and it will automatically create and manage them for you.)
+
+9) Stateful set:
+StatefulSet in Kubernetes is a way to manage applications that need to maintain their identity and persist data, such as databases. 
+StatefulSets also ensure that each pod has its own persistent storage, so data can be stored and retrieved even if the pod is terminated or moved to a different node.
+ This is important for applications that need to keep their data intact, like databases.
+StatefulSets provide a way to deploy, scale, and update these stateful applications
+
+
+Manifest Files
+-----------------------
+A Kubernetes manifest file is like a blueprint that tells Kubernetes how to set up and manage different parts of your application or system. 
+It's written in a format called YAML or JSON.
+
+
+A Kubernetes manifest file typically includes definitions for various Kubernetes objects, such as deployments, services, pods, replica sets, config maps, secret and more. 
+These objects represent the building blocks of your application or system and define how they should be created, configured, and orchestrated within the Kubernetes cluster.
+
+If we have two files like manifest deployment file and application.properties file. It give preference to manifest file.
+
+Why kubernetes files is needed ?
+
+Automation and Orchestration: Kubernetes uses manifest files to automate and orchestrate deployment, scaling, updating, and deletion of resources.
+Collaboration and Sharing: Manifest files serve as a common language for teams, facilitating sharing, collaboration, and best practice adoption.
+Resource Management: Manifest files define and manage various Kubernetes resources, specifying resource requirements, networking, storage, and other parameters.
+
+		
+What is Load Balancer ?
+
+A load balancer is a networking device or software that distributes incoming network traffic across multiple servers, resources, or applications.
+
+ It acts as a central point of contact for client requests and intelligently directs the traffic to the appropriate server or resource based on predefined rules or algorithms.
+
+The primary purpose of a load balancer is to evenly distribute the workload across multiple servers, 
+optimizing resource utilization and improving the performance and availability of applications or services.
+ By spreading the traffic across multiple servers, a load balancer can handle a large number of concurrent requests, 
+prevent any single server from being overwhelmed, and ensure that the system can scale horizontally to accommodate increasing demand.
+
+
+
+what is Ingress
+----------------------
+Ingress: It acts as an entry point for external requests. It will redirect the request to the other microservices
+Ingress allows you to define routing rules based on hostnames, paths, or other criteria to direct incoming traffic to the appropriate services within the cluster.
+
+ALB (Application Load Balancer):
+By using the AWS Load Balancer Controller, you can define rules for how traffic should be directed to your applications,
+ and the controller takes care of creating and managing the load balancers to handle the traffic effectively.
+
+from Angular, we'll hit only k8 gemerated URL (BaseUrl). eventually it will trigger the other microservices Pods which is deployed in kubernetes clusters (AWS EKS).
+
+
+food-order-services
+, microservice, food catalog, microservice
+
+user service and order service.
+1. restaurant listing
+2.  food catalog
+3. user service
+4. order service.
+5. Front end application
+6. secret
+7. configMap.
+8. Eureka Server.
+
+
+What is Argo CD
+------------------------
+Argo CD is an open-source continuous delivery (CD) tool specifically designed for Kubernetes-based applications. 
+It helps developers automate the deployment and management of applications in a Kubernetes cluster.
+
+If you have a bunch of applications, like websites or web services, that you want to run on a Kubernetes system.
+ Instead of manually setting up and managing everything, which can be time-consuming and prone to errors, you can use Argo CD.
+
+With Argo CD, you can tell it how you want your applications to be set up and configured using simple files like manifest files.
+
+
+Argo CD continuously checks if everything is set up correctly based on the Manifest files. 
+If there are any changes or updates to be made, Argo CD automatically applies them to the Kubernetes system. 
+It ensures that your applications are always running as you want them to be, without you having to worry about it.
+
+Argo CD also helps you roll back to a previous version if something goes wrong. 
+
+In simple terms, Argo CD is like having a reliable assistant that understands your application's needs and 
+takes care of deploying and managing them in a Kubernetes system. It saves you time, reduces errors, and makes sure your applications are always running smoothly.
+ 
+
+
+
+
+
+Installation command
+------------------------------
+Maven:
+        sudo yum update
+        sudo yum install -y maven
+        mvn -version
+    
+Install Amazon Corretto JDK 11:
+sudo yum install java-11-amazon-corretto-headless
+Update the system, install Docker, and configure it to start on system boot:
+        sudo yum update -y
+        sudo yum install -y docker
+        sudo service docker start
+        sudo chkconfig docker on 
+    
+Download Jenkins repository configuration, install Jenkins, and start it:
+        sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+        sudo yum install jenkins -y
+        sudo systemctl enable jenkins
+        sudo systemctl start jenkins
+    
+Install NVM (Node Version Manager) and Node.js version 16:
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+        . ~/.nvm/nvm.sh
+        nvm install 16
+    
+Install Git:
+sudo yum install -y git
+Check the status of Jenkins service:
+sudo systemctl status jenkins
+Retrieve the initial admin password for Jenkins:
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+Add Jenkins user to the docker group to grant access:
+sudo usermod -aG docker jenkins
+Run SonarQube in Docker container:
+docker run -d -p 9000:9000 --name sonarqube sonarqube
+Check the logs of the SonarQube container:
+docker logs -f sonarqube
+
+
+
+ 

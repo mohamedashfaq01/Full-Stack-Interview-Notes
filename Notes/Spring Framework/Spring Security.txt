@@ -91,6 +91,16 @@ public class CustomSecurityConfig extends webSecurityConfigurerAdapter {
 
 }
 
+How to secure backend springboot application
+-----------------------------------------------
+1: Use Spring Security
+2: Use JWT for Authentication
+3: Use HTTPS
+4: Implement CORS Policy
+5: Input Validation and Sanitization
+6: Implement Rate Limiting
+7: Logging and Monitoring
+
 OAuth
 -----------
 
@@ -322,6 +332,20 @@ In Spring Boot
 1) Enable CSRF Protection: Spring Security has built-in support for CSRF protection. You need to enable it in your configuration.
 2) Send CSRF Token to Client: When a user logs in or accesses the site, send the CSRF token to the client (Angular app).
 
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .and()
+            .authorizeRequests()
+                .anyRequest().authenticated();
+    }
+}
+
 Putting It All Together
 Spring Boot: When you log in, Spring Boot sends a CSRF token to Angular.
 Angular: Angular includes this CSRF token in every request it makes to the server.
@@ -470,103 +494,6 @@ public class MyController {
         return "Hello from Spring Boot!";
     }
 }
-
-XSS
-------
-Cross-Site Scripting (XSS) is a type of security vulnerability typically found in web applications. It allows attackers 
-to inject malicious scripts into web pages viewed by other users. These scripts can steal information, manipulate content, or perform actions on behalf of the user.
-
-Scenario: A Comment Form
-Imagine you have a web application with a comment form where users can submit their comments. The form accepts text input from users and displays it on a webpage.
-
-Without Input Sanitization:
-*********************************
-
-User Input: An attacker submits a comment with malicious code:
-<script>alert('You have been hacked!');</script>
-
-Storage and Display: This comment is stored in your database and then displayed on the webpage. 
-Since there's no sanitization, the script tag is rendered as part of the page's HTML.
-
-Result: When other users visit the page, the malicious script executes and shows an alert box. 
-This could be a harmless example, but in a real attack, the script could steal data or perform other harmful actions.
-
-With Input Sanitization:
-************************************
-User Input: The same malicious comment is submitted.
-
-Sanitization Process: Before storing the comment, your application sanitizes it by removing or encoding dangerous characters:
-The sanitized comment would look like this:
-&lt;script&gt;alert('You have been hacked!');&lt;/script&gt;
-
-Storage and Display: This sanitized comment is stored and displayed as text, not as executable code. 
-Instead of running the script, it appears as plain text.
-
-  
-Preventing XSS in Angular:
-Use Angular's Built-in Sanitization:
-
-1) Use Angular's Built-in Sanitization:
-Angular provides built-in sanitization to protect against XSS. 
-It automatically sanitizes values used in bindings and template expressions. For example, Angular automatically sanitizes values in {{ }} interpolations and [src] bindings.
-
-
-2) DomSanitizer: Use Angular's DomSanitizer service to sanitize values. For instance, if you are binding HTML content, you can use bypassSecurityTrustHtml() method cautiously.
-
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
-constructor(private sanitizer: DomSanitizer) {}
-
-getSafeHtml(html: string): SafeHtml {
-  return this.sanitizer.bypassSecurityTrustHtml(html);
-}
-
-3) Avoid innerHTML and dangerouslySetInnerHTML: Directly using innerHTML can expose your application to XSS attacks. 
-Use Angular's data binding rather than manipulating the DOM directly.
-
-
-
-Web Security
---------------------
-
-Ensuring the security of your web application is critical to protect it from various types of attacks and vulnerabilities. 
-
-1. Validate and Sanitize User Input
-Sanitize User Input: Ensure all user inputs are properly sanitized to prevent injection attacks like SQL injection.
-Validate Input: Use validation to check that inputs meet expected formats and constraints.
-
-2. Authentication
-Strong Password Policies: Enforce strong password requirements (e.g., minimum length, complexity).
-Multi-Factor Authentication (MFA): Add an extra layer of security by requiring multiple forms of verification.
-Session Management: Use secure session management practices, such as short session timeouts and secure cookies.
-
-3. Authorization
-Role-Based Access Control (RBAC): Implement RBAC to restrict access based on user roles and permissions.
-Least Privilege Principle: Ensure users have the minimum level of access necessary for their tasks.
-
-4. Data Encryption
-HTTPS: Use HTTPS to encrypt data in transit between the client and server.
-Encryption at Rest: Encrypt sensitive data stored in databases and other storage solutions
-
-5. Cross-Site Scripting (XSS) Prevention
-Output Encoding: Encode all user-generated content before displaying it on web pages.
-Content Security Policy (CSP): Implement CSP to restrict the sources from which scripts can be loaded.
-
-6. Cross-Site Request Forgery (CSRF) Protection
-CSRF Tokens: Use CSRF tokens to verify the authenticity of state-changing requests.
-
-7. Use Secure Password Storage
-Why: Protects user passwords from being easily compromised.
-How: Use strong hashing algorithms (e.g., bcrypt) to store passwords securely.
-
-8. Implement Secure Session Management
-
-What it is: Managing user sessions securely to prevent hijacking and unauthorized access.
-Why it’s important: Ensures that only the rightful user can maintain an active session.
-How to implement:
-Use secure cookies (HttpOnly, Secure, SameSite attributes).
-Invalidate sessions after logout and set appropriate session timeouts.
-
 
 
 

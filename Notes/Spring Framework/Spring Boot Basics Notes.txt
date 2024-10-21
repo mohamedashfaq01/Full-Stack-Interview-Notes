@@ -16,11 +16,6 @@ The Dependency Injection is a design pattern that removes the dependency of the 
 Dependency Injection makes our programming code loosely coupled. 
 
 
-
-
-
-
-
 A single @SpringBootApplication annotation is used to enable the following annotations:
 
 @EnableAutoConfiguration: It enables the Spring Boot auto-configuration mechanism.
@@ -44,7 +39,7 @@ The Spring Framework pick it up and configure it in the application context as a
 @Repository: It is a class-level annotation. The repository is a DAOs (Data Access Object) that access the database directly.
  The repository does all the operations related to the database.
 
-@RequestBody, @RequestMapping, @ResponseBody, @PathVariable, @RequestParam
+@RequestBody, @RequestMapping, @PathVariable, @RequestParam
 
 @Autowired vs @Primary vs @Qualifier
 ------------------------------------------
@@ -174,9 +169,6 @@ Main Class: Annotate with @SpringBootApplication.
 Auto-Configuration: Spring Boot configures beans based on classpath dependencies.
 Embedded Server: Automatically starts if a web application.
 Actuator: Adds endpoints for monitoring. 
-
-
-
 
 
 What are conditional annotations and explain the purpose of conditional annotations in Spring Boot?
@@ -333,3 +325,72 @@ Lifecycle Methods	init(), doFilter(), destroy()							preHandle(), postHandle(),
 Execution Order		Filters are executed before and after the entire servlet processing		Interceptors are executed before and after controller method invocation
 Access to Handler	Does not have access to the handler (controller) information	Has access to the handler (controller) information
 
+
+
+
+food delivery app: (Udemy Notes)
+-----------------------------------
+
+Restaurant Listing page (service, mysql db) -> food catatlog (service, mongo db) -> order page (service, oracle db) -> user page (service)
+even if the order srrvoce is down, you can still see the list of restaurant page. 
+
+
+All those microservices should have eureka client dependecy in it.
+and should have one separate eureka server running to discover and register the clients associated to it.
+
+why Eureka?
+we have multiple microservices, dockerize it and deploy it on the cloud.
+
+Now, when going towards the cloud, what happens is your applications are deployed as instances in the cloud, sometimes due to some crash issues or some failures.
+Your instances can go down and when they cope from the failures, they are assigned a new IP address which is dynamically assigned by cloud providers to your instances.
+
+Since you have a new IP address,  which is a big problem to detect it, right?
+
+Because if the IP addresses are dynamically assigned and it keeps on changing now and then, you cannot
+just change your configuration files to change the URLs and hence we are using Eureka Server as a registry
+and discovery pattern for our microservices to communicate with each other without having to update
+any of the URLs or IP addresses or port whenever your instances go up or down.
+
+Registry: Microservices can register themselves with Eureka Server, providing information like (IP address, port, health status etc. 
+This allows Eureka Server to maintain an up-to-date list of available services in the system.
+
+Discovery: Clients (other microservices) can query Eureka Server to dynamically discover and locate the services they need.  
+Eureka enables seamless communication between microservices.
+
+Fault: Eureka Server continuously monitors the health of registered services. Eureka Server automatically removes unhealthy services from the registry.
+
+RestTemplate
+-----------------
+while calling the API fropm the other microservice, we can use RestTemplate.
+Add @Bean of RestTemplate in the main Application class. and autowire it. use @LoadBalanced to get the response quickly form multiple instances.
+
+don't use localhost:9091 port and all , isnce we're using Eureka, use spring.application.name like RESTAURANT_SERVICE
+restTemplate.getForObject("https://RESTAURANT_SERVICE/api/fetchById")
+
+
+MapStruct
+------------
+Add this dependency separately to map the Entity to DTO objects.
+Use @Mapper. 
+Send The DTO object from controller to client side, we should not send the entity.
+while saving it, save it the entity information and while sending it to Client use DTO.
+ Using mapper, it's very easy to convert from DTO to Entity and vice versa.
+
+Dialect: Converts the ORM query to SQL query based on the dialect.
+
+
+import com.codeddecode.restaurantlisting.dto.RestaurantDTO;
+import com.codeddecode.restaurantlisting.entity.Restaurant;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+@Mapper
+public interface RestaurantMapper {
+
+    RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
+
+    Restaurant mapRestaurantDTOToRestaurant(RestaurantDTO restaurantDTO);
+
+    RestaurantDTO mapRestaurantToRestaurantDTO(Restaurant restaurant);
+
+}

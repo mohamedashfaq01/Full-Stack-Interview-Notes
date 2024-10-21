@@ -97,6 +97,18 @@ The pipe method is used to chain the map and catchError operators.
 map(response => { ... }) can transform the response data if needed.
 catchError(error => { ... }) handles any errors that occur during the HTTP request. 
 
+#Angular interview Question: 
+You have to run the second API call only after the first API call is finished, How do you handle this situation ?
+
+𝗰𝗼𝗻𝗰𝗮𝘁𝗠𝗮𝗽: This is used when you need to maintain order and run observables sequentially. This approach ensures that your second API call only runs when the first one is finished.
+
+𝘀𝘄𝗶𝘁𝗰𝗵𝗠𝗮𝗽: This is used when you only care about the response to your most recent request. (Explain this operator with search operation example )
+
+𝗺𝗲𝗿𝗴𝗲𝗠𝗮𝗽: This is used when you want to run multiple observables in parallel.
+
+
+Must Explore: https://blog.stackademic.com/rxjs-operators-in-angular-af796f8e7921
+
 Subject vs BehaviourSubject
 -------------------------------
 In Angular, Subject and BehaviorSubject are both types of Observables provided by RxJS. 
@@ -231,6 +243,7 @@ getRecruiterAndHLDetailsUsingFork(createEventPayloadObj: EventInfo) {
       this.callSaveEventDetailsApi(createEventPayloadObj);
     });
   } 
+
 
 
 

@@ -167,6 +167,28 @@ Example of Cloud Computing Types
 • Rekognition (Software as a Service)
 
 
+AWS RDS - This Database AWS service is easy to set up, operate, and scale a relational database in the cloud
+
+AWS EKS - Elastic Kubernetes Service - The tool allows you to use Kubernetes on Amazon cloud environment without installation.
+
+AWS ALB - Load balancer
+
+AWS EC2 Instance - EC2 is a virtual machine in the cloud on which you have OS level control. You can run this cloud server whenever you want.
+
+Chocolatey: Windows Package Manager
+
+e.g:
+choco install awscli
+choco install eksctl 
+choco install kubernetes-cli 
+(Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that allows users to run Kubernetes on Amazon Web Services (AWS) and on-premises.)
+
+EKS: AWS EKS (Amazon Elastic Kubernetes Service) is a managed container orchestration service provided by Amazon Web Services (AWS). 
+It simplifies the deployment, management, and scaling of containerized applications using Kubernetes.
+
+EKS Control Plane: The control plane in a Kubernetes cluster is like the brain or central command center of the cluster. 
+It is responsible for managing and controlling all the nodes (machines) and applications running within the cluster.
+
 
 MFA in AWS
 -----------------
@@ -470,6 +492,51 @@ Recycle Bin for EBS Snapshots
 	you can recover them after an accidental
 	deletion
 	• Specify retention (from 1 day to 1 year)
+
+
+What is EKS
+----------------------
+AWS EKS (Amazon Elastic Kubernetes Service) is a managed container orchestration service provided by Amazon Web Services (AWS). 
+
+It simplifies the deployment, management, and scaling of containerized applications using Kubernetes.
+
+AWS EKS is suitable for organizations and developers looking to leverage Kubernetes for container orchestration without the complexity of managing the underlying infrastructure. 
+
+It offers a reliable, scalable, and secure environment for deploying and managing containerized applications in the AWS cloud.
+
+What is EKSCTL
+--------------------------
+
+eksctl is a simple command line tool for creating and managing Kubernetes clusters on Amazon EKS.
+
+https://eksctl.io/.
+
+We can create a basic cluster in minutes with just one command
+eksctl create cluster
+
+eksctl provides the fastest and easiest way to create a new cluster with nodes for Amazon EKS
+
+A cluster will be created with default parameters :
+
+exciting auto-generated name, e.g., fabulous-mushroom-1527688624
+two m5.large worker nodes 
+use the official AWS EKS AMI
+us-west-2 region
+a dedicated VPC (check your quotas)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	

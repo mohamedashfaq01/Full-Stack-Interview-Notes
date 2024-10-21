@@ -1,4 +1,23 @@
+@ExceptionHandler
+The first approach was to include @ExceptionHandler methods in each controller,
 
+they realized the approach was not optimal, since exception handlers might be repeated in many controllers 
+(PostController#create and CommentController#create throw the same exception).
+ One of the developers thought it would be great if they could create a centralized point for exceptions,
+ so that whenever an exception is thrown by any controller, it would be caught and handled by that point
+ instead of having handler methods in each controller class. @ControllerAdvice came into play.
+ 
+ Write a handleException method. This one is meant to be annotated with @ExceptionHandler and
+ will handle all exceptions declared in it and then will delegate to a specific handler method.
+
+
+
+
+CustomerAlreadyExistsException
+NoSuchCustomerExistsException
+Customer getCustomer(Long id): NoSuchElementException 
+String addCustomer(Customer customer): CustomerAlreadyExistsException 
+String updateCustomer(Customer customer): NoSuchCustomerExistsException 
 
 Exceptions thrown by a Controller method is mapped to the ControllerAdvice method using @ExceptionHandler annotations.
 
@@ -43,28 +62,6 @@ public Foo findById(@PathVariable("id") Long id, HttpServletResponse response) {
            HttpStatus.NOT_FOUND, "Foo Not Found", exc);
     }
 }
-
-@ExceptionHandler
-The first approach was to include @ExceptionHandler methods in each controller,
-
-they realized the approach was not optimal, since exception handlers might be repeated in many controllers 
-(PostController#create and CommentController#create throw the same exception).
- One of the developers thought it would be great if they could create a centralized point for exceptions,
- so that whenever an exception is thrown by any controller, it would be caught and handled by that point
- instead of having handler methods in each controller class. @ControllerAdvice came into play.
- 
- Write a handleException method. This one is meant to be annotated with @ExceptionHandler and
- will handle all exceptions declared in it and then will delegate to a specific handler method.
-
-
-
-
-CustomerAlreadyExistsException
-NoSuchCustomerExistsException
-Customer getCustomer(Long id): NoSuchElementException 
-String addCustomer(Customer customer): CustomerAlreadyExistsException 
-String updateCustomer(Customer customer): NoSuchCustomerExistsException 
-
 
 
 Standardize Error Responses:

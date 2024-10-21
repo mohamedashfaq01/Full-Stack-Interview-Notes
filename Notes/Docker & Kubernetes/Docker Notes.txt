@@ -1,0 +1,217 @@
+
+What is docker? and why we use that?
+-------------------------------------------------------
+Docker is an open-source platform that automates the process of developing, shipping, and running applications using containerization technology.
+ Containers allow you to package an application and its dependencies together into a single, lightweight, and portable unit.
+
+Key Concepts
+Container: A container is an isolated environment that runs an application and its dependencies. 
+It includes everything needed to run the application, such as code, runtime, libraries, and configurations.
+
+Image: An image is a read-only template used to create containers. It contains the application code, runtime, libraries, and configurations. 
+Images are built from Dockerfiles, which define how the image is constructed.
+
+Dockerfile: A text file with instructions for building a Docker image. It specifies the base image,
+ the application code, and any dependencies or configurations needed.
+ 
+Docker Engine: The Docker Engine is the runtime that runs and manages containers.
+
+Why Use Docker?
+
+1) Consistency Across Environments:
+Environment Uniformity: Docker ensures that the application runs the same way in different environments (development, testing, production)
+ by packaging everything needed into a container. This eliminates issues related to environment inconsistencies.
+
+2) Portability:
+Cross-Platform Compatibility: Docker containers can run on any system that supports Docker,
+ regardless of the underlying operating system or hardware. This makes it easy to move applications between different environments and platforms.
+
+3) Scalability:
+Efficient Resource Utilization: Docker containers are lightweight and share the host OS kernel, which allows for higher density and more efficient resource usage compared to virtual machines.
+Ease of Scaling: Docker simplifies scaling applications by allowing you to quickly deploy multiple instances of containers.
+
+4) Rapid Deployment:
+Faster Startup: Containers start up quickly compared to traditional virtual machines because they share the host OS kernel and do not require a full OS boot.
+Easy Updates: Docker makes it easy to update applications by redeploying new container images.
+
+5) Version Control:
+Image Versioning: Docker images can be versioned and tagged, allowing you to manage and roll back to previous versions of an application if needed.
+
+6) Integration with CI/CD:
+
+Continuous Integration/Continuous Deployment: Docker integrates well with CI/CD pipelines, facilitating automated testing, building, and deployment processes 
+ 
+command To build: docker build -t my-spring-boot-app .
+
+command to Run: docker run -p 8080:8080 my-spring-boot-app
+
+In this example, Docker packages the Spring Boot application into a container, allowing it to run consistently across different environments and making it easy to deploy and scale.
+
+Docker COntainer vs Docker Images
+----------------------------------
+Docker Container: Docker Containers are actually Docker Virtual Machines.Docker image is a map of the house, while a Docker container is the actual house itself.
+Using images, containers can be created as many times as necessary.
+A container requires computing resources to run since it runs as a Docker Virtual Machine.
+
+Docker Image : Images are templates containing instructions for creating containers. With Docker images, containers can be created to run on the Docker platform.
+An image is only created once.
+Computing resources aren't required to work with images.
+
+docker vs kubernetes.
+-----------------------------
+
+Feature				Docker									Kubernetes
+Purpose				Containerization platform				Container orchestration platform
+Primary Function	Creates, manages, and runs containers	Manages clusters of containers
+Deployment			Single-node deployment					Multi-node, distributed deployment
+Use Case			Suitable for development and small-scale deployments	Suitable for large-scale, production-grade deployments
+
+Conclusion
+Use Docker for creating and managing individual containers and small-scale projects.
+Use Kubernetes for orchestrating and managing large-scale, distributed applications requiring high availability and scalability.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*******************************************************************************************************
+
+What is Docker:
+
+We can Imagine Docker as a Cargo Ship that has the ability to hold big boxes (containers) having their distinct objectives and id. 
+These containers contain items (application + Dependencies) that are required to make that container useful and runnable anywhere.
+These items are manufactured using templates ( Docker File ).
+
+Docker - Docker is a containerization platform which packages your application and all its dependencies together in the form of containers
+ so as to ensure that your application works seamlessly in any environment, be it development, test or production.
+ 
+Hence A container contains complete ecosystem of your application 
+including the application and all of its dependencies, and everything that is needed for an application to run on the server
+This guarantees that the software will always run the same, regardless of its environment.
+
+Did you use Docker in your Project? If yes why ?
+-----------------------------------------------------
+
+Yeah we did. We had a common problem of Developers saying “BUT IT WORKS ON MY MACHINE”
+
+There are some scenarios which motivated us to move to dockerized application
+
+We sometimes faced issue that our same code base when deployed to test, dev , worked fine but breaks on prod or QA servers .
+ We found that Even though code base is same but dependencies / their version were problematic hence if we are able to package
+ everything in one big container and run application in that container with same configuration, dependence then things wont break abruptly. Hence we moved to Docker.
+ 
+Also, Sometimes we found a bug when deploying a new version of one particular software. 
+We can revert to the last version with the previous Docker image easily. Without Docker, we have to set up the rollback step from runtime to runtime
+
+Apart from that we achieved few more advantages like -
+Docker is an open platform for developing, shipping, and running applications. 
+Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. 
+
+
+how it works.
+--------------------
+
+            (Build)     (run)
+dockerFile ----> Image ---->  Container
+
+ 
+What is Dockerfile
+----------------- 
+This text file provides a set of instructions to build a Docker image, including the operating system, 
+languages, environmental variables, file locations, network ports, and any other components it needs to run.
+
+What is Docker image (also called as Snapshot)?
+--------------------------------------------------------
+Create a docker image using the docker build command whenever you pass a Dockerfile to the docker build command then the docker daemon 
+will create a docker image according to the Dockerfile instruction.
+
+Docker images can’t be executed by themselves and cannot run or start.  It is just a blueprint for creating Docker containers
+
+Run the docker images using the docker run command. whenever we pass the command to docker client then the docker client passes this command to the docker daemon then docker daemon will create the container for that image.
+
+Push the docker image to the public registry like DockerHub using the docker push command after pushed you can access these images from anywhere using docker pull command.
+
+Docker hub
+---------------
+Basically we can create the docker images and save it in the docker hub repository. we can pull and push those images
+just like github code.
+
+Docker images are stored in a registry, which is a centralized location for storing and distributing Docker images. 
+
+When you run a Docker container, Docker pulls the image from the registry and runs it on your local machine.
+
+https://hub.docker.com/
+
+What is Docker container  ?
+------------------------------
+A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI. 
+
+Containers provide you with a lightweight and platform-independent way of running your applications.
+ Every container is isolated but access to resources on another host or container can be allowed with the help of docker networking.
+
+A container is volatile it means whenever you remove or kill the container then all of its data will be lost from it. 
+If you want to persist the container data use the docker storage concept.
+
+
+Docker
+What It Does:
+
+Containers: Docker allows you to package an application and its dependencies into a "container." 
+This container has everything the application needs to run, including the code, libraries, and system tools.
+
+Portability: Containers can run anywhere—on your laptop, on a server, or in the cloud—because they include everything needed to run the application.
+Isolation: Each container runs in its own environment, separate from other containers. 
+This isolation helps ensure that the application works the same way regardless of where it is deployed.
+Why It's Useful:
+
+Consistent Environments: Developers can be sure that the application will run the same way in different environments (development, testing, production).
+Easy Deployment: Containers can be quickly started, stopped, and moved around, making deployment faster and easier.
+Resource Efficiency: Containers use fewer resources than traditional virtual machines because they share the same operating system kernel.
+
+
+
+
+
+Dockerfile for Angular and Backend Microservices
+----------------------------------------------------------
+
+Backend Microservices Dockerfile
+FROM adoptopenjdk/openjdk11:jdk-11.0.2.9-slim
+WORKDIR /opt
+COPY target/*.jar /opt/app.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+    
+
+
+Note: This Dockerfile will be the same for all the backend microservices.
+
+
+
+Angular Dockerfile
+# Stage 1: Build the Angular app
+FROM node:16 as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+ 
+# Stage 2: Serve the Angular app using Nginx
+FROM nginx:alpine
+COPY --from=build /app/dist/food-delivery-app /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+    

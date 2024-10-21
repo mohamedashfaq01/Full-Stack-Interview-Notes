@@ -56,6 +56,13 @@ AoT: Ahead-Of-Time Compilation: When the code is compiled as part of the build p
 ng build --aod
 (From Angular 9 , by default AOT is enabled in project) 
 
+"ng build --prod"
+This flag activates:
+
+Minification: Reduces the size of your JavaScript, CSS, and HTML files.
+Tree Shaking: Removes unused code from the final bundle.
+Dead Code Elimination: Removes unused functions, classes, and code from your app.
+
 3. Change Detection Strategy
 Definition: Optimize how Angular checks for changes in components.
 
@@ -140,6 +147,17 @@ install npm install source-map-explorer --save-dev
 ng build --prod --sourceMap
 
 npm source-map-explorer  dist/demo/main.efrgre.js (opens visualization UI tool, we can check which module takes more space)
+
+9. Use Source Maps Only in Development
+Source maps are useful for debugging, but they can increase the build size in production. Disable source maps in production to reduce build size.
+
+How to Disable Source Maps: In angular.json
+
+"configurations": {
+  "production": {
+    "sourceMap": false
+  }
+}
 
 
 Minification and uglification

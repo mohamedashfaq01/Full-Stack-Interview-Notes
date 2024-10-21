@@ -1,0 +1,72 @@
+
+Java 8 Coding Interview Questions (Most Asked)
+https://www.youtube.com/playlist?list=PLyHJZXNdCXsfcMboYwGoL6wKAFPxljz5W  
+
+Java 8 new features || Java 8 Interview Questions and Answers ( Live Demo with Examples )
+https://www.youtube.com/watch?v=oUdENE7ljjw&list=PLyHJZXNdCXsdeusn4OM33415DCMQ6sUKy&ab_channel=CodeDecode
+
+Internal Working and implementation of hashmap and hashset | Java Interview Questions | Code Decode
+https://www.youtube.com/watch?v=7k0VYHuUF6g&list=PLyHJZXNdCXsdeusn4OM33415DCMQ6sUKy&index=11&ab_channel=CodeDecode
+
+Coding questions for LinedList and sort etc.
+https://www.youtube.com/watch?v=TU_TEoYCpPs&list=PLyHJZXNdCXscLDTLDzgsesrcnL8vdTWSY&index=3&ab_channel=CodeDecode
+
+What is System Design | High Level | Low Level | Code Decode | HLD | LLD | Introductio 
+https://www.youtube.com/watch?v=haYF2tRfjy4&list=PLyHJZXNdCXsfGig2zcWL71kdsZqYS7ltJ&ab_channel=CodeDecode
+
+Docker Question and Answer
+https://www.youtube.com/playlist?list=PLyHJZXNdCXsdCruLcO_qsOuv2wlU8WI50 (4 videos)
+
+Stack vs Heap Memory in Java: Understanding the Key Difference
+https://www.linkedin.com/feed/update/urn:li:activity:7237712465071898625/
+
+Mastering Concurrency with Java Executor Framework
+https://www.linkedin.com/feed/update/urn:li:activity:7236940234528043009/
+
+Java Memory Management
+https://www.linkedin.com/feed/update/urn:li:activity:7244365492973400064/?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7244365492973400064%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29
+
+How a hashtag#Hashmap Works Internally
+https://www.linkedin.com/in/mohamed-ashfaq-49b7b865/recent-activity/reactions/
+
+https://www.linkedin.com/search/results/content/?keywords=how%20hashmap%20works&origin=SWITCH_SEARCH_VERTICAL&sid=_Uu
+https://www.linkedin.com/search/results/content/?keywords=how%20hashmap%20works&origin=SWITCH_SEARCH_VERTICAL&sid=_Uu
+
+Java interview q&A
+https://www.youtube.com/watch?v=-oafFAPgLao&list=PL3hpmQhMoz-dMhvnkTunjOMZSa_f3FH24&ab_channel=AnkitWasankar
+
+https://www.javatpoint.com/classloader-in-java
+
+
+Write a Java program to reverse a given string with preserving the position of spaces?
+Write a Java Program for the Fibonacci series in recursion.
+
+
+
+https://www.javatpoint.com/java-string-faqs
+(java programs)
+
+Java 8 – Stream Collectors groupingBy examples
+https://mkyong.com/java8/java-8-collectors-groupingby-and-mapping-example/
+
+
+If you're short on time and busy preparing for your next Java and Spring Boot Interview..
+
+Then I will recommend you to spend just ~3 hours to watch these 5 essential videos. They'll cover 70-80% of the core topics you'll need and help you get prepped for your interview:
+
+1) Top 10 Essential Spring Boot Interview Concepts | Must-Know Topics for every Spring Boot Developer: https://linktw.in/hmooIN
+
+2) 10 Essential Spring Boot Scenario-Based Interview Questions: https://linktw.in/sPhpxK
+
+3) Top 10 Essential Spring Boot Annotations for Interviews: https://linktw.in/GoMzdV
+
+4) Java Multithreading and Java Memory Model: 
+https://linktw.in/FhRNHO
+
+5) Solid Principles: https://linktw.in/RZpWVR
+
+If you are really short on time and wants to save time on finding resources, 
+then I will recommend you to go through this Java Spring Boot Revision Kit, it will give you all the things like Q&As, Videos, Quizzes in one place:
+
+ https://lnkd.in/gi55S7yv
+

@@ -159,7 +159,8 @@ public class Employee implements Workable, Eatable {
 ```
 
 ### D: Dependency Inversion Principle (DIP)
-**Principle**: High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions.
+**Principle**: High-level modules should not depend on low-level modules. Both should depend on abstractions.
+ Abstractions should not depend on details. Details should depend on abstractions.
 
 **In Layman Terms**: If you have a remote control and a TV,
  the remote control should work with any TV, not just a specific model. 

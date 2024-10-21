@@ -18,8 +18,29 @@ CI (You're taking the code, you're packaging it up, and then you are giving it t
 or any security check)
 CD (the point is, you take the gift, that packaged gift and you drive it to the person's house, you deliver it. So that's that CD process.)
 CD (Continous Delivery/Deployment)
+
 Containous Delivery: There will be manual intervention of like button click event etc. 
 COntinous Deployment: As soon as we push the code to github, jenkins automatically pick up and deploy it. (no human intervention)
+
+
+What is Continuous Integration (CI) ?
+---------------------------------------------
+ It is a software development practice where developers frequently and automatically integrate their code changes into a shared repository.
+ The main purpose of CI is to catch and resolve integration issues early in the development process, promoting collaboration, faster feedback, and code readiness for deployment.
+
+Each developer commits their changes to the shared repository frequently.
+
+The CI server automatically triggers a build process whenever a new commit is detected.
+
+The build process compiles the code, runs automated tests, and performs static code analysis.
+
+If any issues are found, such as failing tests or code quality violations, the CI server immediately notifies the developers.
+
+Developers can quickly identify the cause of the issue and fix it since they committed their changes recently.
+
+Once the issues are resolved, the CI server rebuilds and retests the application, ensuring that the integration is successful.
+
+The team can confidently release the application, knowing that it has gone through a rigorous integration process.
 
 
 Container Images : (While duting the build process)
@@ -64,6 +85,8 @@ Jenkins
 Jenkin is the most popular, open source Continuous Integration tool. It has tons of plugins that enhance its functionality. 
 if your team is developing a project, Jenkins will continuously test your project builds and show you the errors in early stages 
 of your development.
+
+Jenkins is a popular open-source automation tool that helps automate various tasks in the software development process, particularly in the context of Continuous Integration (CI)
 
 In Continuous Integration after a code commit, the software is built, deployed and tested immediately.This commit, build, test, 
 and deploy is a continuous process, and hence the name continuous integration/deployment.

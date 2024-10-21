@@ -149,6 +149,361 @@ LEFT JOIN TableB b ON a.EmployeeName = b.EmployeeName
 WHERE b.EmployeeName IS NULL
 
 
+WebFlux
+------------------
+Spring WebFlux is a part of the Spring Framework that enables developers to build reactive, non-blocking, and asynchronous web applications.
+
+Reactive Types:
+Mono: Represents a stream that emits 0 or 1 value.
+Flux: Represents a stream that emits 0 to N values.
+
+How WebFlux Works:
+The repository method findAll() returns a Flux<User>, meaning it emits zero or more User objects.
+The method findById() returns a Mono<User>, meaning it emits either zero or one User object.
+Since WebFlux is non-blocking, while one thread is waiting for data, it can work on other tasks. This allows for better resource utilization.
+
+WebFlux is a framework for building reactive web applications with a focus on asynchronous request handling.
+Kafka is a platform for real-time event streaming, designed for message publishing, consuming, and data integration across distributed systems.
+
+WebClient is similar to restTemplate. the diff is.
+WebClient is part of Spring WebFlux and supports reactive, non-blocking calls.
+RestTemplate is part of Spring MVC and supports synchronous, blocking calls.
+
+
+
+Scenario -1 : Real-Time Use Case: Reactive Web Application for Real-Time Data Streaming (Stock Price Dashboard).
+
+Problem:
+Imagine you are building a web application that displays live stock market prices to users. 
+Each user can monitor multiple stocks in real time. Thousands of users might be connected to the platform simultaneously, 
+and stock prices are updated frequently (every second or millisecond). The application must update the stock prices for each user without any delays, 
+and each price update must be reflected immediately on the UI.
+
+Solution: Reactive Web Application
+By using Spring WebFlux and reactive programming principles, you can build a reactive web application that handles thousands of simultaneous connections efficiently.
+
+Scenario -1 :Real-Time Use Case: Live Sports Score Application
+
+Scenario:
+Consider a live sports score application that provides real-time updates of ongoing matches. 
+Users can view live scores, player statistics, and game events without refreshing the page.
+
+what is microservice architecture, how to say it in interview
+-------------------------------------------------------------
+Microservice architecture is an architectural style where an application is composed of small, loosely coupled, and independently deployable services. 
+Each service is designed to perform a specific business function and communicates with other services over lightweight protocols like HTTP or messaging queues.
+
+
+Client -> Identity Provider -> API Gateway -> Load Balancer -> Multiple Microsevices -> (Service dicovery and Orchestarion Management).
+
+Main Components.
+The main components of Java Spring Boot Microservices include:
+
+Services
+Service Registry
+API Gateway
+Cloud Infrastructure
+Containerization and Orchestration
+Message Broker
+Security
+Monitoring
+
+How to monitor spring boot application on prod.
+---------------------------------------------------
+Use Springboot actuator.
+/health, /env, /metrics etc
+
+Performance Montioring tool
+Prometheus: For collecting and storing metrics.
+Grafana: For visualizing metrics and creating dashboards.
+
+We can use ELK stack(ElasticSearch, Logstash, Kibana) as well for log visualization
+
+Dynatrace, and datadog. 
+
+What is Zookeeper in Kafka.
+---------------------------------
+A zookeeper is used in kafka for managing brokers. ,maintaining metadata about topics and partitions.
+Kafka 2.8.0 intriduced to run without zookeeper.
+
+
+Describe the Spring bean lifecycle.
+------------------------------------------
+The lifecycle of a Spring bean consists the following steps:
+
+1) Instantiation: Create a new bean instance.
+2) Properties population: Inject dependencies into the bean.
+3) Bean Name Aware: Set the bean name (if implementing BeanNameAware).
+4) Bean Factory Aware: Set the bean factory (if implementing BeanFactoryAware).
+5) Application Context Aware: Set the application context (if implementing ApplicationContextAware).
+6) Pre-Initialization: Apply @PostConstruct or custom init methods.
+7) InitializingBean: Call afterPropertiesSet() (if implementing InitializingBean).
+8) Post-Initialization: Apply BeanPostProcessors for additional processing.
+9) Ready for Use: Bean is ready to be used in the application.
+10) Destruction: Clean up resources using @PreDestroy or custom destroy methods.
+
+@postConstruct
+------------------------
+The @PostConstruct annotation used to indicate a method that should be executed after dependency injection is done to perform any initialization.
+
+The method annotated with @PostConstruct is called once after the bean's properties have been set and before the bean is put into service.
+It is not designed to be called multiple times during the lifecycle of the bean.
+
+Initializing resources (like database connections).
+Setting default values for properties.
+Performing checks or logging after the bean is ready to be used.
+
+How to optimize a large maven  build. Different startegeies.
+-----------------------------------------------------------------
+1) Dependency Management and Optimization:
+
+Analyze dependencies: Use the mvn dependency:analyze goal to check for unused dependencies. This can reduce the size of the project and speed up builds.
+mvn dependency:analyze
+
+2)  Use a Remote Repository Manager
+Set up a Nexus or Artifactory repository manager to cache dependencies locally. This reduces the need to download dependencies from remote Maven Central repositories repeatedly.
+Implement a remote repository manager (Nexus or Artifactory) for faster dependency resolution.
+
+How to exclude dependecy. like tomcat.
+-----------------------------------------
+Spring Boot comes with a set of default dependencies based on the starter dependencies you include. 
+For example, the spring-boot-starter-web includes Tomcat as the default embedded server. If you want to exclude it and use jetty.
+
+You can exclude specific dependencies by using the <exclusions> tag within the <dependency> section of your pom.xml.
+
+<dependencies>
+    <!-- Spring Boot Starter Web without Tomcat -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <!-- If using another server, for example, Jetty -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jetty</artifactId>
+    </dependency>
+</dependencies>
+
+
+
+what is the purpose of usieng @Configuration ?
+--------------------------------------------------
+1) Define Beans: It is used to define beans that can be injected into other parts of the application. 
+Beans defined in a @Configuration class are automatically added to the Spring application context.
+
+@Configuration
+public class MyAppConfig {
+
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+
+2) Database or Service Configuration: To configure multiple databases, external services, or define properties that need to be injected elsewhere.
+3) Enabling Spring Features: When using annotations like @EnableScheduling, @EnableWebSecurity, etc., which need to be applied in configuration classes.
+
+How to connect two database in a single springboot application.
+---------------------------------------------------------------------
+Here’s the summary in bullet points for connecting two databases in Spring Boot:
+
+1) **Add Dependencies**:
+	  - Add `spring-boot-starter-data-jpa` and your database connector (e.g., MySQL) in `pom.xml`.
+    <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+
+Step 2: Define Properties for Both Databases
+
+	# Primary Database
+	spring.datasource.primary.url=jdbc:mysql://localhost:3306/primary_db
+	spring.datasource.primary.username=root
+	spring.datasource.primary.password=root
+
+	# Secondary Database
+	spring.datasource.secondary.url=jdbc:mysql://localhost:3306/secondary_db
+	spring.datasource.secondary.username=root
+	spring.datasource.secondary.password=root
+
+Step 3: Create Configuration Classes
+		@Configuration
+		public class PrimaryConfig {
+
+			@Bean
+			@Primary
+			@ConfigurationProperties(prefix = "spring.datasource.primary")
+			public DataSource primaryDataSource() {
+				return DataSourceBuilder.create().build();
+			}
+		}
+		
+		@Configuration
+		public class SecondaryConfig {
+
+			@Bean
+			@ConfigurationProperties(prefix = "spring.datasource.secondary")
+			public DataSource secondaryDataSource() {
+				return DataSourceBuilder.create().build();
+			}
+		}
+
+Step 4: Use DataSources in Repositories
+ 
+ @Repository
+public interface PrimaryRepository extends JpaRepository<PrimaryEntity, Long> {}
+
+@Repository
+public interface SecondaryRepository extends JpaRepository<SecondaryEntity, Long> {}
+
+Step 5: Use in Service
+
+ @Service
+public class MyService {
+
+    @Autowired
+    private PrimaryRepository primaryRepo;
+
+    @Autowired
+    private SecondaryRepository secondaryRepo;
+
+    public void saveData() {
+        primaryRepo.save(new PrimaryEntity());
+        secondaryRepo.save(new SecondaryEntity());
+    }
+}
+
+
+This approach allows you to work with two databases in a simple, clean manner.
+
+
+
+
+1) Imagine you are designing a Spring Boot application that interfaces with multiple external APIs. How would you handle API rate limits and failures?
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+API rate limits:
+Implementing API rate limiting is crucial for maintaining the stability, security, and overall performance of your application 
+
+1. Preventing Abuse and Misuse
+Scenario: Imagine you have a public API that provides weather data. Without rate limiting, a malicious user could script
+ thousands of requests per second, overwhelming your servers and causing a denial of service.
+ 
+Need: Rate limiting ensures that no single user can consume excessive resources, protecting the API from abuse and ensuring it remains available for legitimate users.
+
+2. Handling Load Spikes
+Scenario: During a sale or promotional event, an e-commerce site may experience a significant increase in traffic,
+ leading to a spike in API requests to fetch product details or inventory.
+
+Need: Rate limiting can help manage these spikes, allowing the application to handle increased traffic smoothly without crashing or overloading the external API.
+
+Good URL to explore more (https://www.remoterocketship.com/advice/guide/api-engineer/api-rate-limiting-and-throttling-interview-questions-and-answers)
+
+When the rate limit is exceeded, the API may respond with an error (often a 429 Too Many Requests status) until the time window resets.
+
+Common Rate Limiting Strategies
+Fixed Window: Limits requests in fixed intervals (e.g., 100 requests per hour).
+Sliding Window: Similar to the fixed window but allows for a smoother distribution of requests over time.
+Token Bucket: Allows bursts of requests, where tokens are replenished at a constant rate.
+
+1) Add resilience4j library.
+2) Add the configuration like this.
+resilience4j.ratelimiter:
+  instances:
+    myRateLimiter:
+      limitForPeriod: 100  # Max requests
+      limitRefreshPeriod: 1s  # Refresh period
+	  
+3) Using the Rate Limiter: You can annotate your service methods with @RateLimiter:
+@Service
+public class MyService {
+
+    @RateLimiter(name = "myRateLimiter", fallbackMethod = "fallbackMethod")
+    public ResponseEntity<String> callApi() {
+        // Call to external API
+        return ResponseEntity.ok("API called successfully!");
+    }
+	
+	public ResponseEntity<String> fallbackMethod(Exception e) {
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                         .body("Rate limit exceeded. Please try again later.");
+	}
+}
+
+Liquibase 
+-----------------
+Liquibase is an open-source database schema change management tool that helps you manage database versioning and migrations in a structured and efficient way. 
+A changelog in Liquibase is an XML, YAML, JSON, or SQL file that describes the changes that need to be applied to the database schema.
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="john_doe">
+        <createTable tableName="users">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="john_doe">
+        <addColumn tableName="users">
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
+
+Flyway : Springboot database migration tool.
+------------------------------------------------
+Imagine you're working on a school project with your friends to create a simple web application for managing a library's book inventory. 
+
+In this project, you start with a basic database that has a table for books. As you work on the project, you and your friends realize you need to make changes to the database.
+
+Problem: Keeping Database Changes Organized
+Without a tool like Flyway, you might face these challenges:
+
+Inconsistency: Different team members might have different versions of the database.
+Confusion: It can be hard to remember what changes were made and in what order.
+Errors: Manually applying changes to the database can lead to mistakes.
+
+Solution: Using Flyway
+
+1) Write Migration Scripts:
+
+Each change to the database is written as a separate script file.
+For example:
+V1__Create_books_table.sql: Creates the initial books table.
+V2__Add_genre_column.sql: Adds a new column for the genre.
+V3__Create_members_table.sql: Creates a new table for library members.
+
+2) Store Migration Scripts in a Folder:
+These scripts are stored in a specific folder (src/main/resources/db/migration) in your project.
+
+3)Flyway Applies the Scripts Automatically:
+When you run your application, Flyway checks the folder, finds the scripts, and applies them to the database in the correct order.
+This ensures that everyone's database is always up-to-date and consistent.	  
+
 
 Fortify
 ------------------
@@ -207,105 +562,4 @@ Document: Track and report vulnerabilities and fixes.
 Verify: Retest and monitor.
 
 
-What is docker? and why we use that?
--------------------------------------------------------
-Docker is an open-source platform that automates the process of developing, shipping, and running applications using containerization technology.
- Containers allow you to package an application and its dependencies together into a single, lightweight, and portable unit.
-
-Key Concepts
-Container: A container is an isolated environment that runs an application and its dependencies. 
-It includes everything needed to run the application, such as code, runtime, libraries, and configurations.
-
-Image: An image is a read-only template used to create containers. It contains the application code, runtime, libraries, and configurations. 
-Images are built from Dockerfiles, which define how the image is constructed.
-
-Dockerfile: A text file with instructions for building a Docker image. It specifies the base image,
- the application code, and any dependencies or configurations needed.
- 
-Docker Engine: The Docker Engine is the runtime that runs and manages containers.
-
-Why Use Docker?
-
-1) Consistency Across Environments:
-Environment Uniformity: Docker ensures that the application runs the same way in different environments (development, testing, production)
- by packaging everything needed into a container. This eliminates issues related to environment inconsistencies.
-
-2) Portability:
-Cross-Platform Compatibility: Docker containers can run on any system that supports Docker,
- regardless of the underlying operating system or hardware. This makes it easy to move applications between different environments and platforms.
-
-3) Scalability:
-Efficient Resource Utilization: Docker containers are lightweight and share the host OS kernel, which allows for higher density and more efficient resource usage compared to virtual machines.
-Ease of Scaling: Docker simplifies scaling applications by allowing you to quickly deploy multiple instances of containers.
-
-4) Rapid Deployment:
-Faster Startup: Containers start up quickly compared to traditional virtual machines because they share the host OS kernel and do not require a full OS boot.
-Easy Updates: Docker makes it easy to update applications by redeploying new container images.
-
-5) Version Control:
-Image Versioning: Docker images can be versioned and tagged, allowing you to manage and roll back to previous versions of an application if needed.
-
-6) Integration with CI/CD:
-
-Continuous Integration/Continuous Deployment: Docker integrates well with CI/CD pipelines, facilitating automated testing, building, and deployment processes 
- 
-command To build: docker build -t my-spring-boot-app .
-
-command to Run: docker run -p 8080:8080 my-spring-boot-app
-
-In this example, Docker packages the Spring Boot application into a container, allowing it to run consistently across different environments and making it easy to deploy and scale.
-
-Docker COntainer vs Docker Images
-----------------------------------
-Docker Container: Docker Containers are actually Docker Virtual Machines.Docker image is a map of the house, while a Docker container is the actual house itself.
-Using images, containers can be created as many times as necessary.
-A container requires computing resources to run since it runs as a Docker Virtual Machine.
-
-Docker Image : Images are templates containing instructions for creating containers. With Docker images, containers can be created to run on the Docker platform.
-An image is only created once.
-Computing resources aren't required to work with images.
-
-docker vs kubernetes.
------------------------------
-
-Feature				Docker									Kubernetes
-Purpose				Containerization platform				Container orchestration platform
-Primary Function	Creates, manages, and runs containers	Manages clusters of containers
-Deployment			Single-node deployment					Multi-node, distributed deployment
-Use Case			Suitable for development and small-scale deployments	Suitable for large-scale, production-grade deployments
-
-Conclusion
-Use Docker for creating and managing individual containers and small-scale projects.
-Use Kubernetes for orchestrating and managing large-scale, distributed applications requiring high availability and scalability.
-
-
-Flyway : Springboot database migration tool.
-------------------------------------------------
-Imagine you're working on a school project with your friends to create a simple web application for managing a library's book inventory. 
-
-In this project, you start with a basic database that has a table for books. As you work on the project, you and your friends realize you need to make changes to the database.
-
-Problem: Keeping Database Changes Organized
-Without a tool like Flyway, you might face these challenges:
-
-Inconsistency: Different team members might have different versions of the database.
-Confusion: It can be hard to remember what changes were made and in what order.
-Errors: Manually applying changes to the database can lead to mistakes.
-
-Solution: Using Flyway
-
-1) Write Migration Scripts:
-
-Each change to the database is written as a separate script file.
-For example:
-V1__Create_books_table.sql: Creates the initial books table.
-V2__Add_genre_column.sql: Adds a new column for the genre.
-V3__Create_members_table.sql: Creates a new table for library members.
-
-2) Store Migration Scripts in a Folder:
-These scripts are stored in a specific folder (src/main/resources/db/migration) in your project.
-
-3)Flyway Applies the Scripts Automatically:
-When you run your application, Flyway checks the folder, finds the scripts, and applies them to the database in the correct order.
-This ensures that everyone's database is always up-to-date and consistent.
 

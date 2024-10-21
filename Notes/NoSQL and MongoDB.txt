@@ -1,0 +1,88 @@
+What is Mongo DB Atlas
+
+MongoDB Atlas is a fully managed cloud database service provided by MongoDB
+
+It allows you to deploy, manage, and scale MongoDB databases on the cloud infrastructure of your choice, such as Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure.
+
+MongoDB Atlas simplifies the process of deploying and managing MongoDB databases, allowing you to focus on building your applications
+
+
+
+What is handled By Mongo DB team and what is handled by AWS/Azure Cloud team
+
+Tasks such as database setup, configuration, patching, backups, and scaling are handled by the MongoDB team
+
+While AWS and Azure provide the cloud infrastructure where MongoDB Atlas runs
+
+AWS and Azure handle the underlying infrastructure, networking, and virtual machine management, 
+while MongoDB Atlas focuses on managing the MongoDB database software and related services. 
+The responsibility for managing and maintaining the database service lies with the MongoDB team
+
+MongoDB Atlas leverages Amazon Elastic Compute Cloud (EC2) instances as part of its infrastructure on AWS. 
+When you create a MongoDB Atlas cluster on AWS, MongoDB Atlas provisions EC2 instances to host the MongoDB nodes.
+ These instances are responsible for running the MongoDB database software and storing the data.it abstracts the complexities of managing EC2 instances away from the users. 
+
+
+
+
+What is REST and RESTFUL
+REST represents REpresentational State Transfer
+
+RESTFUL web services are web services that follows REST architectural concept (stateless client-server architecture).
+
+Its is an architectural style for developing applications that can be accessed over the network 
+
+
+How to choose between a Relational Database and a NoSQL Database?
+--------------------------------------------------------------------------
+
+Scenario 1: 	READ Vs WRITE Intensive Application 
+
+When your application is read intensive the use NOSQL db .
+If the application is Write Intensive then go for Relational DB. 
+Why ? If we have to read a lot and update less,  then having multiple relational DBs and having join queries to read a lot of data base will decrease the performance. 
+So better go with Non relational DBs.  Now everything will be in one document and no joins, 
+views complex queries wool be required which decreases the readability, performance , speed and other non functional parameters of application
+
+
+
+Scenario 2: 	Unstructured VS Structured Data 
+
+When your application is going to persist the  data which is not structured, there is no guarantee on how many fields
+ we will get and we need to store then its unstructured data. Then go for No sql DB choice as there is no restriction on columns or fields in which data has to be inserted . 
+
+But If we are very sure the data structure wont change  ever in whole life cycle of application then even relational DB is also a good choice
+
+
+
+Scenario 3: 	Concurrency and atomicity is top priority 
+
+In applications like hotel / movie ticket booking - Several users simultaneously read and write the data.
+To prevent data inconsistency, such as the double booking of hotel rooms, we must coordinate such transactions. 
+Transactional access to the data in a relational database manages concurrency.
+A transaction is regarded as an atomic operation, making it possible to roll back or commit a transaction after a successful execution in error handling.
+To facilitate this feature we need Relational Dbs . 
+
+
+
+Scenario 4: 	Cost associated
+
+If we are allotted a very less budget for the project, go for open source NO Sql db as many NoSQL databases are open source and freely available.. 
+While with Relational DBs, these are not open source usually n we need to purchase the License for it.
+
+
+
+Scenario 5: 	Redundancy tolerance
+
+Eliminating data redundancy is one of the relational database's main benefits. 
+One table contains information about a particular entity, whereas other tables connected by foreign keys include information pertinent to that entity.
+
+
+
+
+
+
+
+
+
+ 

@@ -4,6 +4,34 @@ let b = a;
 a.currency = 'USD';
 console.log(b)
 
+Key Points about Semantic Elements:
+----------------------------------
+Purposeful Tagging: Semantic elements have a clear purpose and indicate the role of the content they contain
+<header>: Represents introductory content or a set of navigational links.
+<nav>: Represents a section of navigation links.
+<main>: Represents the main content of a document.
+<article>: Represents a self-contained piece of content that could be distributed independently.
+<section>: Represents a thematic grouping of content, typically with a heading.
+<aside>: Represents content that is tangentially related to the content around it (like a sidebar).
+<footer>: Represents the footer of a section or a document.
+<figure>: Represents content that is referenced from the main content, often accompanied by a caption.
+<figcaption>: Represents a caption for the <figure> element.
+
+SEO Benefits: Search engines use semantic elements to better understand the content of a web page, which can improve indexing and search visibility.
+
+<article>
+    <header>
+        <h1>Blog Title</h1>
+        <p>By <a href="#">Author Name</a></p>
+        <time datetime="2024-10-13">October 13, 2024</time>
+    </header>
+    <p>This is the content of the blog post. It can be dynamic and updated as needed.</p>
+    <footer>
+        <p>Tags: <a href="#">Tag1</a>, <a href="#">Tag2</a></p>
+    </footer>
+</article>
+
+
 How to make sure in angular?
 -------------------------------------------------------
 
@@ -82,7 +110,7 @@ Usage: Useful for slight adjustments without affecting the layout of other eleme
 absolute: An element with position: absolute; is positioned relative to the nearest positioned ancestor (if we have given position relative
  to it's parent, otherwise it'll use the document body)
 (instead of positioned relative to the viewport, like fixed).
-Note: he element is removed from the normal document flow and positioned relative to its nearest ancestor. It can overlap/
+Note: the element is removed from the normal document flow and positioned relative to its nearest ancestor. It can overlap/
 Moves the element to a specific spot on the page and doesn't keep its original space.
 Usage: Useful for precise control over an element's position, often used in conjunction with relative positioning.
 

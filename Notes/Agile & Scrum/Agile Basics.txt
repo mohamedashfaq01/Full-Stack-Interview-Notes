@@ -3,3 +3,34 @@ releases and collaboration between teams.
 
 Scrum: A specific Agile framework that involves time-boxed iterations (sprints) and a
 structured set of roles and ceremonies.
+
+Sprint Planning:
+
+Purpose: Plan the work for the upcoming sprint.
+Duration: Typically 2-4 hours for a 2-week sprint.
+Key activities: Defining the sprint goal, selecting backlog items, and creating a sprint backlog.
+Daily Scrum (Stand-up):
+
+Purpose: Quick, daily sync to track progress.
+Duration: 15 minutes.
+Key questions: What did you do yesterday? What will you do today? Any blockers?
+Sprint Review:
+
+Purpose: Demonstrate the completed work to stakeholders.
+Duration: 1-2 hours for a 2-week sprint.
+Key activities: Showcasing the product increment, gathering feedback, and discussing future improvements.
+Sprint Retrospective:
+
+Purpose: Reflect on the sprint to identify areas of improvement.
+Duration: 1-1.5 hours.
+Key activities: Discuss what went well, what didn’t, and how to improve in the next sprint.
+Backlog Refinement (Grooming):
+
+Purpose: Keep the backlog updated and prioritize items.
+Duration: Ongoing, typically a 1-2 hour session each sprint.
+Key activities: Breaking down, estimating, and prioritizing backlog items.
+These ceremonies are designed to ensure collaboration, continuous improvement, and effective sprint execution.
+
+Popular Agile Frameworks:
+Scrum: Focuses on defined roles (Scrum Master, Product Owner, Development Team), ceremonies, and short iterations (sprints).
+Kanban: Visualizes the work process using boards and limits work in progress to optimize flow and efficiency.
