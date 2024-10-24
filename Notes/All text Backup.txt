@@ -1,0 +1,236 @@
+Simple Design, Refactoring, TDD
+-------------------------------------
+Design evolves (NOT created in one day)
+
+
+Use
+Ctrl + SHIFT + L which will open a list of all major shortcuts for eclipse.
+
+For single line java code comment and uncomment : Ctrl + / (Forward Slash)
+For multiple line java code comment : Ctrl + Shift + / (Forward Slash) and
+Multiline uncomment : Ctrl + Shift + \ (Backslash)
+For single line xhtml code comment/uncomment : Ctrl + Shift + c
+For multiple line xhtml code comment : Ctrl + Shift + / (Forward Slash)
+For multiple uncomment : Ctrl + Shift + \ (Backward Slash)
+
+
+
+GildedRose Problem. 
+  To Understand clarity of code,
+  give importance to unit testing. 
+  
+Why Simple Design?  
+	Agile & Extreme Programming
+	Focus on Today's Requirements => Do them well
+	Change is expected
+	No Big Design Up Front
+	Good Goals for Starting Programmers
+	Design vs Architecture
+	Architecture - Difficult to change
+	Design - Easier to change
+
+4 principles of simple design
+1) Runs all tests
+2) Minimize Duplication
+3) Maximize Clarity
+4) Keep it small
+
+
+
+
+Reading application.properties in Spring Boot
+----------------------------------------------------
+https://www.appsdeveloperblog.com/reading-application-properties-spring-boot/
+
+3 ways:
+
+1) Read application.properties using Environment object, 
+2) Read a property from application.properties file using @ConfigurationProperties
+3) and reading a property using the @Value annotation.
+
+Quartz vs Spring Batch
+-----------------------------
+Quartz is a scheduling framework. Like "execute something every hour or every last friday of the month".
+
+Spring Batch is a framework that defines that "something" that will be executed. You can define a job, that consists of steps.
+ Usually a step is something that consists of item reader, optional item processor and item writer,
+ but you can define a custom stem. You can also tell Spring batch to commit on every 10 items and a lot of other stuff.
+
+You can use Quartz to start Spring Batch jobs.
+
+So basically Spring Batch defines what should be done, Quartz defines when it should be done.
+
+Difference between Quartz Job and Scheduling Tasks with Spring?
+-----------------------------------------------------------------
+https://stackoverflow.com/questions/38564101/difference-between-quartz-job-and-scheduling-tasks-with-spring
+
+
+
+Ctrl+Click = to go to that file
+Alt+left arrow = To go back to the previous file
+Ctrl+Shift+R = Open Resource dialog
+File Search or Ctrl+H = To find a string in a workspace.
+Ctrl+Shift+O = "Organize Imports” to import packages automatically,  it just removes some unused imports, never imports any package.
+
+
+https://github.com/RameshMF/Angular8-SpringBoot-CRUD-Tutorial
+https://github.com/callicoder/spring-boot-mongodb-angular-todo-app
+https://github.com/scbushan05/angular9-springboot-expensetracker
+
+
+
+Employee Management
+https://github.com/RameshMF/Angular-10-Spring-Boot-CRUD-Full-Stack-App
+
+E-commerce
+https://www.javaguides.net/2021/02/java-free-e-commerce-open-source-projects.html
+
+Java and command prompt based application based application
+https://github.com/Abhinav-26/Employee-Management-System
+
+
+
+
+
+
+
+https://www.youtube.com/watch?v=9kXMLTNaQj8&ab_channel=DailyCodeBuffer
+
+1) consume rest api REST Countries API using spring boot. and display it.
+https://restcountries.eu
+
+2) Use countries information as a csv and then returns the data appropriately.
+https://github.com/api-samples/countries-spring-boot
+
+
+online-food-ordering-system ( explore and take github project)
+
+https://github.com/scbushan05/online-bookstore( have to clone)
+
+Spring Validator vs Hibernate Validator.
+Spring Validator( runs all validators. If valid, allow request to continue) In RestController. @Valid, @NotNull
+Hibernate Validator (runs all validators. before persisting data to database). In userRepo.
+
+https://www.baeldung.com/spring-boot-bean-validation
+https://www.baeldung.com/spring-service-layer-validation
+https://www.baeldung.com/exception-handling-for-rest-with-spring
+https://stackoverflow.com/questions/52437023/best-way-to-add-the-custom-exception-for-the-spring-boot-code
+
+https://www.youtube.com/watch?v=hLlGAQ5NfTE&ab_channel=CodeDecode
+
+
+https://github.com/dherenj84/filemanager
+(File Manager using angular and springboot)
+
+Overview of Microsoft Graph
+
+Microsoft Graph is the gateway to data and intelligence in Microsoft 365.
+It is a Restful API to expose DATA over https.
+It Offers Graph Explorer to query all the protected DATA.
+Use the wealth of data in Microsoft Graph to build apps for organizations and consumers that interact with millions of users.
+
+https://stackoverflow.com/questions/67788636/how-to-embed-image-inline-in-email-body-using-microsoft-graph
+	
+	body.content = "<h1>Altimetrik Email Notification Test </br> "
+				+ "<a href=\"https://intranet.altimetrik.com"> Visit Intranet Site!</a>"
+				+ "<a href=\"https://intranet.altimetrik.com\">"
+				+ "<img alt='Embedded Image' src='cid:id_team_pic'/> </a></h1>";
+				
+				
+https://www.youtube.com/watch?v=puVMCRvdE9A&list=PLVz2XdJiJQxxcHIPIVmq88IHKJTsmIJmH&index=3&ab_channel=JavaTechie
+
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAIABAADASIAAhEBAxEB/8QAHwABAAICAgMBAQAAAAAAAAAAAAkKCAsBBwQFBgMC/8QAYxAAAAYCAQICAwgLCQwGCAUFAAECAwQFBgcIERIJExQhMQoVFjhBd7bwFxoiOVFhcXiBlrcYIzdXWHaR1tcZJDJIh4iXobG1uMElJzPH0eE0QlJWmNPU8SYoNTamQ1NndYb/xAAdAQEAAgIDAQEAAAAAAAAAAAAAAwQCBwEFBggJ/8QARxEAAgIBAgQCBwYEBQMBBgcAAAECAwQFEQYHEiExQQgTIlFhcYEUMpGxwfAVcqHRIzM0QuEWUvGCCSQlQ2KyFxgmU2OSwv/aAAwDAQACEQMRAD8Av8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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...
+
+
+
+happier:
+
+Spend Time with Family: Learn parenting, 
+Practice Gratitude and Express gratitude to others:	Keep a gratitude journal and write down three things you are thankful for every day.
+Write a thank you note or compliment someone
+Break Negative Self-Talk	Replace negative self-talk with positive affirmations, and practice self-compassion.
+Avoid Comparing Yourself to Others:	Focus on your own strengths and accomplishments, and avoid social media or other triggers that encourage comparison.
+Let go of perfectionism Perfectionism:	Practice self-compassion and acknowledge that mistakes and imperfections are a natural part of the learning process.
+Practice forgiveness: Let go of grudges and practice empathy
+Limit time spent on social media: Set a daily time limit for social media use.
+Spend time with loved ones: Plan a weekly phone call or visit with family or friends
+
+
+Healthier:
+Eat a Healthy Diet:	Incorporate more fruits, vegetables, and whole grains into your meals, and limit processed and junk foods.
+Exercise Regularly: Go for a 10-15 minute walk each day or do a quick workout routine
+Set aside time for exercise every day, even if it's just a few minutes of stretching or a short walk. 
+Try to increase the duration and intensity of your workouts gradually over time.
+
+Develop a healthy sleep routine: Go to bed and wake up at the same time each day
+
+Wealthier:
+
+
+
+Wiser:
+Learn Something New	: Read a book, take an online course, or learn a new skill.
+Prioritize self-reflection: Take time to reflect on your thoughts and feelings
+Learn to say no: Practice setting boundaries and saying no to things that don't serve you.
+Practice positive self-talk: Use positive affirmations to boost self-esteem
+
+
+chatGPT for web Design
+------------------------
+Block and inLine elements.
+
+open.ai/images (u can search and download the image just like the chatGPT).
+
+Website To remove backgroound and erase stuffs.
+------------------------------------------
+remove.bg
+Adbode express background remover. (sign up and use , very powerful)
+
+
+You did not finish writing the full code, plz continue where u left off at (code last line) withoit repeating any of the code u gav
+
+
+
+
+
+
+
+
+https://github.com/scbushan05/angular9-springboot-expensetracker.git (fetch)
+https://github.com/imRash3d/Angular-Online-Bus-Ticket-Booking-System.git
+https://github.com/cyela/Angular-Springboot.git (fetch)
+ https://github.com/evilsloth/bus-reservation.git (fetch)
+ https://github.com/mohamedashfaq01/carbookingApp-with-angularAndSpringBoot.git
+ https://github.com/apoorva-joshi/EmployeeManagement.git (fetch)
+ https://github.com/djdjalas/java-streams-course.git (fetch)
+ https://github.com/suryakruz/railway-reservation-system-zoho.git (fetch)
+ https://github.com/Java-Techie-jt/springboot-aws-rds.git (fetch)
+  https://github.com/Java-Techie-jt/springboot-aws-secrets-manager.git (fetch)
+  
+ https://github.com/callicoder/spring-boot-mongodb-angular-todo-app.git (fetch)
+ https://github.com/shameed1910/springboot-resilience4j-retry.git (fetch)
+  https://github.com/cyela/Springboot-Web-Services.git (fetch)
+  
+  https://github.com/CodAffection/Create-React-Material-UI-Confirm-Dialog-Notification.git (fetch)
+   https://github.com/FuzedxPheonix/imageupload.git (fetch)
+   
+   https://github.com/CodAffection/Material-UI-Form-Design-and-Validation.git (fetch)
+   https://github.com/erol1098/movie-app-react.git (fetch)
+   https://github.com/Azure-Samples/ms-identity-javascript-react-spa.git (fetch)
+   https://github.com/TheHeartCoder/multiinput-react-app.git (fetch)
+   https://github.com/gitdagray/react_protected_routes.git (fetch)
+    https://github.com/Shrideep/react-antd-layout.git
+	
+	https://github.com/shanjairaj7/React-contact-form.git
+	https://github.com/hasankemaldemirci/react-crud-app.git
+	https://github.com/bezkoder/react-jwt-auth.git
+	https://github.com/CodAffection/React-Material-UI-Dialog-Modal-Popup.git
+	
+	Udemy Hitesh ReactJS (gitub)
+	
+	
+	
+	
+ 
+ 
+ 
