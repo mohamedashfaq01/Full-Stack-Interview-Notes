@@ -178,6 +178,28 @@ Asynchronous Programming: Divert blocking to event handlers.
 Promises handle async function.
 Promises exist in three state. Pending, Fulfilled, and Rejected.
 
+Callback
+----------------
+1. Function that is passed on as argument to another function is called callback function.
+2. setTimeout helps turn JS which is sinhlethreaded and synchronous into asynchronous.
+setTimeout does not help to convert from sync to async. setTimeout itself is async operation. 
+He used it to mock a api call.
+
+setTimeout() doesn't help JS to convert from "sync" to "async",
+ actually the first class functions help JS to convert from "sync" to "async".
+
+async basically means when something is not following order, so whenever setTimeout is called even with 0 delays,
+ as JS is single-threaded, all executions will be handled in one call stack, so when setTimeout is encountered,
+ the JS engine sends the callback of setTimeout to a different queue and wait till the delay and in
+ parallel continue execution other code, and when event loop finds call stack it put the setTimeout 
+callback fn back to call stack, so this is one of the ways to achieve async behavior in js,
+ simply the terminologies, it will make you understand the roots more evidently.
+3. Event listeners can also invoke closures with scope.
+4. Event listeners consume a lot of memory which can potentially
+ slow down the website therefore it is good practice to remove if it is not used.
+
+
+
 
 
 

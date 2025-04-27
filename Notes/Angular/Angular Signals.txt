@@ -1,0 +1,211 @@
+Angular Signals.
+
+🔁 Before Signals (Old Way)
+---------------------------------
+In Angular, we used:
+
+@Input() and @Output() for component communication.
+RxJS Observables and BehaviorSubject to track and respond to data changes.
+Change Detection used to run automatically after most events like click, HTTP call, etc., which can be inefficient.
+
+These worked fine, but they were sometimes:
+Hard to understand for beginners.
+Tricky to debug.
+Required manual subscriptions and unsubscriptions in many cases.
+
+
+The whole goal of signals is to give developers a new easy-to-use reactive primitive that can be used to build applications in reactive style.
+
+🧠 In simple terms:
+A reactive primitive is a special variable that watches itself —
+and tells Angular to update the UI whenever its value changes.
+
+And it’s easy-to-use because you don’t need to deal with complex things like subscribe(), async, or change detection.
+
+Signals are a game changer, and they take reactivity in Angular to a whole new level!
+
+Now with Signals (New Way):
+------------------------------
+Signals are a new reactive primitive introduced in Angular to track and react to changes in values—but in a much simpler and more efficient way.
+
+You can think of a signal like a box that holds a value. When the value inside the box changes, anything that’s watching the box automatically reacts.
+
+Example:
+
+import { signal, computed } from '@angular/core';
+
+export class CounterComponent {
+  // Create a signal
+  count = signal(0);
+
+  // Create a computed signal (automatically updates when 'count' changes)
+  doubleCount = computed(() => this.count() * 2);
+
+  // Update the signal value
+  increment() {
+    this.count.set(this.count() + 1);
+  }
+}
+
+<button (click)="increment()">Increment</button>
+<p>Count: {{ count() }}</p>
+<p>Double Count: {{ doubleCount() }}</p>
+
+
+
+update vs set
+---------------------
+In Angular **signals** (introduced in Angular v16), `set()` and `update()` are two ways to modify the value of a signal. Here's a quick and clear comparison:
+
+---
+
+### 🟢 `set(value)`  
+- Replaces the current signal value with a **new value**.  
+- Use when you have the complete new value ready.
+
+**Example:**
+const counter = signal(0);
+counter.set(5); // counter is now 5
+```
+
+---
+
+### 🟡 `update(fn)`  
+- Updates the current signal value using a **callback function**.  
+- Use when you want to compute the new value based on the old one.
+
+**Example:**
+const counter = signal(0);
+counter.update(current => current + 1); // counter is now 1
+```
+
+
+Let me know if you want examples with signals in a component!
+ increment() {
+    this.count.set(this.count() + 1);
+  }
+   increment() {
+   this.counter.update(counter => counter + 1);
+  }
+  Both versions of the increment method are equivalent and work equally well.
+  
+What is the main advantage of using signals instead of primitive values?
+------------------------------------------------------------------------------
+The main advantage is that we can get notified when the signal value changes, and then do something in response to the new signal value.
+
+This is unlike the case when we used just a plain value for our counter.
+
+With a plain value, there is no way for us to get notified when a value changes.
+
+But with Signals? Easy!
+
+And that's the whole point of using signals in the first place.
+
+The computed() Signal API
+------------------------------
+Signals can be created and derived from other signals. When a signal updates, all its dependent signals will then get updated automatically. 
+
+Angular knows the whole signal dependency tree and knows how changing the value of one signal will affect all the other signals of the application. 
+
+The effect
+-------------------
+effect() runs a side effect whenever one of its dependent signals changes.
+
+An effect() runs a side effect (like a console.log(), an API call, or updating something) every time any signal inside it changes.
+
+Real-World Example: Syncing to Local Storage:
+
+import { signal, effect } from '@angular/core';
+
+export class SettingsComponent {
+  theme = signal('light');
+
+  constructor() {
+    effect(() => {
+      localStorage.setItem('theme', this.theme());
+    });
+  }
+
+  toggleTheme() {
+    this.theme.update(t => (t === 'light' ? 'dark' : 'light'));
+  }
+}
+
+ Using effect() with HTTP calls:
+ This is useful when you want to trigger an API call every time a certain signal value changes — for example, fetching data when a selected user ID changes.
+ 
+  Example: Auto-fetch user data when ID changes:
+  
+import { signal, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+export class UserComponent {
+  userId = signal(1);
+  userData = signal<any>(null);
+
+  constructor(private http: HttpClient) {
+    effect(() => {
+      const id = this.userId();
+      this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .subscribe(data => this.userData.set(data));
+    });
+  }
+
+  nextUser() {
+    this.userId.update(id => id + 1);
+  }
+}
+
+<button (click)="nextUser()">Next User</button>
+<p>User Name: {{ userData()?.name }}</p>
+
+
+Example 3: Signals with Services
+Signals can also be used within Angular services to manage shared state across components.
+
+Step 1: Creating a Signal in a Service
+
+import { Injectable, signal } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CounterService {
+  private _counter = signal(0);
+
+  get counter() {
+    return this._counter;
+  }
+
+  increment() {
+    this._counter.update(count => count + 1);
+  }
+
+  decrement() {
+    this._counter.update(count => count - 1);
+  }
+}
+
+Step 2: Injecting and Using the Service in a Component
+Now, inject the CounterService into your component:
+Component:
+
+import { Component } from '@angular/core';
+import { CounterService } from './counter.service';
+
+@Component({
+  selector: 'app-counter',
+  template: `
+    <div>
+      <p>Counter: {{ counterService.counter() }}</p>
+      <button (click)="counterService.increment()">Increment</button>
+      <button (click)="counterService.decrement()">Decrement</button>
+    </div>
+  `
+})
+export class CounterComponent {
+  constructor(public counterService: CounterService) {}
+}
+
+
+https://medium.com/@drissi.dalanda8/signals-in-angular-18-a-comprehensive-guide-with-examples-46b4a0c99ddd
